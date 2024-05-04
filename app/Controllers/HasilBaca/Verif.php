@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Controllers\Hasilbaca;
+
+use App\Controllers\BaseController;
+use App\Models\Sikompak\CabangModel;
+use CodeIgniter\HTTP\ResponseInterface;
+
+class Verif extends BaseController
+{
+    public function index()
+    {
+        helper('bulan');
+        $view = \Config\Services::renderer();
+        $session = session()->get("logged_in");
+        $cabangModel = new CabangModel();
+        $cabangData = $cabangModel->orderBy("id_cabang", "asc")->findAll();
+        return $view->setVar("session", $session)
+            ->setVar("cabangs", $cabangData)
+            ->render("hasilbaca/verif");
+    }
+}
