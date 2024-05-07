@@ -34,14 +34,12 @@ class BacaMeterModel extends Model
     public function getDataGagalPerUser($tglAwal, $tglAkhir, $user)
     {
         // $db = \Config\Database::connect();
-        $builder = $this
+        return $this
             ->select("no_sam AS nosamw")
             ->where("tgl BETWEEN '$tglAwal' AND '$tglAkhir'")
             ->where("user", $user)
             ->where("cek", 3)
-            ->get();
-
-        return $builder->findAll();
+            ->findAll();
     }
 
     public function getDataVerif(
@@ -55,6 +53,7 @@ class BacaMeterModel extends Model
         $cabang = null,
         $petugas = null,
         $kampung = null,
+        $kondisi = null,
         $nosamw = null
     ) {
         $offset = $page > 0 ? ($page - 1) * $size : 0;
@@ -73,30 +72,34 @@ class BacaMeterModel extends Model
                 baca_meter.cek,
                 baca_meter.petugas
             ")
-            ->where("tgl BETWEEN '$tglAwal' AND '$tglAkhir'")
-            ->limit($size, $offset);
-        if ($cek == "0") {
+            ->where("tgl BETWEEN '$tglAwal' AND '$tglAkhir'");
+        if ($size > 0)
+            $builder->limit($size, $offset);
+        if ($cek == "0")
             $builder->whereIn("cek", ["0", ""]);
-        } else {
+        else
             $builder->where("cek", $cek);
-        }
 
-        if ($nosamw) {
+
+        if ($nosamw)
             $builder->where("no_sam", $nosamw);
-        }
-        if ($cabang) {
+
+        if ($cabang)
             $builder->join("pegawai", "ptgs_met=nik")
                 ->where("wil", $cabang);
-        }
-        if ($petugas) {
+
+        if ($petugas)
             $builder->where("user", $petugas);
-        }
-        if ($kampung) {
+
+        if ($kampung)
             $builder->where("ptgs_met", $kampung);
-        }
-        if ($sort) {
+
+        if ($kondisi)
+            $builder->where("kondisi", $kondisi);
+
+        if ($sort)
             $builder->orderBy($sort, $order);
-        }
+
         return $builder->findAll();
     }
 
@@ -107,29 +110,53 @@ class BacaMeterModel extends Model
         $cabang = null,
         $petugas = null,
         $kampung = null,
+        $kondisi = null,
         $nosamw = null
     ) {
-        // $db = \Config\Database::connect();
         $builder = $this->select("count(*) AS total")
             ->where("tgl BETWEEN '$tglAwal' AND '$tglAkhir'");
-        if ($cek == "0") {
+
+        if ($cek == "0")
             $builder->whereIn("cek", ["0", ""]);
-        } else {
+        else
             $builder->where("cek", $cek);
-        }
-        if ($nosamw) {
+
+        if ($nosamw)
             $builder->where("no_sam", $nosamw);
-        }
-        if ($cabang) {
+
+        if ($cabang)
             $builder->join("pegawai", "ptgs_met=nik")
                 ->where("wil", $cabang);
-        }
-        if ($petugas) {
+
+        if ($petugas)
             $builder->where("user", $petugas);
-        }
-        if ($kampung) {
+
+        if ($kampung)
             $builder->where("ptgs_met", $kampung);
-        }
+
+        if ($kondisi)
+            $builder->where("kondisi", $kondisi);
         return $builder->first();
+    }
+
+    public function cekFoto($nosamw, $tglAwal, $tglAkhir)
+    {
+        return $this->select("
+                baca_meter.`no` AS id, 
+                baca_meter.no_sam AS nosamw, 
+                baca_meter.nama, 
+                baca_meter.tgl, 
+                baca_meter.info AS tgl_upload, 
+                baca_meter.stan_kini, 
+                baca_meter.stan_lalu, 
+                baca_meter.pakai, 
+                baca_meter.kondisi, 
+                baca_meter.ket, 
+                baca_meter.cek,
+                baca_meter.petugas
+            ")
+            ->where("tgl BETWEEN '$tglAwal' AND '$tglAkhir'")
+            ->where("no_sam", $nosamw)
+            ->findAll();
     }
 }

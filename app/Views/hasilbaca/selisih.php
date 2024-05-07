@@ -7,27 +7,26 @@ $curMonth = date('m');
 <?= $this->section('content') ?>
 <div class="panel panel-default" style="height: 100%;">
     <div class="panel-content" style="height: 100%;">
+        <table id="pg">
+            <thead>
+                <tr>
+                    <th>Jumlah Data</th>
+                    <th>1</th>
+                </tr>
+                <tr>
+                    <th>Jumlah Foto</th>
+                    <th>1</th>
+                </tr>
+                <tr>
+                    <th>Jumlah Selisih</th>
+                    <th>1</th>
+                </tr>
+            </thead>
+        </table>
         <div class="table-responsive" style="height: 100%;">
             <table border="1" id="dg" toolbar="#toolbar"></table>
 
             <div id="toolbar" class="easyui-toolbar">
-                <div>
-                    <input name="nosamw" id="nosamw" />
-                </div>
-                <div>
-                    <select id="cabang">
-                        <option value="" selected>-- Pilih Cabang --</option>
-                        <?php foreach ($cabangs as $cabang) : ?>
-                            <option value="<?= $cabang->id_cabang ?>"><?= $cabang->nm_cabang ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div>
-                    <select id="petugas"></select>
-                </div>
-                <div>
-                    <select id="kampung"></select>
-                </div>
                 <div>
                     <select id="tahun" name="tahun">
                         <?php for ($i = date('Y') - 1; $i <= date('Y'); $i++) : ?>
@@ -43,19 +42,22 @@ $curMonth = date('m');
                     </select>
                 </div>
                 <div>
-                    <select name="kondisi" id="kondisi">
-                        <option value="" selected>-- Pilih Kondisi --</option>
-                        <?php foreach ($kondisis as $kondisi) : ?>
-                            <option value="<?= $kondisi->kondisi ?>"><?= $kondisi->kondisi ?></option>
+                    <input id="searchBy" />
+                </div>
+                <div>
+                    <select id="cabang">
+                        <option value="" selected>-- Pilih Cabang --</option>
+                        <?php foreach ($cabangList as $cabang) : ?>
+                            <option value="<?= $cabang->id_cabang ?>"><?= $cabang->nm_cabang ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
                 <div>
-                    <select id="cek" name="cek">
-                        <option value="0">Input Pembaca</option>
-                        <option value="2">Success Koperasi</option>
-                        <option value="1">Success Cabang</option>
-                        <option value="3">Gagal</option>
+                    <select id="petugas">
+                        <option value="" selected>-- Pilih Petugas --</option>
+                        <?php foreach ($pegawaiList as $pegawai) : ?>
+                            <option value="<?= $pegawai->petugas ?>"><?= $pegawai->petugas ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
                 <div>
@@ -69,5 +71,5 @@ $curMonth = date('m');
     </div>
 </div>
 
-<script src="<?= base_url('assets') ?>/js/bacameter/verif.js" defer></script>
+<script src="<?= base_url('assets') ?>/js/bacameter/selisih.js" defer></script>
 <?= $this->endSection() ?>

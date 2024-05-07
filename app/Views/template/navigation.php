@@ -24,7 +24,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <?php if ($session['kdStatus'] == 'admin'): ?>
+                    <?php if ($session['kdStatus'] == 'admin') : ?>
                         <li><a href="<?= base_url('master/user') ?>"><i class="fa fa-circle-o"></i> User</a></li>
                     <?php endif; ?>
                 </ul>
@@ -37,13 +37,10 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="hasilbaca/verif"><i class="fa fa-circle-o"></i> VERIF BACA METER</a></li>
-                    <li><a href="v_hasil_baca.php"><i class="fa fa-circle-o"></i> HASIL BACA METER</a></li>
-                    <li><a href="v_cek_foto.php"><i class="fa fa-circle-o"></i> CEK FOTO</a></li>
-                    <li><a href="v_baca-meter.php"><i class="fa fa-circle-o"></i> BACA METER MANDIRI</a></li>
-                    <?php if ($session['kdStatus'] == 'admin'): ?>
-                        <li><a href="v_baca-meter.php"><i class="fa fa-circle-o"></i> Baca Meter Mandiri</a></li>
-                    <?php endif; ?>
+                    <li><a href="/hasilbaca/verif"><i class="fa fa-circle-o"></i> VERIF BACA METER</a></li>
+                    <li><a href="/"><i class="fa fa-circle-o"></i> HASIL BACA METER</a></li>
+                    <li><a href="/hasilbaca/cekfoto"><i class="fa fa-circle-o"></i> CEK FOTO</a></li>
+                    <li><a href="/hasilbaca/selisih"><i class="fa fa-circle-o"></i> SELISIH FOTO</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -55,10 +52,10 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="v_lap_hasil_baca.php"><i class="fa fa-circle-o"></i>HASIL BACA METER</a></li>
-                    <li><a href="v_lap_hasil_baca_target.php"><i class="fa fa-circle-o"></i>REKAP TARGET CATER</a></li>
-                    <li><a href="v_lap_rekap.php"><i class="fa fa-circle-o"></i>REKAP PER KONDISI</a></li>
-                    <li><a href="v_lap_hasil_baca_0.php"><i class="fa fa-circle-o"></i>PEMAKAIAN (0)</a></li>
-                    <li><a href="v_lap_rekap_pakai_0.php"><i class="fa fa-circle-o"></i>REKAP PEMAKAIAN (0)</a></li>
+                    <li><a href="/laporan/target"><i class="fa fa-circle-o"></i>REKAP TARGET CATER</a></li>
+                    <li><a href="/laporan/kondisi"><i class="fa fa-circle-o"></i>REKAP PER KONDISI</a></li>
+                    <li><a href="/laporan/hasil_baca_0"><i class="fa fa-circle-o"></i>PEMAKAIAN (0)</a></li>
+                    <li><a href="/laporan/kondisi_pakai_0"><i class="fa fa-circle-o"></i>REKAP PEMAKAIAN (0)</a></li>
                 </ul>
             </li>
 

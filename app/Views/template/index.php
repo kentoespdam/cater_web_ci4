@@ -38,7 +38,7 @@
     <!-- <link rel="stylesheet" href="<?= base_url('assets') ?>/plugins/datepicker/datepicker3.css">
     -->
     <!-- Daterange picker -->
-    <!--link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+    <!--link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css"> -->
     <!-- bootstrap wysihtml5 - text editor -->
     <!-- <link rel="stylesheet" href="<?= base_url('assets') ?>/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     -->
@@ -49,51 +49,40 @@
     <!-- EasyUi -->
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets') ?>/easyui/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets') ?>/easyui/themes/icon.css">
+    <!-- Toastify -->
+    <link rel="stylesheet" type="text/css" href="<?= base_url('assets') ?>/toast/toastify.min.css">
 
     <style>
-        .datagrid-row>td>.datagrid-cell {
-            font-size: small;
-            font-weight: 500;
-            line-height: normal;
+        .easyui-toolbar {
+            width: 100%;
+            padding: .5em;
+            display: flex;
+            gap: .5em;
+            flex-flow: wrap;
+            align-items: flex-end;
         }
     </style>
 
+    <!-- <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script> -->
     <script src="<?= base_url('assets') ?>/easyui/jquery.min.js" defer></script>
-    <!--script type="text/javascript" src="<?= base_url('assets') ?>/dist/easyui/js/jquery-1.12.4.min.js"></script-->
     <script type="text/javascript" src="<?= base_url('assets') ?>/easyui/jquery.easyui.min.js" defer></script>
     <script type="text/javascript" src="<?= base_url('assets') ?>/easyui/plugins/datagrid-detailview.js" defer></script>
-
-    <!-- <script src="<?= base_url('assets') ?>/plugins/datatables/jquery.dataTables.js"
-    defer></script> -->
-    <!-- datepicker -->
-    <!-- <script src="<?= base_url('assets') ?>/plugins/datepicker/bootstrap-datepicker.js" defer></script> -->
-    <!-- <script src="<?= base_url('assets') ?>/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" defer></script> -->
-    <!-- Slimscroll -->
-    <!-- <script src="<?= base_url('assets') ?>/plugins/slimScroll/jquery.slimscroll.min.js" defer></script> -->
-    <!-- FastClick -->
-    <!-- <script src="<?= base_url('assets') ?>/plugins/fastclick/fastclick.js"
-    defer></script> -->
+    <script type="text/javascript" src="<?= base_url('assets') ?>/easyui/plugins/datagrid-export.js" defer></script>
     <!-- AdminLTE App -->
     <script src="<?= base_url('assets') ?>/dist/js/app.min.js" defer></script>
-    <script>
-        const baseUri = window.location.origin;
-    </script>
+    <!-- Toastify -->
+    <script type="text/javascript" src="<?= base_url('assets') ?>/toast/toastify.min.js" defer></script>
+    <script src="<?= base_url('assets') ?>/js/global.js" defer></script>
 </head>
 
-<!-- <body class="hold-trnsition skin-blue sidebar-mini"> -->
-
 <body class="hold-transition skin-blue sidebar-mini">
-    <div class="wrapper" style="height: 100vh;">
+    <div class="wrapper">
         <?= $this->include('template/topbar') ?>
         <?= $this->include('template/navigation')
         ?>
 
         <div class="content-wrapper">
-            <!-- <div class="content-header">
-                <?= $this->renderSection('page_title', true); ?>
-            </div> -->
-
-            <section class="content" style="height: 100%;">
+            <section class="content" style="min-height: 92vh;">
                 <?= $this->renderSection('content') ?>
             </section>
         </div>

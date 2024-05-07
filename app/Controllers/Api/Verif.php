@@ -10,8 +10,8 @@ class Verif extends BaseController
     public function index()
     {
         $req = (object) request()->getGet();
-        $page = empty($req->page) ? 0 : $req->page;
-        $size = empty($req->size) ? 10 : $req->size;
+        $page = empty($req->page) ? 0 : (int)$req->page;
+        $size = empty($req->rows) ? 10 : (int)$req->rows;
         $sort = empty($req->sort) ? null : $req->sort;
         $order = empty($req->order) ? "asc" : $req->order;
         $nosamw = isset($req->nosamw) && !empty($req->nosamw) ? $req->nosamw : null;
@@ -23,6 +23,7 @@ class Verif extends BaseController
         $cabang = isset($req->cabang) && !empty($req->cabang) ? $req->cabang : null;
         $petugas = isset($req->petugas) && !empty($req->petugas) ? $req->petugas : null;
         $kampung = isset($req->kampung) && !empty($req->kampung) ? $req->kampung : null;
+        $kondisi = isset($req->kondisi) && !empty($req->kondisi) ? $req->kondisi : null;
         $cek =  isset($req->cek) && !empty($req->cek) ? $req->cek : "0";
 
         $bacaMeter = new BacaMeterModel();
@@ -37,6 +38,7 @@ class Verif extends BaseController
             $cabang,
             $petugas,
             $kampung,
+            $kondisi,
             $nosamw
         );
         $totalData = $bacaMeter->getTotalData(
@@ -46,6 +48,7 @@ class Verif extends BaseController
             $cabang,
             $petugas,
             $kampung,
+            $kondisi,
             $nosamw
         );
         $result = [

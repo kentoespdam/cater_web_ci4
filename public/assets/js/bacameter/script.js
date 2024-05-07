@@ -7,8 +7,12 @@ const apiUri = `${baseUri}/api/hasilbaca`;
 
 tahunOpt.combobox({
 	width: "80px",
+	label: "Tahun",
+	labelPosition: "top",
 });
 bulanOpt.combobox({
+	label: "Bulan",
+	labelPosition: "top",
 	width: "120px",
 });
 searchBt.linkbutton({
@@ -31,26 +35,67 @@ dg.datagrid({
 	method: "GET",
 	columns: [
 		[
-			{ field: "nama", title: "Nama Petugas", width: "30%" },
-			{ field: "cabang", title: "Cabang", width: "25%" },
-			{ field: "progress", title: "Progress", align: "right" },
-			{ field: "jml_pelanggan", title: "Jml Pelanggan", align: "right" },
-			{ field: "jml_baca", title: "Jml Dibaca", align: "right" },
-			{ field: "cek_koperasi", title: "Cek Koperasi", align: "right" },
-			{ field: "cek_cabang", title: "Cek Cabang", align: "right" },
-			{ field: "gagal", title: "Gagal", align: "right" },
+			{ field: "nama", title: "Nama Petugas", width: "180" },
+			{ field: "cabang", title: "Cabang", width: "120" },
+			{
+				field: "progress",
+				title: "Progress",
+				align: "right",
+				formatter: (progress) => {
+					return `${progress}%`;
+				},
+				styler: (progress) => {
+					return progress >= 100 ? "color:green" : "color:red";
+				},
+			},
+			{
+				field: "jml_pelanggan",
+				title: "Jml Pelanggan",
+				align: "right",
+				formatter: formatDecimal,
+			},
+			{
+				field: "jml_baca",
+				title: "Jml Dibaca",
+				align: "right",
+				formatter: formatDecimal,
+			},
+			{
+				field: "cek_koperasi",
+				title: "Cek Koperasi",
+				align: "right",
+				formatter: formatDecimal,
+			},
+			{
+				field: "cek_cabang",
+				title: "Cek Cabang",
+				align: "right",
+				formatter: formatDecimal,
+			},
+			{
+				field: "gagal",
+				title: "Gagal",
+				align: "right",
+				formatter: formatDecimal,
+				styler: (failureCount) => {
+					return failureCount > 0
+						? "background:red; color:white"
+						: "color:green";
+				},
+			},
 		],
 	],
 	rownumbers: true,
 	resizable: true,
+	showFooter: true,
 	view: detailview,
 	detailFormatter: (index, row) => {
 		return '<div class="ddv" style="padding:5px 0"></div>';
 	},
 	onExpandRow: (index, row) => {
-		const tahun=tahunOpt.combobox("getValue")
-		const bulan=bulanOpt.combobox("getValue")
-		const periode=`${tahun}-${bulan}`
+		const tahun = tahunOpt.combobox("getValue");
+		const bulan = bulanOpt.combobox("getValue");
+		const periode = `${tahun}-${bulan}`;
 		const ddv = dg.datagrid("getRowDetail", index).find("div.ddv");
 		ddv.datagrid({
 			method: "GET",
@@ -58,7 +103,6 @@ dg.datagrid({
 			fitColumns: true,
 			singleSelect: true,
 			rownumbers: true,
-			loadMsg: "",
 			height: "auto",
 			columns: [
 				[
@@ -78,6 +122,34 @@ dg.datagrid({
 		});
 		dg.datagrid("fixDetailRowHeight", index);
 	},
+	onLoadSuccess: (data) => {
+		const totalProgress = (
+			(data.footer.jml_baca / data.footer.jml_pelanggan) *
+			100
+		).toFixed(2);
+		const footer = `
+			<tr>
+				<th colspan="2">Total</th>
+				<th>${totalProgress}</th>
+				<th>${data.footer.jml_pelanggan}</th>
+				<th>${data.footer.jml_baca}</th>
+				<th>${data.footer.cek_koperasi}</th>
+				<th>${data.footer.cek_cabang}</th>
+				<th>${data.footer.gagal}</th>
+			</tr>
+		`;
+		dg.datagrid("reloadFooter", [
+			{
+				progress: totalProgress,
+				jml_pelanggan: data.footer.jml_pelanggan,
+				jml_baca: data.footer.jml_baca,
+				cek_koperasi: data.footer.cek_koperasi,
+				cek_cabang: data.footer.cek_cabang,
+				gagal: data.footer.gagal,
+				footer: footer,
+			},
+		]);
+	},
 });
 
 function doSearch() {
@@ -85,10 +157,3 @@ function doSearch() {
 	const bulan = bulanOpt.val();
 	dg.datagrid("load", { periode: `${tahun}-${bulan}` });
 }
-
-// searchBt.on("click", doSearch);
-// resetBt.on("click", () => {
-// 	const tgl = new Date();
-// 	tahunOpt.val(tgl.getFullYear()).change();
-// 	bulanOpt.val(tgl.getMonth() + 1).change();
-// });
