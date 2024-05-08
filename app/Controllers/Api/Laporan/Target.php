@@ -23,8 +23,9 @@ class Target extends BaseController
         $myDate = MyDate::withDateYearAndMonth($req->tahun, $req->bulan);
         $tglAwal = $myDate->getStartDate();
         $tglAkhir = $myDate->getEndDate();
+        $target = "{$req->tahun}-{$req->bulan}-25";
 
-        $find = $this->find($tglAwal, $tglAkhir);
+        $find = $this->find($tglAwal, $tglAkhir, $target);
 
         return response()->setJSON([
             "rows" => $this->generateResults($find, $periode),
@@ -40,13 +41,13 @@ class Target extends BaseController
      * @param string $tglAkhir The end date in 'Y-m-d' format.
      * @return array<object> An array of meter reading objects.
      */
-    private function find(string $tglAwal, string $tglAkhir): array
+    private function find(string $tglAwal, string $tglAkhir, string $target): array
     {
         $bacaMeterModel = new BacaMeterModel();
-        return $bacaMeterModel->select("
+        $result = $bacaMeterModel->select("
                 COUNT(baca_meter.no_sam) AS jml_baca,
-                SUM( CASE WHEN baca_meter.cek IN ( 1, 2 ) THEN 1 ELSE 0 END ) AS sukses,
-                SUM( CASE WHEN baca_meter.cek =  3 OR NULL THEN 1 ELSE 0 END ) AS gagal,
+                SUM( CASE WHEN baca_meter.tgl <= '$target' THEN 1 ELSE 0 END ) AS sukses,
+                SUM( CASE WHEN baca_meter.tgl > '$target' THEN 1 ELSE 0 END ) AS gagal,
                 SUM( CASE WHEN baca_meter.kondisi NOT IN ('Normal', 'Edit Stand OCR') THEN 1 ELSE 0 END ) AS kondisi,
                 mcabang.nm_cabang AS cabang,
             ")
@@ -55,6 +56,8 @@ class Target extends BaseController
             ->where("baca_meter.tgl BETWEEN '$tglAwal' AND '$tglAkhir'")
             ->groupBy("munit.satker")
             ->findAll();
+        // echo $bacaMeterModel->getLastQuery();
+        return $result;
     }
 
     /**
@@ -67,7 +70,7 @@ class Target extends BaseController
     private function generateResults(array $meterReadings, string $period): array
     {
         return array_map(function (object $reading) use ($period): object {
-            $successRate = $reading->jml_baca == 0 ? 0 : ($reading->sukses / $reading->jml_baca) * 100;
+            $successRate = (($reading->sukses - $reading->kondisi) / $reading->jml_baca) * 100;
             return (object) array_merge((array) $reading, [
                 'periode' => $period,
                 'persen' => number_format($successRate, 2)
@@ -90,7 +93,7 @@ class Target extends BaseController
             'gagal' => 0,
             'kondisi' => 0
         ]);
-        $persen = ($reduce->jml_baca == 0) ? 0 : ($reduce->sukses / $reduce->jml_baca) * 100;
+        $persen = (($reduce->sukses - $reduce->kondisi) / $reduce->jml_baca) * 100;
         $reduce->persen = number_format($persen, 2);
         return [$reduce];
     }

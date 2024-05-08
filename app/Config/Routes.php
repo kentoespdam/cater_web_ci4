@@ -7,6 +7,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 $routes->get('/auth', 'Auth::index');
+$routes->get('/auth/login', 'Auth::index');
 $routes->post('/auth/login', 'Auth::login');
 $routes->get('/auth/logout', 'Auth::logout');
 
@@ -18,12 +19,15 @@ $routes->group("api", static function ($routes) {
             $routes->get("kampung", "Api\Sikompak\Pegawai::findKampung");
         });
     });
+    $routes->group("master", static function ($routes) {
+        $routes->group("user", static function ($routes) {
+            $routes->get("", "Api\Master\User::index");
+            $routes->get("(:any)/kampung", "Api\Master\User::kampung/$1");
+        });
+    });
     $routes->group("hasilbaca", static function ($routes) {
         $routes->get("", "Api\HasilBaca::index");
         $routes->get("gagal", "Api\HasilBaca::getDataGagal/$1");
-    });
-    $routes->group("verif", static function ($routes) {
-        $routes->get("", "Api\Verif::index");
     });
     $routes->group("cekfoto", static function ($routes) {
         $routes->get("", "Api\CekFoto::index");
@@ -34,10 +38,18 @@ $routes->group("api", static function ($routes) {
         $routes->get("default_property", "Api\Selisih::defaultPropertyGrid");
     });
     $routes->group("laporan", static function ($routes) {
+        $routes->get("hasil_baca", "Api\Laporan\HasilBaca::index");
         $routes->get("target", "Api\Laporan\Target::index");
         $routes->get("kondisi", "Api\Laporan\Kondisi::index");
         $routes->get("hasil_baca_0", "Api\Laporan\HasilBaca0::index");
         $routes->get("kondisi_pakai_0", "Api\Laporan\KondisiBaca0::index");
+    });
+});
+
+$routes->group("master", static function ($routes) {
+    $routes->group("user", static function ($routes) {
+        $routes->get("", "Master\User::index");
+        $routes->get("add", "Master\User::add");
     });
 });
 $routes->group("hasilbaca", static function ($routes) {
@@ -47,6 +59,7 @@ $routes->group("hasilbaca", static function ($routes) {
 });
 
 $routes->group("laporan", static function ($routes) {
+    $routes->get("hasil_baca", "Laporan\HasilBaca::index");
     $routes->get("target", "Laporan\Target::index");
     $routes->get("kondisi", "Laporan\Kondisi::index");
     $routes->get("hasil_baca_0", "Laporan\HasilBaca0::index");

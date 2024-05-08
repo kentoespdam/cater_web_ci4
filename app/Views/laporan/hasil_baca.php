@@ -69,5 +69,5 @@ $curMonth = date('m');
     </div>
 </div>
 
-<script src="<?= base_url('assets') ?>/js/bacameter/verif.js" defer></script>
+<script src="<?= base_url('assets') ?>/js/laporan/hasil_baca.js" defer></script>
 <?= $this->endSection() ?>

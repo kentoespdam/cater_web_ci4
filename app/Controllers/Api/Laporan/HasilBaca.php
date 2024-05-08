@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace App\Controllers\Api\Laporan;
 
 use App\Controllers\BaseController;
 use App\Models\BacaMeterModel;
 
-class Verif extends BaseController
+class HasilBaca extends BaseController
 {
     public function index()
     {

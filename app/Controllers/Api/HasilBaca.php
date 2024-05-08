@@ -17,6 +17,7 @@ class HasilBaca extends Controller
         $endDate = $myDate->getEndDate();
 
         $cacheKey = "hasil_baca_data_$startDate-$endDate";
+
         if (cache($cacheKey) !== null) {
             return response()->setJSON(cache($cacheKey));
         }

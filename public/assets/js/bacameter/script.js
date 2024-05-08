@@ -149,6 +149,8 @@ dg.datagrid({
 				footer: footer,
 			},
 		]);
+
+		setTimeout(() => doSearch(), 60000);
 	},
 });
 
@@ -157,3 +159,8 @@ function doSearch() {
 	const bulan = bulanOpt.val();
 	dg.datagrid("load", { periode: `${tahun}-${bulan}` });
 }
+
+// setInterval(() => {
+// 	console.log(new Date());
+// 	doSearch();
+// }, 15000);

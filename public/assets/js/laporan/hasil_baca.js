@@ -9,7 +9,7 @@ const $bulanOpt = $("#bulan");
 const $kondisiOpt = $("#kondisi");
 const $searchBt = $("#search");
 const $resetBt = $("#reset");
-const apiUri = `${baseUri}/api/verif`;
+const apiUri = `${baseUri}/api/laporan/hasil_baca`;
 
 $nosamwTxt.textbox({
 	width: "120px",
