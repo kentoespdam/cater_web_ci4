@@ -13,6 +13,6 @@ class CekFoto extends BaseController
         $session = session()->get("logged_in");
 
         return $view->setVar("session", $session)
-        ->render("hasilbaca/cekfoto");
+            ->render("hasilbaca/cekfoto");
     }
 }

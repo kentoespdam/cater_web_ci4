@@ -23,6 +23,8 @@ $routes->group("api", static function ($routes) {
         $routes->group("user", static function ($routes) {
             $routes->get("", "Api\Master\User::index");
             $routes->get("(:any)/kampung", "Api\Master\User::kampung/$1");
+            $routes->post("", "Api\Master\User::save");
+            $routes->delete("(:any)", "Api\Master\User::delete/$1");
         });
     });
     $routes->group("hasilbaca", static function ($routes) {
@@ -50,6 +52,9 @@ $routes->group("master", static function ($routes) {
     $routes->group("user", static function ($routes) {
         $routes->get("", "Master\User::index");
         $routes->get("add", "Master\User::add");
+    });
+    $routes->group("transfer_kampung", static function ($routes) {
+        $routes->get("", "Master\TransferKampung::index");
     });
 });
 $routes->group("hasilbaca", static function ($routes) {

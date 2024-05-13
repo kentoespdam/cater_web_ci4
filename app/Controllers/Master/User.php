@@ -3,7 +3,7 @@
 namespace App\Controllers\Master;
 
 use App\Controllers\BaseController;
-use CodeIgniter\HTTP\ResponseInterface;
+use App\Models\Sikompak\CabangModel;
 
 class User extends BaseController
 {
@@ -14,11 +14,17 @@ class User extends BaseController
         $session = session()->get("logged_in");
         if ($session['kdStatus'] !== "admin")
             return redirect()->to('/');
+
+        $cabangModel = new CabangModel();
+        $cabangList = $cabangModel->findAll();
+
         return $view->setVar("session", $session)
+            ->setVar("cabangList", $cabangList)
             ->render('master/user');
     }
 
-    public function add(){
+    public function add()
+    {
         $view = \Config\Services::renderer();
         $session = session()->get("logged_in");
         if ($session['kdStatus'] !== "admin")

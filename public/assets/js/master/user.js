@@ -7,14 +7,15 @@ dg.datagrid({
 	method: "GET",
 	columns: [
 		[
-			{ field: "user", title: "User", width: "100" },
-			{ field: "nama", title: "Nama Lengkap", width: "180" },
-			{ field: "cabang", title: "Cabang", width: "150" },
+			{ field: "user", title: "User", width: "100", sortable: true },
+			{ field: "nama", title: "Nama Lengkap", width: "180", sortable: true },
+			{ field: "email", title: "Email", width: "180", sortable: true },
+			{ field: "cabang", title: "Cabang", width: "150", sortable: true },
 			{
 				title: "Aksi",
 				field: "aksi",
 				formatter: (value, row) => {
-					const editBtn = `<a class="editBtn" href="#" onClick="edit('${row.user}')">Edit</a>`;
+					const editBtn = `<a class="editBtn" href="#" onClick="editKampung('${row.user}')">Edit Kampung</a>`;
 					const delBtn = `<a class="delBtn" href="#" onClick="del('${row.user}')")>Delete</a>`;
 					return `${editBtn} ${delBtn}`;
 				},
@@ -62,10 +63,22 @@ dg.datagrid({
 	},
 });
 
-function edit(user) {
+function editKampung(user) {
 	console.log(`edit ${user}`);
 }
 
-function del(user) {
-	console.log(`delete ${user}`);
+async function del(user) {
+	const x = confirm("Akan menghapus data ini?");
+	if (!x) return;
+	const req = await fetch(`${apiUri}/${user}`, {
+		method: "DELETE",
+	});
+
+	const res = await req.json();
+
+	$.messager.show({
+		title: !req.ok ? "Error" : "Success",
+		msg: res.messages,
+	});
+	dg.datagrid("reload");
 }

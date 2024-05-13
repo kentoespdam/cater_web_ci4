@@ -26,6 +26,7 @@
                 <ul class="treeview-menu">
                     <?php if ($session['kdStatus'] == 'admin') : ?>
                         <li><a href="/master/user"><i class="fa fa-circle-o"></i> User</a></li>
+                        <li><a href="/master/transfer_kampung"><i class="fa fa-circle-o"></i> Transfer Kampung</a></li>
                     <?php endif; ?>
                 </ul>
             </li>

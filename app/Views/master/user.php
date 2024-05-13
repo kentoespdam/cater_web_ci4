@@ -17,6 +17,7 @@ $curMonth = date('m');
 </div>
 
 <?= $this->include('master/user_add') ?>
-<script src="<?= base_url('assets') ?>/js/master/user.js" defer></script>
+<script src="<?= base_url('assets') ?>/js/master/user.js?<?= strtotime("now") ?>" defer></script>
 <script src="<?= base_url('assets') ?>/js/master/user_add.js" defer></script>
+
 <?= $this->endSection() ?>
