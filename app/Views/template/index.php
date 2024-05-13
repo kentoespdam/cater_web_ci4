@@ -25,27 +25,6 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
     folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="<?= base_url('assets') ?>/css/skins/_all-skins.min.css">
-    <!-- iCheck -->
-    <!-- <link rel="stylesheet" href="<?= base_url('assets') ?>/plugins/iCheck/flat/blue.css">
-    -->
-    <!-- Morris chart -->
-    <!-- <link rel="stylesheet" href="<?= base_url('assets') ?>/plugins/morris/morris.css">
-    -->
-    <!-- jvectormap -->
-    <!-- <link rel="stylesheet" href="<?= base_url('assets') ?>/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
-    -->
-    <!-- Date Picker -->
-    <!-- <link rel="stylesheet" href="<?= base_url('assets') ?>/plugins/datepicker/datepicker3.css">
-    -->
-    <!-- Daterange picker -->
-    <!--link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css"> -->
-    <!-- bootstrap wysihtml5 - text editor -->
-    <!-- <link rel="stylesheet" href="<?= base_url('assets') ?>/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-    -->
-
-    <!-- <link rel="stylesheet" href="<?= base_url('assets') ?>/plugins/datatables/dataTables.bootstrap.css">
-    -->
-
     <!-- EasyUi -->
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets') ?>/easyui/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets') ?>/easyui/themes/icon.css">
@@ -69,7 +48,7 @@
     <script type="text/javascript" src="<?= base_url('assets') ?>/easyui/plugins/datagrid-detailview.js" defer></script>
     <script type="text/javascript" src="<?= base_url('assets') ?>/easyui/plugins/datagrid-export.js" defer></script>
     <!-- AdminLTE App -->
-    <script src="<?= base_url('assets') ?>/dist/js/app.min.js" defer></script>
+    <script src="<?= base_url('assets') ?>/js/app.min.js" defer></script>
     <!-- Toastify -->
     <script type="text/javascript" src="<?= base_url('assets') ?>/toast/toastify.min.js" defer></script>
     <script src="<?= base_url('assets') ?>/js/global.js" defer></script>
