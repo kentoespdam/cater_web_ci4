@@ -25,6 +25,9 @@ class MyDate
     public static function withPeriode($periode)
     {
         $instance = new self();
+        if ($periode == null || $periode == "") {
+            $periode = date("Y-m");
+        }
         $currentDate = new DateTime($periode . '-01');
         $instance->startDate = date("Y-m-d", $currentDate->getTimestamp());
         $instance->endDate = date("Y-m-t", $currentDate->getTimestamp());

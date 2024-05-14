@@ -43,7 +43,7 @@ class HasilBaca extends Controller
 
     private function generateResult($cust, $hasilBaca)
     {
-        return array_values(
+        return
             array_map(function ($item) use ($hasilBaca) {
                 $curHasilBaca = $this->getCurrentHasilBaca($hasilBaca, $item->petugas);
                 if ($curHasilBaca == null) return [
@@ -69,8 +69,7 @@ class HasilBaca extends Controller
                     "gagal" => $curHasilBaca->gagal,
                     "progress" => number_format($persen, 2)
                 ];
-            }, $cust)
-        );
+            }, $cust);
     }
 
     private function getCurrentHasilBaca($hasilBaca, $petugas)

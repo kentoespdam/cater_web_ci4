@@ -94,19 +94,20 @@ class CustModel extends Model
 
     public function getTotalPelangganPerPembaca()
     {
-        $db = \Config\Database::connect("sikompak");
-        $builder = $db->table("$this->table c")
-            ->select("
-                COUNT(c.noreg) AS jml_pelanggan, 
+        $builder = $this->select("
+                COUNT(cust.noreg) AS jml_pelanggan, 
                 p.pembaca_meter AS petugas,
                 p.nama_lengkap AS nama,
+                p.wil,
                 p.cabang
             ")
-            ->join("pegawai p", "c.ptgs_met = p.NIK")
-            ->where("c.stat_smb", "30")
+            ->join("pegawai p", "cust.ptgs_met = p.NIK")
+            ->where("cust.stat_smb", "30")
+            ->where("p.wil !=", "")
             ->groupBy("p.pembaca_meter")
-            ->get();
-        return $builder->getResultObject();
+            ->orderBy("p.wil", "asc");
+        $result = $builder->findAll();
+        return $result;
     }
 
     public function getDetailKampungPelanggan($kdPelanggan)
