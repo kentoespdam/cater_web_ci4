@@ -40,5 +40,5 @@ $curMonth = date('m');
     </div>
 </div>
 
-<script src="<?= base_url('assets') ?>/js/bacameter/script.js" defer></script>
+<script src="<?= base_url('assets') ?>/js/bacameter/script.js?<?= time() ?>" defer></script>
 <?= $this->endSection() ?>

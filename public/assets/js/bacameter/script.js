@@ -150,7 +150,9 @@ dg.datagrid({
 			},
 		]);
 
-		setTimeout(() => doSearch(), 60000);
+		let timer;
+		if (timer) clearTimeout(timer);
+		timer = setTimeout(() => doSearch(), 60000);
 	},
 });
 
