@@ -70,3 +70,7 @@ $routes->group("laporan", static function ($routes) {
     $routes->get("hasil_baca_0", "Laporan\HasilBaca0::index");
     $routes->get("kondisi_pakai_0", "Laporan\KondisiBaca0::index");
 });
+
+$routes->group("cetak", static function ($routes) {
+    $routes->get("foto_meter/(:any)/(:any)/(:num)", "Cetak\FotoMeter::index/$1/$2/$3");
+});

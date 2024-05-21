@@ -31,6 +31,9 @@ $curMonth = date('m');
                 <div>
                     <a id="reset" href="#">reset</a>
                 </div>
+                <div>
+                    <a id="cetak" href="#">print</a>
+                </div>
             </div>
         </div>
     </div>

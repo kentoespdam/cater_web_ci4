@@ -4,6 +4,7 @@ const tglAwalTxt = $("#tglAwal");
 const tglAkhirTxt = $("#tglAkhir");
 const searchBt = $("#search");
 const resetBt = $("#reset");
+const cetakBt = $("#cetak");
 const apiUri = `${baseUri}/api/cekfoto`;
 
 nosamwTxt.textbox({
@@ -37,6 +38,16 @@ resetBt.linkbutton({
 		tglAwalTxt.datebox("setValue", "");
 		tglAkhirTxt.datebox("setValue", "");
 		doSearch();
+	},
+});
+
+cetakBt.linkbutton({
+	iconCls: "icon-print",
+	onClick: () => {
+		const nosamw = nosamwTxt.textbox("getValue");
+		const tglAwal = tglAwalTxt.datebox("getValue");
+		const tglAkhir = tglAkhirTxt.datebox("getValue");
+		window.open(`${baseUri}/cetak/foto_meter/${tglAwal}/${tglAkhir}/${nosamw}`);
 	},
 });
 
