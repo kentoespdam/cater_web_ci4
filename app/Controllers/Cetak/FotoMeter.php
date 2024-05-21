@@ -24,10 +24,10 @@ class FotoMeter extends BaseController
                 baca_meter.stan_kini,
                 baca_meter.pakai, 
                 baca_meter.rata,
-                pegawai.nama_lengkap AS petugas, 
+                users.nama_lengkap AS petugas, 
                 CONCAT(baca_meter.folderSS,'|',baca_meter.fileSS) AS foto
             ")
-            ->join("pegawai", "baca_meter.user=pegawai.pembaca_meter")
+            ->join("users", "baca_meter.user=users.username")
             ->where("baca_meter.no_sam", $nosamw)
             ->where("baca_meter.tgl BETWEEN '$tglAwal' AND '$tglAkhir'")
             ->findAll();
