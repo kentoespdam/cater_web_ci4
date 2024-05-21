@@ -38,6 +38,7 @@ setTimeout(window.close, 0);">
                 </tr>
             </table>
         </div>
+        <hr />
 
         <?php foreach ($data->rows as $row) : ?>
             <div class="mt-4 flex flex-row items-center">
@@ -65,6 +66,16 @@ setTimeout(window.close, 0);">
                             <td class="pl-4 pr-4 font-bold">Stan Kini</td>
                             <td>:</td>
                             <td><?= $row->stan_kini ?></td>
+                        </tr>
+                        <tr>
+                            <td class="pl-4 pr-4 font-bold">Pakai</td>
+                            <td>:</td>
+                            <td><?= $row->pakai ?></td>
+                        </tr>
+                        <tr>
+                            <td class="pl-4 pr-4 font-bold">Rata-Rata</td>
+                            <td>:</td>
+                            <td><?= $row->rata ?></td>
                         </tr>
                         <tr>
                             <td class="pl-4 pr-4 font-bold">Petugas</td>

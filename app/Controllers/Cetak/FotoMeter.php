@@ -21,7 +21,10 @@ class FotoMeter extends BaseController
                 no_sam AS nosamw, 
                 tgl, 
                 info AS tgl_baca, 
-                stan_kini, petugas, 
+                stan_kini,
+                pakai, 
+                rata,
+                petugas, 
                 CONCAT(folderSS,'|',fileSS) AS foto
             ")
             ->where("no_sam", $nosamw)
@@ -47,6 +50,8 @@ class FotoMeter extends BaseController
                 "tgl" => $baca->tgl,
                 "tgl_baca" => $baca->tgl_baca,
                 "stan_kini" => $baca->stan_kini,
+                "pakai" => $baca->pakai,
+                "rata" => $baca->rata,
                 "petugas" => $baca->petugas
             ];
         }, $data);
