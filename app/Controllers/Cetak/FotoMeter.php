@@ -16,19 +16,20 @@ class FotoMeter extends BaseController
         $bacaMeterModel = new BacaMeterModel();
         $bacameter = $bacaMeterModel
             ->select("
-                nama, 
-                alamat, 
-                no_sam AS nosamw, 
-                tgl, 
-                info AS tgl_baca, 
-                stan_kini,
-                pakai, 
-                rata,
-                petugas, 
-                CONCAT(folderSS,'|',fileSS) AS foto
+                baca_meter.nama, 
+                baca_meter.alamat, 
+                baca_meter.no_sam AS nosamw, 
+                baca_meter.tgl, 
+                baca_meter.info AS tgl_baca, 
+                baca_meter.stan_kini,
+                baca_meter.pakai, 
+                baca_meter.rata,
+                pegawai.nama_lengkap AS petugas, 
+                CONCAT(baca_meter.folderSS,'|',baca_meter.fileSS) AS foto
             ")
-            ->where("no_sam", $nosamw)
-            ->where("tgl BETWEEN '$tglAwal' AND '$tglAkhir'")
+            ->join("pegawai", "baca_meter.user=pegawai.pembaca_meter")
+            ->where("baca_meter.no_sam", $nosamw)
+            ->where("baca_meter.tgl BETWEEN '$tglAwal' AND '$tglAkhir'")
             ->findAll();
         $data = $this->resultBuilder($bacameter);
         return $view->setVar("data", $data)
