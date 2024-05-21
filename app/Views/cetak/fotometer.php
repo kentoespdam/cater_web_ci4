@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="<?= base_url('/assets/js/tailwind.js') ?>"></script>
 </head>
 
 <body onload="window.print();
@@ -20,7 +20,7 @@ setTimeout(window.close, 0);">
             <table border="1">
                 <tr>
                     <td rowspan="3" class="p-2">
-                        <img src="<?= base_url('/assets/images/logo_pdam.png') ?>"  width="120"/>
+                        <img src="<?= base_url('/assets/images/logo_pdam.png') ?>" width="120" />
                     </td>
                     <td class="pl-4 pr-4 font-bold">Nama</td>
                     <td>:</td>
@@ -40,7 +40,7 @@ setTimeout(window.close, 0);">
         </div>
 
         <?php foreach ($data->rows as $row) : ?>
-            <div class="mt-8 flex flex-row items-center">
+            <div class="mt-4 flex flex-row items-center">
                 <div class="mr-8 ml-2">
                     <img src="data:image/jpg;base64, <?= $row->foto ?>" width="250" />
                 </div>
