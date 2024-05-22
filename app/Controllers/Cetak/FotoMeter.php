@@ -22,8 +22,6 @@ class FotoMeter extends BaseController
                 baca_meter.tgl, 
                 baca_meter.info AS tgl_baca, 
                 baca_meter.stan_kini,
-                baca_meter.pakai, 
-                baca_meter.rata,
                 users.nama_lengkap AS petugas, 
                 CONCAT(baca_meter.folderSS,'|',baca_meter.fileSS) AS foto
             ")
@@ -51,8 +49,6 @@ class FotoMeter extends BaseController
                 "tgl" => $baca->tgl,
                 "tgl_baca" => $baca->tgl_baca,
                 "stan_kini" => $baca->stan_kini,
-                "pakai" => $baca->pakai,
-                "rata" => $baca->rata,
                 "petugas" => $baca->petugas
             ];
         }, $data);
