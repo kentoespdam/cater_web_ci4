@@ -7,7 +7,7 @@
     <script src="<?= base_url('/assets/js/tailwind.js') ?>"></script>
 </head>
 
-<body>
+<body onload="window.print(); setTimeout(window.close, 0);">
     <div class="flex flex-col w-full">
         <div class="flex flex-row justify-center items-center">
             <div>
