@@ -7,6 +7,7 @@ const searchBySwitch = $("#searchBy");
 const petugasOpt = $("#petugas");
 const searchBt = $("#search");
 const resetBt = $("#reset");
+const cetakBt = $("#cetak");
 const apiUri = `${baseUri}/api/selisih`;
 
 tahunOpt.combobox({
@@ -51,6 +52,10 @@ petugasOpt.combobox("enable");
 
 searchBt.linkbutton({ iconCls: "icon-search", onClick: doSearch });
 resetBt.linkbutton({ iconCls: "icon-reload", onClick: resetFormAndSearch });
+cetakBt.linkbutton({
+	iconCls: "icon-print",
+	onClick: doCetak,
+});
 
 function doSearch() {
 	const tahun = tahunOpt.combobox("getValue");
@@ -74,6 +79,27 @@ function doSearch() {
 }
 
 function resetFormAndSearch() {}
+
+function doCetak() {
+	const tahun = tahunOpt.combobox("getValue");
+	const bulan = bulanOpt.combobox("getValue");
+	const searchBy = searchBySwitch.switchbutton("options").checked;
+	const petugas = petugasOpt.combobox("getValue");
+	const cabang = cabangOpt.combobox("getValue");
+	if (!cabang && !petugas) {
+		alert("Cabang atau petugas harus dipilih");
+		return;
+	}
+	const params = {
+		tahun: tahun,
+		bulan: bulan,
+		petugas: petugas,
+		cabang: cabang,
+	};
+	if (searchBy) Object.assign(params, { findByCabang: "on" });
+	const searchParam = new URLSearchParams(params).toString();
+	window.open(`${baseUri}/cetak/selisih_foto?${searchParam}`);
+}
 
 dg.datagrid({
 	title: "Cek data belum ada foto",

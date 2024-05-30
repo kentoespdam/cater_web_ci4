@@ -73,4 +73,5 @@ $routes->group("laporan", static function ($routes) {
 
 $routes->group("cetak", static function ($routes) {
     $routes->get("foto_meter/(:any)/(:any)/(:num)", "Cetak\FotoMeter::index/$1/$2/$3");
+    $routes->get("selisih_foto", "Cetak\SelisihFoto::index");
 });
