@@ -43,5 +43,5 @@ $curMonth = date('m');
     </div>
 </div>
 
-<script src="<?= base_url('assets') ?>/js/laporan/hasil_baca_0.js" defer></script>
+<script src="<?= base_url('assets') ?>/js/laporan/hasil_baca_0.js?<?= time(); ?>" defer></script>
 <?= $this->endSection() ?>

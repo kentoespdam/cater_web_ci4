@@ -20,7 +20,16 @@ function doSearch() {
 	dg.datagrid("resize");
 }
 
-function doPrint() {}
+function doPrint() {
+	const periode = `${bulanOpt.combobox("getText")} ${tahunOpt.combobox(
+		"getText",
+	)}`;
+	dg.datagrid("print", {
+		title: "Rekap Bacaan Meter Pemakaian 0",
+		caption: `<h3>Rekap Bacaan Meter Pemakaian 0/h3>
+		<h4>Periode : ${periode}</h4>`,
+	});
+}
 
 dg.datagrid({
 	title: "Rekap Bacaan Meter Pemakaian 0",
