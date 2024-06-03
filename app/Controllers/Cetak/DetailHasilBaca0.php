@@ -56,7 +56,7 @@ class DetailHasilBaca0 extends BaseController
         $spreadsheet->getDefaultStyle()->getFont()->setSize(10);
         $spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
         $spreadsheet->setActiveSheetIndex(0);
-        
+
         $sheet = $spreadsheet->getActiveSheet();
 
         foreach ($this->fields as $field) {
@@ -88,17 +88,14 @@ class DetailHasilBaca0 extends BaseController
             $rowNum++;
         }
 
+
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
         $writer->setPreCalculateFormulas(false);
         $filename = "hasil_baca_0-" . date('Y-m-d-His');
 
-
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename=' . $filename . '.xlsx');
         header('Cache-Control: max-age=0');
-
         $writer->save('php://output');
-        $spreadsheet->disconnectWorksheets();
-        unset($spreadsheet);
     }
 }
