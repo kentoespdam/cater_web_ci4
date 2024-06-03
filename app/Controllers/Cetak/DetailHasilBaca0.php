@@ -5,7 +5,6 @@ namespace App\Controllers\Cetak;
 use App\Controllers\BaseController;
 use App\Libraries\MyDate;
 use App\Models\BacaMeterModel;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class DetailHasilBaca0 extends BaseController
@@ -82,8 +81,6 @@ class DetailHasilBaca0 extends BaseController
             $sheet->setCellValue("S" . $rowNum, $row->alamat);
             $rowNum++;
         }
-
-
 
         $writer = new Xlsx($spreadsheet);
         $filename = "hasil_baca_0-" . date('Y-m-d-His');
