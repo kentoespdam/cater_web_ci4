@@ -39,7 +39,7 @@ class DetailHasilBaca0 extends BaseController
 
         $tglAwal = $dateLib->getStartDate();
         $tglAkhir = $dateLib->getEndDate();
-        $cabang = isset($req->cabang) || $req->cabang != "" ? $req->cabang : null;
+        $cabang = isset($req->cabang) && $req->cabang != "" ? $req->cabang : null;
 
         $bacaMeterModel = new BacaMeterModel();
 
