@@ -52,7 +52,6 @@ class DetailHasilBaca0 extends BaseController
         ini_set('memory_limit', '-1');
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->setActiveSheetIndex(0);
-        $sheet->setTitle('Dettail Kondisi Water Meter');
         $sheet->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
 
 
