@@ -38,5 +38,5 @@ $curMonth = date('m');
 <script>
     const listKondisi = JSON.parse('<?= json_encode($kondisiList) ?>')
 </script>
-<script src="<?= base_url('assets') ?>/js/laporan/kondisi_pakai_0.js" defer></script>
+<script src="<?= base_url('assets') ?>/js/laporan/kondisi_pakai_0.js?<?= time(); ?>" defer></script>
 <?= $this->endSection() ?>
