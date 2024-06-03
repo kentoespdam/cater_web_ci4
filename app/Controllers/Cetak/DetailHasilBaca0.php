@@ -50,8 +50,9 @@ class DetailHasilBaca0 extends BaseController
     private function generateExcel($data)
     {
         // ini_set('memory_limit', '-1');
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->setActiveSheetIndex(0);
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $spreadsheet->setActiveSheetIndex(0);
+        $sheet = $spreadsheet->getActiveSheet();
 
         foreach ($this->fields as $field) {
             $f = (object)$field;
