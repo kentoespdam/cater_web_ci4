@@ -52,8 +52,6 @@ class DetailHasilBaca0 extends BaseController
         ini_set('memory_limit', '-1');
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->setActiveSheetIndex(0);
-        $sheet->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
-
 
         foreach ($this->fields as $field) {
             $f = (object)$field;
