@@ -92,10 +92,14 @@ class DetailHasilBaca0 extends BaseController
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
         $writer->setPreCalculateFormulas(false);
         $filename = "hasil_baca_0-" . date('Y-m-d-His');
+        // $writer->save('php://output');
+        $writer->save("/tmp/$filename.xlsx");
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename=' . $filename . '.xlsx');
         header('Cache-Control: max-age=0');
-        $writer->save('php://output');
+
+        readfile("/tmp/$filename.xlsx");
+        unlink("/tmp/$filename.xlsx");
     }
 }
