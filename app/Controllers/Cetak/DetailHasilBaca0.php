@@ -100,6 +100,6 @@ class DetailHasilBaca0 extends BaseController
         header('Cache-Control: max-age=0');
 
         readfile("/tmp/$filename.xlsx");
-        unlink("/tmp/$filename.xlsx");
+        // unlink("/tmp/$filename.xlsx");
     }
 }
