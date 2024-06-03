@@ -5,7 +5,6 @@ namespace App\Controllers\Cetak;
 use App\Controllers\BaseController;
 use App\Libraries\MyDate;
 use App\Models\BacaMeterModel;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class DetailHasilBaca0 extends BaseController
 {
@@ -48,9 +47,16 @@ class DetailHasilBaca0 extends BaseController
 
     private function generateExcel($data)
     {
-        ini_set('memory_limit', "512M");
+        ini_set('memory_limit', "256M");
+        ini_set('default_charset', '');
+        mb_http_output('pass');
+        mb_detect_order(["UTF-8"]);
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $spreadsheet->getDefaultStyle()->getFont()->setName('Calibri');
+        $spreadsheet->getDefaultStyle()->getFont()->setSize(10);
+        $spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
         $spreadsheet->setActiveSheetIndex(0);
+        
         $sheet = $spreadsheet->getActiveSheet();
 
         foreach ($this->fields as $field) {
@@ -82,13 +88,17 @@ class DetailHasilBaca0 extends BaseController
             $rowNum++;
         }
 
-        $writer = new Xlsx($spreadsheet);
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+        $writer->setPreCalculateFormulas(false);
         $filename = "hasil_baca_0-" . date('Y-m-d-His');
+
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename=' . $filename . '.xlsx');
         header('Cache-Control: max-age=0');
 
         $writer->save('php://output');
+        $spreadsheet->disconnectWorksheets();
+        unset($spreadsheet);
     }
 }
