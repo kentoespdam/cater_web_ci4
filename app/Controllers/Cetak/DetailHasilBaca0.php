@@ -91,7 +91,7 @@ class DetailHasilBaca0 extends BaseController
 
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
         $writer->setPreCalculateFormulas(false);
-        $filename = "hasil_baca_0-" . date('Y-m-d-His');
+        $filename = "hasil_baca_0_" . date('YmdHis');
         // $writer->save('php://output');
         $writer->save("/tmp/$filename.xlsx");
 
