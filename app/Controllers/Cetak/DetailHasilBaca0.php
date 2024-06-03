@@ -76,8 +76,6 @@ class DetailHasilBaca0 extends BaseController
         header('Cache-Control: max-age=0');
 
         $writer->save('php://output');
-        $spreadsheet->disconnectWorksheets();
-        unset($spreadsheet);
     }
 
     private function setSheetValue($sheet, object $row, $rowNum)
