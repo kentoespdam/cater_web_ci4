@@ -49,7 +49,7 @@ class DetailHasilBaca0 extends BaseController
 
     private function generateExcel($data)
     {
-        ini_set('memory_limit', '-1');
+        // ini_set('memory_limit', '-1');
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->setActiveSheetIndex(0);
 
