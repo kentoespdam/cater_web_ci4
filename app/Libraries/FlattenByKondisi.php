@@ -11,6 +11,7 @@ class FlattenByKondisi
     private string $periode;
     private array $branchList;
     private array $conditionList;
+    private array $kondisiTidakMengalir = ["kondisi" => "Tidak Mengalir"];
 
     public function __construct(array $data, string $periode)
     {
@@ -22,6 +23,7 @@ class FlattenByKondisi
 
         $conditions = new KondisiModel();
         $this->conditionList = $conditions->findAll();
+        array_push($this->conditionList, (object)$this->kondisiTidakMengalir);
     }
 
     public function get(): array
@@ -85,6 +87,8 @@ class FlattenByKondisi
         foreach ($this->conditionList as $condition) {
             $result[$condition->kondisi] = $this->countConditionTotal($condition);
         }
+
+        $result['unknown'] = $this->countConditionTotal((object)["kondisi" => "unknown"]);
 
         return [$result];
     }

@@ -38,30 +38,7 @@ class HasilBaca0 extends BaseController
     {
         $offset = ($page - 1) * (int)$size;
         $bacaMeterModel = new BacaMeterModel();
-        $builder = $bacaMeterModel->select("
-                baca_meter.no_sam AS nosamw,
-                baca_meter.nama,
-                baca_meter.alamat,
-                baca_meter.stan_kini,
-                baca_meter.stan_lalu,
-                baca_meter.pakai,
-                baca_meter.`user` AS petugas,
-                baca_meter.kondisi,
-                baca_meter.ket,
-                baca_meter.info AS tgl_baca,
-                baca_meter.cek,
-                mcabang.nm_cabang 
-            ")
-            ->join("munit", "SUBSTRING( baca_meter.no_sam, 1, 2 )= munit.unit", "inner")
-            ->join("mcabang", "munit.satker = mcabang.id_cabang", "inner")
-            ->where("baca_meter.tgl BETWEEN '$tglAwal' AND '$tglAkhir'")
-            ->where("baca_meter.pakai=0")
-            ->limit($size, $offset);
-        if ($cabang && $cabang != "")
-            $builder->where("munit.satker", $cabang);
-
-        $result = $builder->findAll();
-        // echo $bacaMeterModel->getLastQuery();
+        $result = $bacaMeterModel->getHasilBaca0($tglAwal, $tglAkhir, $cabang, $size, $offset);
         return $result;
     }
 
