@@ -13,6 +13,13 @@ class DetailHasilBaca extends BaseController
     {
         $req = (object)request()->getGet();
 
+        if (!isset($req->cabang) || empty($req->cabang)) {
+            return response()->setJSON([
+                "status" => "error",
+                "message" => "Cabang harus dipilih"
+            ]);
+        }
+
         $dateLib = MyDate::withPeriode($req->periode);
 
         $tglAwal = $dateLib->getStartDate();
