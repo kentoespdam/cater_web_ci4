@@ -12,7 +12,6 @@ class DetailHasilBaca extends BaseController
     public function index()
     {
         $req = (object)request()->getGet();
-        if (!isset($req->periode) && $req->periode = "") exit();
 
         $dateLib = MyDate::withPeriode($req->periode);
 
