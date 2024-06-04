@@ -205,6 +205,20 @@ class BacaMeterModel extends Model
         return $result;
     }
 
+    public function getKondisiBaca(string $tglAwal, string $tglAkhir): array
+    {
+        $builder = $this->select("
+                baca_meter.kondisi AS kondisi,
+                COUNT(baca_meter.no_sam) AS total,
+                munit.satker AS satker
+            ")
+            ->join('munit', 'SUBSTRING(baca_meter.no_sam,1,2) = munit.unit', 'inner')
+            ->where("baca_meter.tgl BETWEEN '$tglAwal' AND '$tglAkhir'")
+            ->groupBy('baca_meter.kondisi')
+            ->groupBy("munit.satker");
+        return $builder->findAll();
+    }
+
     /**
      * @param string $tglAwal
      * @param string $tglAkhir

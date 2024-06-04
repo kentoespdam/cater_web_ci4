@@ -7,31 +7,34 @@ use App\Libraries\FlattenByKondisi;
 use App\Libraries\KondisiToExcel;
 use App\Libraries\MyDate;
 use App\Models\BacaMeterModel;
-use CodeIgniter\HTTP\ResponseInterface;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class RekapKondisiBaca0 extends BaseController
+class RekapKondisiBaca extends BaseController
 {
-
-
     public function index()
     {
         $req = (object)request()->getGet();
-        $dateLib = MyDate::withDateYearAndMonth($req->tahun, $req->bulan);
+        if (!isset($req->tahun) || !isset($req->bulan) || empty($req->tahun) || empty($req->bulan))
+            return response()->setJSON([
+                "rows" => [],
+                "total" => 0,
+                "footer" => null
+            ]);
 
-        $tglAwal = $dateLib->getStartDate();
-        $tglAkhir = $dateLib->getEndDate();
         $bulan = $req->bulan < 10 ? '0' . $req->bulan : $req->bulan;
         $periode = "{$req->tahun}-{$bulan}";
 
+        $myDate = MyDate::withPeriode($periode);
+        $tglAwal = $myDate->getStartDate();
+        $tglAkhir = $myDate->getEndDate();
 
-        $bacaMeterModel = new BacaMeterModel();
+        $model = new BacaMeterModel();
+        $data = $model->getKondisiBaca($tglAwal, $tglAkhir);
 
-        $data = $bacaMeterModel->getKondisiBaca0($tglAwal, $tglAkhir);
         $flattenKondisi = new FlattenByKondisi($data, $periode);
         $result = $flattenKondisi->get();
 
-        $filename = "rekap_kondisi_baca_0-" . date('YmdHis');
+        $filename = "rekap_kondisi_baca-" . date('Y-m-d-His');
+
         $toExcel = new KondisiToExcel($result, $filename);
 
         return $toExcel->download();

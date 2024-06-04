@@ -29,6 +29,8 @@ $curMonth = date('m');
                 </div>
                 <div>
                     <a id="print" href="#">Print</a>
+                </div><div>
+                    <a id="excel" href="#">Excel</a>
                 </div>
             </div>
         </div>
@@ -38,5 +40,5 @@ $curMonth = date('m');
 <script>
     const listKondisi = JSON.parse('<?= json_encode($kondisiList) ?>')
 </script>
-<script src="<?= base_url('assets') ?>/js/laporan/kondisi.js" defer></script>
+<script src="<?= base_url('assets') ?>/js/laporan/kondisi.js?<?= time() ?>" defer></script>
 <?= $this->endSection() ?>

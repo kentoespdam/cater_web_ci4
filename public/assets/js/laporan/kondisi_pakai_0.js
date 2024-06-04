@@ -21,6 +21,7 @@ function doPrint() {
 	const tahun = tahunOpt.combobox("getValue");
 	const bulan = bulanOpt.combobox("getValue");
 	const params = {
+		time: new Date().getTime(),
 		tahun: tahun,
 		bulan: bulan,
 	};

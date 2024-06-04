@@ -6,9 +6,6 @@ use App\Controllers\BaseController;
 use App\Libraries\FlattenByKondisi;
 use App\Libraries\MyDate;
 use App\Models\BacaMeterModel;
-use App\Models\KondisiModel;
-use App\Models\Sikompak\CabangModel;
-use CodeIgniter\HTTP\ResponseInterface;
 
 class Kondisi extends BaseController
 {
@@ -29,7 +26,8 @@ class Kondisi extends BaseController
         $tglAwal = $myDate->getStartDate();
         $tglAkhir = $myDate->getEndDate();
 
-        $data = $this->find($tglAwal, $tglAkhir);
+        $model = new BacaMeterModel();
+        $data = $model->getKondisiBaca($tglAwal, $tglAkhir);
 
         $flattenKondisi = new FlattenByKondisi($data, $periode);
         $result = $flattenKondisi->get();
@@ -40,20 +38,5 @@ class Kondisi extends BaseController
             "total" => count($result),
             "footer" => $footer
         ]);
-    }
-
-    private function find($tglAwal, $tglAkhir)
-    {
-        $model = new BacaMeterModel();
-        return $model->select("
-                baca_meter.kondisi AS kondisi,
-                COUNT(baca_meter.no_sam) AS total,
-                munit.satker AS satker
-            ")
-            ->join('munit', 'SUBSTRING(baca_meter.no_sam,1,2) = munit.unit', 'inner')
-            ->where("baca_meter.tgl BETWEEN '$tglAwal' AND '$tglAkhir'")
-            ->groupBy('baca_meter.kondisi')
-            ->groupBy("munit.satker")
-            ->findAll();
     }
 }
