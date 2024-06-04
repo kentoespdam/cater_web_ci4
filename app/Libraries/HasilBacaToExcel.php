@@ -39,7 +39,7 @@ class HasilBacaToExcel
 
     public function download()
     {
-        ini_set('memory_limit', "512M");
+        ini_set('memory_limit', "1024M");
         ini_set('default_charset', '');
         mb_http_output('pass');
         mb_detect_order(["UTF-8"]);
