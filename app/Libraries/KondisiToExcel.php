@@ -40,6 +40,10 @@ class KondisiToExcel
 
     public function download()
     {
+        ini_set('memory_limit', "256M");
+        ini_set('default_charset', '');
+        mb_http_output('pass');
+        mb_detect_order(["UTF-8"]);
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $spreadsheet->setActiveSheetIndex(0);
         $sheet = $spreadsheet->getActiveSheet();
