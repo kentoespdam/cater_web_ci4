@@ -38,65 +38,98 @@ class BacaMeterModel extends Model
             ->findAll();
     }
 
+    /**
+     * @param string $tglAwal
+     * @param string $tglAkhir
+     * @param string $cek
+     * @param string $order
+     * @param int|null $page
+     * @param int|null $size
+     * @param string|null $sort
+     * @param string|null $cabang
+     * @param string|null $petugas
+     * @param string|null $kampung
+     * @param string|null $kondisi
+     * @param string|null $nosamw
+     * @return array<object>
+     */
     public function getDataVerif(
-        $page,
-        $size,
-        $tglAwal,
-        $tglAkhir,
-        $cek,
-        $order,
-        $sort = null,
-        $cabang = null,
-        $petugas = null,
-        $kampung = null,
-        $kondisi = null,
-        $nosamw = null
-    ) {
+        string $tglAwal,
+        string $tglAkhir,
+        string $cek,
+        string $order,
+        ?int $page = null,
+        ?int $size = null,
+        ?string $sort = null,
+        ?string $cabang = null,
+        ?string $petugas = null,
+        ?string $kampung = null,
+        ?string $kondisi = null,
+        ?string $nosamw = null
+    ): array {
         $offset = $page > 0 ? ($page - 1) * $size : 0;
 
         $builder = $this->select("
-                baca_meter.no AS id, 
-                baca_meter.no_sam AS nosamw, 
-                baca_meter.nama, 
-                baca_meter.tgl, 
-                baca_meter.info AS tgl_upload, 
-                baca_meter.stan_kini, 
-                baca_meter.stan_lalu, 
-                baca_meter.pakai, 
-                baca_meter.kondisi, 
-                baca_meter.ket, 
-                baca_meter.cek,
-                baca_meter.petugas
-            ")
+            baca_meter.tgl AS tgl,
+            baca_meter.no_sam AS no_sam,
+            baca_meter.stan_kini AS stan_kini,
+            baca_meter.stan_lalu AS stan_lalu,
+            baca_meter.pakai AS pakai,
+            baca_meter.petugas AS petugas,
+            baca_meter.kondisi AS kondisi,
+            baca_meter.ket AS ket,
+            baca_meter.info AS info,
+            baca_meter.ptgs_met AS ptgs_met,
+            baca_meter.rata AS rata,
+            LEFT ( baca_meter.no_sam, 2 ) AS kd_wil,
+            munit.nama AS wil,
+            munit.satker AS kd_cabang,
+            mcabang.nm_cabang AS nm_cabang,
+            t_status_cek.kd_cek AS kd_cek,
+            t_status_cek.status AS status_cek,
+            baca_meter.nama AS nama,
+            baca_meter.alamat AS alamat 
+        ")
+            ->join("munit", "SUBSTRING(baca_meter.no_sam,1,2)=munit.unit")
+            ->join("mcabang", "munit.satker=mcabang.id_cabang")
+            ->join("t_status_cek", "baca_meter.cek=t_status_cek.kd_cek")
             ->where("tgl BETWEEN '$tglAwal' AND '$tglAkhir'");
-        if ($size > 0)
+        if ($size && $size > 0) {
             $builder->limit($size, $offset);
-        if ($cek == "0")
+        }
+        if ($cek == "0") {
             $builder->whereIn("cek", ["0", ""]);
-        else
+        } else {
             $builder->where("cek", $cek);
+        }
 
-
-        if ($nosamw)
+        if ($nosamw) {
             $builder->where("no_sam", $nosamw);
+        }
 
-        if ($cabang)
-            $builder->join("pegawai", "ptgs_met=nik")
-                ->where("wil", $cabang);
+        if ($cabang) {
+            $builder->where('munit.satker', $cabang);
+        }
 
-        if ($petugas)
+        if ($petugas) {
             $builder->where("user", $petugas);
+        }
 
-        if ($kampung)
+        if ($kampung) {
             $builder->where("ptgs_met", $kampung);
+        }
 
-        if ($kondisi)
+        if ($kondisi) {
             $builder->where("kondisi", $kondisi);
+        }
 
-        if ($sort)
+        if ($sort) {
             $builder->orderBy($sort, $order);
+        }
 
-        return $builder->findAll();
+        $result = $builder->findAll();
+        // echo $this->getLastQuery();
+        return $result;
     }
 
     public function getTotalData(
@@ -156,15 +189,7 @@ class BacaMeterModel extends Model
             ->findAll();
     }
 
-    /**
-     * @param string $tglAwal
-     * @param string $tglAkhir
-     * @param string|null $satker
-     * @param int|null $size
-     * @param int|null $offset
-     * @return array<array<string,mixed>>
-     */
-    public function getHasilBaca0(string $tglAwal, string $tglAkhir, ?string $satker = null, ?int $size = null, ?int $offset = null): array
+    public function getHasilBaca0(string $tglAwal, string $tglAkhir,  ?string $satker = null,  ?int $size = null, ?int $offset = null): array
     {
 
         $builder = $this->select("

@@ -28,12 +28,12 @@ class HasilBaca extends BaseController
 
         $bacaMeter = new BacaMeterModel();
         $dataVerif = $bacaMeter->getDataVerif(
-            $page,
-            $size,
             $tglAwal,
             $tglAkhir,
             $cek,
             $order,
+            $page,
+            $size,
             $sort,
             $cabang,
             $petugas,

@@ -74,6 +74,7 @@ $routes->group("laporan", static function ($routes) {
 $routes->group("cetak", static function ($routes) {
     $routes->get("foto_meter/(:any)/(:any)/(:num)", "Cetak\FotoMeter::index/$1/$2/$3");
     $routes->get("selisih_foto", "Cetak\SelisihFoto::index");
+    $routes->get("detail_hasil_baca", "Cetak\DetailHasilBaca::index");
     $routes->get("rekap_kondisi_baca", "Cetak\RekapKondisiBaca::index");
     $routes->get("detail_hasil_baca_0", "Cetak\DetailHasilBaca0::index");
     $routes->get("rekap_kondisi_baca_0", "Cetak\RekapKondisiBaca0::index");

@@ -64,10 +64,13 @@ $curMonth = date('m');
                 <div>
                     <a id="reset" href="#">reset</a>
                 </div>
+                <div>
+                    <a id="excel" href="#">print</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<script src="<?= base_url('assets') ?>/js/laporan/hasil_baca.js" defer></script>
+<script src="<?= base_url('assets') ?>/js/laporan/hasil_baca.js?<?= time() ?>" defer></script>
 <?= $this->endSection() ?>

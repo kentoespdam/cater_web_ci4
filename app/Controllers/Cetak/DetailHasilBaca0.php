@@ -3,6 +3,7 @@
 namespace App\Controllers\Cetak;
 
 use App\Controllers\BaseController;
+use App\Libraries\HasilBacaToExcel;
 use App\Libraries\MyDate;
 use App\Models\BacaMeterModel;
 
@@ -42,7 +43,11 @@ class DetailHasilBaca0 extends BaseController
         $bacaMeterModel = new BacaMeterModel();
 
         $data = $bacaMeterModel->getHasilBaca0($tglAwal, $tglAkhir, $cabang);
-        return $this->generateExcel($data);
+        $filename = "hasil_baca_0_" . date('YmdHis');
+        $toExcel = new HasilBacaToExcel($data, $filename);
+
+        return $toExcel->download();
+        // return $this->generateExcel($data);
     }
 
     private function generateExcel($data)

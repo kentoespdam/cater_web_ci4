@@ -9,6 +9,7 @@ const $bulanOpt = $("#bulan");
 const $kondisiOpt = $("#kondisi");
 const $searchBt = $("#search");
 const $resetBt = $("#reset");
+const $excelBt = $("#excel");
 const apiUri = `${baseUri}/api/laporan/hasil_baca`;
 
 $nosamwTxt.textbox({
@@ -39,10 +40,11 @@ $kampungOpt.combobox({
 });
 $cekOpt.combobox({ width: "150px", prompt: "Cek" });
 $tahunOpt.combobox({ width: "80px", prompt: "Tahun" });
-$bulanOpt.combobox({ width: "120px", prompt: "Bulan"});
-$kondisiOpt.combobox({ width: "150px"});
+$bulanOpt.combobox({ width: "120px", prompt: "Bulan" });
+$kondisiOpt.combobox({ width: "150px" });
 $searchBt.linkbutton({ iconCls: "icon-search", onClick: doSearch });
 $resetBt.linkbutton({ iconCls: "icon-reload", onClick: resetFormAndSearch });
+$excelBt.linkbutton({ iconCls: "icon-print", onClick: doExcel });
 
 function resetFormAndSearch() {
 	resetFormFields();
@@ -72,15 +74,15 @@ $dg.datagrid({
 	method: "GET",
 	columns: [
 		[
-			{ field: "nosamw", title: "No. Pelanggan", width: 100 },
+			{ field: "no_sam", title: "No. Pelanggan", width: 100 },
 			{ field: "nama", title: "Nama. Pelanggan", width: 200 },
-			{ field: "tgl", title: "Tgl. Baca", width: 80 },
-			{ field: "tgl_upload", title: "Tgl. Upload", width: 120 },
 			{ field: "stan_kini", title: "Stan Kini", width: 80 },
 			{ field: "stan_lalu", title: "Stan Lalu", width: 80 },
 			{ field: "pakai", title: "Pemakaian", width: 80 },
 			{ field: "kondisi", title: "Kondisi WM", width: 120, sortable: true },
 			{ field: "ket", title: "Keterangan", width: 180 },
+			{ field: "tgl", title: "Tgl. Upload", width: 80 },
+			{ field: "info", title: "Tgl. Baca", width: 120 },
 			{ field: "petugas", title: "Petugas", width: 120 },
 		],
 	],
@@ -141,4 +143,10 @@ function findKampungByPetugas(petugas) {
 		searchParam.append("cabang", $cabangOpt.combobox("getValue"));
 	if (petugas) searchParam.append("petugas", petugas);
 	manipulateKampung(searchParam);
+}
+
+function doExcel() {
+	const searchParam = getSearchParams();
+	Object.assign(searchParam, { time: new Date().getTime() });
+	window.open(`${baseUri}/cetak/detail_hasil_baca?${new URLSearchParams(searchParam).toString()}`);
 }

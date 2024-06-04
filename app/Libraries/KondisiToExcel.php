@@ -46,6 +46,30 @@ class KondisiToExcel
         $sheet->setTitle('Rekap Kondisi Water Meter');
         $sheet->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
 
+        $this->setHeader($sheet);
+
+        $urut = 1;
+        $rowNum = 2;
+        foreach ($this->data as $row) {
+            $this->setCellValue($sheet, $row, $rowNum, $urut);
+            $rowNum++;
+            $urut++;
+        }
+
+        $this->setFooter($sheet, $this->data, $rowNum);
+
+        $writer = new Xlsx($spreadsheet);
+
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename=' . $this->fileName . '.xlsx');
+        header('Cache-Control: max-age=0');
+
+        $writer->save('php://output');
+    }
+
+    private function setHeader($sheet)
+    {
         $this->styleHeader['borders'] = $this->allBorder;
 
         $sheet->setCellValue("A1", "No")->getStyle("A1")->applyFromArray($this->styleHeader);
@@ -78,27 +102,7 @@ class KondisiToExcel
         $sheet->setCellValue("AB1", "Lain-Lain")->getStyle("AB1")->applyFromArray($this->styleHeader);
         $sheet->setCellValue("AC1", "Tanpa Keterangan")->getStyle("AC1")->applyFromArray($this->styleHeader);
         $sheet->setCellValue("AD1", "JML PEMAKAIAN 0")->getStyle("AD1")->applyFromArray($this->styleHeader);
-
-        $urut = 1;
-        $rowNum = 2;
-        foreach ($this->data as $row) {
-            $this->setCellValue($sheet, $row, $rowNum, $urut);
-            $rowNum++;
-            $urut++;
-        }
-
-        $this->setFooter($sheet, $this->data, $rowNum);
-
-        $writer = new Xlsx($spreadsheet);
-
-
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename=' . $this->fileName . '.xlsx');
-        header('Cache-Control: max-age=0');
-
-        $writer->save('php://output');
     }
-
     private function setCellValue($sheet, $row, $rowNum, $urut)
     {
         $sheet->setCellValue("A" . $rowNum, $urut++)->getStyle('A' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
