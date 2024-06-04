@@ -122,11 +122,7 @@ function setSearchParam(searchParam, key, element) {
 
 function findPegawaiList(cabang) {
 	const searchParam = new URLSearchParams();
-	if (!cabang || cabang === "0") {
-		alert("Cabang harus dipilih");
-		return;
-	}
-	searchParam.append("cabang", cabang);
+	if (cabang) searchParam.append("cabang", cabang);
 	$petugasOpt.combobox(
 		"reload",
 		`${baseUri}/api/sikompak/pegawai?${searchParam}`,
@@ -151,6 +147,10 @@ function findKampungByPetugas(petugas) {
 
 function doExcel() {
 	const searchParam = getSearchParams();
+	if (searchParam.cabang === "") {
+		alert("Cabang harus dipilih");
+		return;
+	}
 	Object.assign(searchParam, { time: new Date().getTime() });
 	window.open(
 		`${baseUri}/cetak/detail_hasil_baca?${new URLSearchParams(
