@@ -24,7 +24,8 @@ function dateParser(date) {
 }
 
 function imageFormatter(img, row) {
-	if (!img) return `<img src="${baseUri}/assets/images/no-image.png" id="zoomify-${row.id}" width="300">`;
+	if (!img)
+		return `<div style="min-height: 300px; "><img src="${baseUri}/assets/images/no-image.png" id="zoomify-${row.id}" width="300"></div>`;
 	return `<img src="data:image/jpg;base64, ${img}" id="zoomify-${row.id}" width="300" height="350">`;
 }
 
