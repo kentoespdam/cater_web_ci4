@@ -18,16 +18,21 @@ class ImageToString
 
     private function getThumbnailBase64()
     {
-        $filePath = str_replace("|", "/", $this->pathFromDb);
-        $filePath = str_replace("//192.168.1.215", "192.168.1.215:5553", $filePath);
-        $imageData = file_get_contents("http://$filePath");
-        $sourceImage = imagecreatefromstring($imageData);
-        $thumbnailDimensions = $this->calculateThumbnailDimensions(imagesx($sourceImage), imagesy($sourceImage));
-        $thumbnail = $this->createThumbnail($sourceImage, $thumbnailDimensions['width'], $thumbnailDimensions['height']);
-        $thumbnailData = $this->generateThumbnailData($thumbnail);
-        $this->cleanUp($sourceImage, $thumbnail);
+        try {
+            $filePath = str_replace("|", "/", $this->pathFromDb);
+            $filePath = str_replace("//192.168.1.215", "192.168.1.215:5553", $filePath);
+            $imageData = file_get_contents("http://$filePath");
 
-        return base64_encode($thumbnailData);
+            $sourceImage = imagecreatefromstring($imageData);
+            $thumbnailDimensions = $this->calculateThumbnailDimensions(imagesx($sourceImage), imagesy($sourceImage));
+            $thumbnail = $this->createThumbnail($sourceImage, $thumbnailDimensions['width'], $thumbnailDimensions['height']);
+            $thumbnailData = $this->generateThumbnailData($thumbnail);
+            $this->cleanUp($sourceImage, $thumbnail);
+
+            return base64_encode($thumbnailData);
+        } catch (\Exception $e) {
+            return "";
+        }
     }
 
     private function calculateThumbnailDimensions($sourceWidth, $sourceHeight)

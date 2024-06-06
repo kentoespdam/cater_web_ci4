@@ -42,8 +42,13 @@ setTimeout(window.close, 0);">
 
         <?php foreach ($data->rows as $row) : ?>
             <div class="mt-4 flex flex-row items-center">
-                <div class="mr-8 ml-2">
-                    <img src="data:image/jpg;base64, <?= $row->foto ?>" width="250" />
+                <div class="mr-8 ml-2 text-center">
+                    <?php if ($row->foto != "") : ?>
+                        <img src="data:image/jpg;base64, <?= $row->foto ?>" width="250" />
+                    <?php else : ?>
+                        <img src="<?= base_url('/assets/images/no-image.png') ?>" width="250" />
+                        <span class="text-red-500 w-full font-bold">Tidak Ada Foto</span>
+                    <?php endif; ?>
                 </div>
                 <div class="flex flex-col">
                     <table>
