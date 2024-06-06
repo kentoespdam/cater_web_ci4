@@ -51,7 +51,7 @@
     <script src="<?= base_url('assets') ?>/js/app.min.js" defer></script>
     <!-- Toastify -->
     <script type="text/javascript" src="<?= base_url('assets') ?>/toast/toastify.min.js" defer></script>
-    <script src="<?= base_url('assets') ?>/js/global.js<?= time() ?>" defer></script>
+    <script src="<?= base_url('assets') ?>/js/global.js?<?= time() ?>" defer></script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
