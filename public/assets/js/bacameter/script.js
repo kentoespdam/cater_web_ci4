@@ -45,7 +45,11 @@ dg.datagrid({
 					return `${progress}%`;
 				},
 				styler: (progress) => {
-					return progress >= 100 ? "color:green" : "color:red";
+					return progress < 60
+						? "color:red"
+						: progress < 90
+							? "color:blue"
+							: "color:red";
 				},
 			},
 			{

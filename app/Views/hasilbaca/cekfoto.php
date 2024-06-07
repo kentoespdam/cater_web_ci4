@@ -39,5 +39,5 @@ $curMonth = date('m');
     </div>
 </div>
 
-<script src="<?= base_url('assets') ?>/js/bacameter/cekfoto.js?<?= rand() ?>" defer></script>
+<script src="<?= base_url('assets') ?>/js/bacameter/cekfoto.js?<?= time() ?>" defer></script>
 <?= $this->endSection() ?>
