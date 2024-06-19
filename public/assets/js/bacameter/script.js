@@ -49,7 +49,7 @@ dg.datagrid({
 						? "color:red"
 						: progress < 90
 							? "color:blue"
-							: "color:red";
+							: "color:green";
 				},
 			},
 			{
