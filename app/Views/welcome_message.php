@@ -35,6 +35,15 @@ $curMonth = date('m');
                 <div>
                     <a id="reset" href="#">reset</a>
                 </div>
+
+                <div style="height: 30px; display:flex; align-items:center; gap: 10px; border: 1px solid #d0d0d0; padding: 0px 10px 0px 10px">
+                    <span>Keterangan :</span>
+                    <span style="color:red">< 60%</span>
+                    <span>|</span>
+                    <span style="color:blue">< 90</span>
+                    <span>|</span>
+                    <span style="color:green">> 90%</span>
+                </div>
             </div>
         </div>
     </div>
