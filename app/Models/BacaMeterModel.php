@@ -186,6 +186,7 @@ class BacaMeterModel extends Model
             ")
             ->where("tgl BETWEEN '$tglAwal' AND '$tglAkhir'")
             ->where("no_sam", $nosamw)
+            ->orderBy("tgl", "asc")
             ->findAll();
     }
 
