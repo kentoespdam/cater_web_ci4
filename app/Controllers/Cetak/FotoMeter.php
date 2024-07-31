@@ -28,6 +28,7 @@ class FotoMeter extends BaseController
             ->join("users", "baca_meter.user=users.username")
             ->where("baca_meter.no_sam", $nosamw)
             ->where("baca_meter.tgl BETWEEN '$tglAwal' AND '$tglAkhir'")
+            ->orderBy("baca_meter.tgl", "asc")
             ->findAll();
         $data = $this->resultBuilder($bacameter);
         return $view->setVar("data", $data)
