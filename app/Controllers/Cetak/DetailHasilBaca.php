@@ -11,6 +11,7 @@ class DetailHasilBaca extends BaseController
 {
     public function index()
     {
+        ini_set('memory_limit', "-1");
         $req = (object)request()->getGet();
 
         // if (!isset($req->cabang) || empty($req->cabang)) {
