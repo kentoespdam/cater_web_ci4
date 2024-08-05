@@ -70,7 +70,7 @@ class Target extends BaseController
     private function generateResults(array $meterReadings, string $period): array
     {
         return array_map(function (object $reading) use ($period): object {
-            $successRate = (($reading->sukses - $reading->kondisi) / $reading->jml_baca) * 100;
+            $successRate = (($reading->sukses - $reading->gagal - $reading->kondisi) / $reading->jml_baca) * 100;
             return (object) array_merge((array) $reading, [
                 'periode' => $period,
                 'persen' => number_format($successRate, 2)
@@ -91,9 +91,10 @@ class Target extends BaseController
             'jml_baca' => 0,
             'sukses' => 0,
             'gagal' => 0,
-            'kondisi' => 0
+            'kondisi' => 0,
         ]);
-        $persen = (($reduce->sukses - $reduce->kondisi) / $reduce->jml_baca) * 100;
+        $pengurangan= $reduce->sukses - $reduce->gagal - $reduce->kondisi;
+        $persen = ($pengurangan / $reduce->jml_baca) * 100;
         $reduce->persen = number_format($persen, 2);
         return [$reduce];
     }
