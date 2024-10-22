@@ -99,6 +99,8 @@ class BacaMeterModel extends Model
         }
         if ($cek == "0") {
             $builder->whereIn("cek", ["0", ""]);
+        } elseif ($cek == "4") {
+            $builder->whereIn("cek", ["0", "1", "2", "3"]);
         } else {
             $builder->where("cek", $cek);
         }
@@ -147,6 +149,8 @@ class BacaMeterModel extends Model
 
         if ($cek == "0")
             $builder->whereIn("cek", ["0", ""]);
+        elseif ($cek == "4")
+            $builder->whereIn("cek", ["0", "1", "2", "3"]);
         else
             $builder->where("cek", $cek);
 

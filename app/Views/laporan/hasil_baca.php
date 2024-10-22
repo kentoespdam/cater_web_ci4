@@ -56,6 +56,7 @@ $curMonth = date('m');
                         <option value="2">Success Koperasi</option>
                         <option value="1">Success Cabang</option>
                         <option value="3">Gagal</option>
+                        <option value="4">ALL</option>
                     </select>
                 </div>
                 <div>
