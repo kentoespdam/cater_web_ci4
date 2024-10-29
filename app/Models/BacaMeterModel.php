@@ -158,8 +158,10 @@ class BacaMeterModel extends Model
             $builder->where("no_sam", $nosamw);
 
         if ($cabang)
-            $builder->join("pegawai", "ptgs_met=nik")
-                ->where("wil", $cabang);
+            // $builder->join("pegawai", "ptgs_met=nik")
+            //     ->where("wil", $cabang);
+            $builder->join("munit", "SUBSTRING(no_sam,1,2)=unit")
+                ->where("satker", $cabang);
 
         if ($petugas)
             $builder->where("user", $petugas);
@@ -248,7 +250,9 @@ class BacaMeterModel extends Model
             ->where("baca_meter.tgl BETWEEN '$tglAwal' AND '$tglAkhir'")
             ->groupBy('baca_meter.kondisi')
             ->groupBy("munit.satker");
-        return $builder->findAll();
+        $result= $builder->findAll();
+        // echo $this->getLastQuery();
+        return $result;
     }
 
     /**
