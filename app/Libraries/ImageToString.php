@@ -21,6 +21,7 @@ class ImageToString
         try {
             $filePath = str_replace("|", "/", $this->pathFromDb);
             $filePath = str_replace("//192.168.1.215", "192.168.1.215:5553", $filePath);
+            $filePath = str_replace("/fotowm", "", $filePath);
             $imageData = file_get_contents("http://$filePath");
 
             $sourceImage = imagecreatefromstring($imageData);
