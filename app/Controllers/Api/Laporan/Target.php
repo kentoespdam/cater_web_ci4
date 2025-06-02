@@ -70,7 +70,8 @@ class Target extends BaseController
     private function generateResults(array $meterReadings, string $period): array
     {
         return array_map(function (object $reading) use ($period): object {
-            $successRate = (($reading->sukses - $reading->gagal - $reading->kondisi) / $reading->jml_baca) * 100;
+            // $successRate = (($reading->sukses - $reading->gagal - $reading->kondisi) / $reading->jml_baca) * 100;
+            $successRate = (($reading->jml_baca - $reading->gagal - $reading->kondisi) / $reading->jml_baca) * 100;
             return (object) array_merge((array) $reading, [
                 'periode' => $period,
                 'persen' => number_format($successRate, 2)
