@@ -39,7 +39,7 @@ dg.datagrid({
 	method: "GET",
 	columns: [
 		[
-			{ field: "nosamw", title: "No. Sambung", width: 100 },
+			{ field: "no_sam", title: "No. Sambung", width: 100 },
 			{ field: "nama", title: "Pelanggan", width: 200 },
 			{ field: "alamat", title: "Alamat" },
 			{ field: "stan_kini", title: "Stan Kini", width: 80 },

@@ -15,6 +15,7 @@ class HasilBaca extends Controller
         $myDate = MyDate::withPeriode($requestedDate);
         $startDate = $myDate->getStartDate();
         $endDate = $myDate->getEndDate();
+		
 
         $cacheKey = "hasil_baca_data_$startDate-$endDate";
 
