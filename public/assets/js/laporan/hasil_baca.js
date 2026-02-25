@@ -65,7 +65,7 @@ function setDefaultValues() {
 	const currentMonth = new Date().getMonth() + 1;
 	$tahunOpt.combobox("setValue", currentYear);
 	$bulanOpt.combobox("setValue", currentMonth);
-	$cekOpt.combobox("setValue", "0");
+	$cekOpt.combobox("setValue", "4");
 }
 
 $dg.datagrid({
@@ -93,6 +93,7 @@ $dg.datagrid({
 
 function doSearch() {
 	const searchParam = getSearchParams();
+	console.log(searchParam);
 	$dg.datagrid("reload", searchParam);
 }
 
@@ -158,3 +159,8 @@ function doExcel() {
 		).toString()}`,
 	);
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+	setDefaultValues();
+	doSearch();
+});

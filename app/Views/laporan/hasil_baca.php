@@ -66,7 +66,7 @@ $curMonth = date('m');
                     <a id="reset" href="#">reset</a>
                 </div>
                 <div>
-                    <a id="excel" href="#">print</a>
+                    <a id="excel" href="#">Excel</a>
                 </div>
             </div>
         </div>
