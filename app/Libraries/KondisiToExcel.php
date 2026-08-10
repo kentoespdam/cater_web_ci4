@@ -89,23 +89,24 @@ class KondisiToExcel
         $sheet->setCellValue("K1", "Tidak Mengalir")->getStyle("K1")->applyFromArray($this->styleHeader);
         $sheet->setCellValue("L1", "Tidak Ketemu Alamat")->getStyle("L1")->applyFromArray($this->styleHeader);
         $sheet->setCellValue("M1", "Meter Embun")->getStyle("M1")->applyFromArray($this->styleHeader);
-        $sheet->setCellValue("N1", "Meter Pecah")->getStyle("N1")->applyFromArray($this->styleHeader);
-        $sheet->setCellValue("O1", "Meter Buram")->getStyle("O1")->applyFromArray($this->styleHeader);
-        $sheet->setCellValue("P1", "Meter Terpendam")->getStyle("P1")->applyFromArray($this->styleHeader);
-        $sheet->setCellValue("Q1", "Meter Tertimbun")->getStyle("Q1")->applyFromArray($this->styleHeader);
-        $sheet->setCellValue("R1", "Edit Stand OCR")->getStyle("R1")->applyFromArray($this->styleHeader);
-        $sheet->setCellValue("S1", "Ada Anjing")->getStyle("S1")->applyFromArray($this->styleHeader);
-        $sheet->setCellValue("T1", "Pelanggan Tempel Angka")->getStyle("T1")->applyFromArray($this->styleHeader);
-        $sheet->setCellValue("U1", "Pagar Kunci")->getStyle("U1")->applyFromArray($this->styleHeader);
-        $sheet->setCellValue("V1", "Segel Putus")->getStyle("V1")->applyFromArray($this->styleHeader);
-        $sheet->setCellValue("W1", "Box Meter Terkunci")->getStyle("W1")->applyFromArray($this->styleHeader);
-        $sheet->setCellValue("X1", "Meter Macet")->getStyle("X1")->applyFromArray($this->styleHeader);
-        $sheet->setCellValue("Y1", "Meter Tera")->getStyle("Y1")->applyFromArray($this->styleHeader);
-        $sheet->setCellValue("Z1", "Meter Terbalik")->getStyle("Z1")->applyFromArray($this->styleHeader);
-        $sheet->setCellValue("AA1", "Air Tidak Terpakai")->getStyle("AA1")->applyFromArray($this->styleHeader);
-        $sheet->setCellValue("AB1", "Lain-Lain")->getStyle("AB1")->applyFromArray($this->styleHeader);
-        $sheet->setCellValue("AC1", "Tanpa Keterangan")->getStyle("AC1")->applyFromArray($this->styleHeader);
-        $sheet->setCellValue("AD1", "JML PEMAKAIAN 0")->getStyle("AD1")->applyFromArray($this->styleHeader);
+        $sheet->setCellValue("N1", "Meter Hilang")->getStyle("N1")->applyFromArray($this->styleHeader);
+        $sheet->setCellValue("O1", "Meter Pecah")->getStyle("O1")->applyFromArray($this->styleHeader);
+        $sheet->setCellValue("P1", "Meter Buram")->getStyle("P1")->applyFromArray($this->styleHeader);
+        $sheet->setCellValue("Q1", "Meter Terpendam")->getStyle("Q1")->applyFromArray($this->styleHeader);
+        $sheet->setCellValue("R1", "Meter Tertimbun")->getStyle("R1")->applyFromArray($this->styleHeader);
+        $sheet->setCellValue("S1", "Edit Stand OCR")->getStyle("S1")->applyFromArray($this->styleHeader);
+        $sheet->setCellValue("T1", "Ada Anjing")->getStyle("T1")->applyFromArray($this->styleHeader);
+        $sheet->setCellValue("U1", "Pelanggan Tempel Angka")->getStyle("U1")->applyFromArray($this->styleHeader);
+        $sheet->setCellValue("V1", "Pagar Kunci")->getStyle("V1")->applyFromArray($this->styleHeader);
+        $sheet->setCellValue("W1", "Segel Putus")->getStyle("W1")->applyFromArray($this->styleHeader);
+        $sheet->setCellValue("X1", "Box Meter Terkunci")->getStyle("X1")->applyFromArray($this->styleHeader);
+        $sheet->setCellValue("Y1", "Meter Macet")->getStyle("Y1")->applyFromArray($this->styleHeader);
+        $sheet->setCellValue("Z1", "Meter Tera")->getStyle("Z1")->applyFromArray($this->styleHeader);
+        $sheet->setCellValue("AA1", "Meter Terbalik")->getStyle("AA1")->applyFromArray($this->styleHeader);
+        $sheet->setCellValue("AB1", "Air Tidak Terpakai")->getStyle("AB1")->applyFromArray($this->styleHeader);
+        $sheet->setCellValue("AC1", "Lain-Lain")->getStyle("AC1")->applyFromArray($this->styleHeader);
+        $sheet->setCellValue("AD1", "Tanpa Keterangan")->getStyle("AD1")->applyFromArray($this->styleHeader);
+        $sheet->setCellValue("AE1", "JML PEMAKAIAN 0")->getStyle("AE1")->applyFromArray($this->styleHeader);
     }
     private function setCellValue($sheet, $row, $rowNum, $urut)
     {
@@ -124,23 +125,24 @@ class KondisiToExcel
         $sheet->setCellValue("K" . $rowNum, $row['Tidak Mengalir'])->getStyle('K' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
         $sheet->setCellValue("L" . $rowNum, $row['Tidak Ketemu Alamat'])->getStyle('L' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
         $sheet->setCellValue("M" . $rowNum, $row['Meter Embun'])->getStyle('M' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("N" . $rowNum, $row['Meter Pecah'])->getStyle('N' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("O" . $rowNum, $row['Meter Buram'])->getStyle('O' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("P" . $rowNum, $row['Meter Terpendam'])->getStyle('P' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("Q" . $rowNum, $row['Meter Tertimbun'])->getStyle('Q' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("R" . $rowNum, $row['Edit Stand OCR'])->getStyle('R' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("S" . $rowNum, $row['Ada Anjing'])->getStyle('S' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("T" . $rowNum, $row['Pelanggan Tempel Angka'])->getStyle('T' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("U" . $rowNum, $row['Pagar Kunci'])->getStyle('U' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("V" . $rowNum, $row['Segel Putus'])->getStyle('V' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("W" . $rowNum, $row['Box Meter Terkunci'])->getStyle('W' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("X" . $rowNum, $row['Meter Macet'])->getStyle('X' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("Y" . $rowNum, $row['Meter Tera'])->getStyle('Y' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("Z" . $rowNum, $row['Meter Terbalik'])->getStyle('Z' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("AA" . $rowNum, $row['Air Tidak Terpakai'])->getStyle('AA' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("AB" . $rowNum, $row['Lain-Lain'])->getStyle('AB' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("AC" . $rowNum, $row['unknown'])->getStyle('AC' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("AD" . $rowNum, $row['total'])->getStyle('AD' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("N" . $rowNum, $row['Meter Hilang'])->getStyle('N' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("O" . $rowNum, $row['Meter Pecah'])->getStyle('O' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("P" . $rowNum, $row['Meter Buram'])->getStyle('P' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("Q" . $rowNum, $row['Meter Terpendam'])->getStyle('Q' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("R" . $rowNum, $row['Meter Tertimbun'])->getStyle('R' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("S" . $rowNum, $row['Edit Stand OCR'])->getStyle('S' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("T" . $rowNum, $row['Ada Anjing'])->getStyle('T' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("U" . $rowNum, $row['Pelanggan Tempel Angka'])->getStyle('U' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("V" . $rowNum, $row['Pagar Kunci'])->getStyle('V' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("W" . $rowNum, $row['Segel Putus'])->getStyle('W' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("X" . $rowNum, $row['Box Meter Terkunci'])->getStyle('X' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("Y" . $rowNum, $row['Meter Macet'])->getStyle('Y' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("Z" . $rowNum, $row['Meter Tera'])->getStyle('Z' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("AA" . $rowNum, $row['Meter Terbalik'])->getStyle('AA' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("AB" . $rowNum, $row['Air Tidak Terpakai'])->getStyle('AB' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("AC" . $rowNum, $row['Lain-Lain'])->getStyle('AC' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("AD" . $rowNum, $row['unknown'])->getStyle('AD' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("AE" . $rowNum, $row['total'])->getStyle('AE' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
     }
 
     private function setFooter($sheet, $rows, $rowNum)
@@ -159,23 +161,24 @@ class KondisiToExcel
         $sheet->setCellValue("K" . $rowNum, $this->reduceTotal($rows, 'Tidak Mengalir'))->getStyle('K' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
         $sheet->setCellValue("L" . $rowNum, $this->reduceTotal($rows, 'Tidak Ketemu Alamat'))->getStyle('L' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
         $sheet->setCellValue("M" . $rowNum, $this->reduceTotal($rows, 'Meter Embun'))->getStyle('M' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("N" . $rowNum, $this->reduceTotal($rows, 'Meter Pecah'))->getStyle('N' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("O" . $rowNum, $this->reduceTotal($rows, 'Meter Buram'))->getStyle('O' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("P" . $rowNum, $this->reduceTotal($rows, 'Meter Terpendam'))->getStyle('P' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("Q" . $rowNum, $this->reduceTotal($rows, 'Meter Tertimbun'))->getStyle('Q' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("R" . $rowNum, $this->reduceTotal($rows, 'Edit Stand OCR'))->getStyle('R' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("S" . $rowNum, $this->reduceTotal($rows, 'Ada Anjing'))->getStyle('S' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("T" . $rowNum, $this->reduceTotal($rows, 'Pelanggan Tempel Angka'))->getStyle('T' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("U" . $rowNum, $this->reduceTotal($rows, 'Pagar Kunci'))->getStyle('U' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("V" . $rowNum, $this->reduceTotal($rows, 'Segel Putus'))->getStyle('V' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("W" . $rowNum, $this->reduceTotal($rows, 'Box Meter Terkunci'))->getStyle('W' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("X" . $rowNum, $this->reduceTotal($rows, 'Meter Macet'))->getStyle('X' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("Y" . $rowNum, $this->reduceTotal($rows, 'Meter Tera'))->getStyle('Y' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("Z" . $rowNum, $this->reduceTotal($rows, 'Meter Terbalik'))->getStyle('Z' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("AA" . $rowNum, $this->reduceTotal($rows, 'Air Tidak Terpakai'))->getStyle('AA' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("AB" . $rowNum, $this->reduceTotal($rows, 'Lain-Lain'))->getStyle('AB' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("AC" . $rowNum, $this->reduceTotal($rows, 'unknown'))->getStyle('AC' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
-        $sheet->setCellValue("AD" . $rowNum, $this->reduceTotal($rows, 'total'))->getStyle('AD' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("N" . $rowNum, $this->reduceTotal($rows, 'Meter Hilang'))->getStyle('N' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("O" . $rowNum, $this->reduceTotal($rows, 'Meter Pecah'))->getStyle('O' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("P" . $rowNum, $this->reduceTotal($rows, 'Meter Buram'))->getStyle('P' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("Q" . $rowNum, $this->reduceTotal($rows, 'Meter Terpendam'))->getStyle('Q' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("R" . $rowNum, $this->reduceTotal($rows, 'Meter Tertimbun'))->getStyle('R' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("S" . $rowNum, $this->reduceTotal($rows, 'Edit Stand OCR'))->getStyle('S' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("T" . $rowNum, $this->reduceTotal($rows, 'Ada Anjing'))->getStyle('T' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("U" . $rowNum, $this->reduceTotal($rows, 'Pelanggan Tempel Angka'))->getStyle('U' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("V" . $rowNum, $this->reduceTotal($rows, 'Pagar Kunci'))->getStyle('V' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("W" . $rowNum, $this->reduceTotal($rows, 'Segel Putus'))->getStyle('W' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("X" . $rowNum, $this->reduceTotal($rows, 'Box Meter Terkunci'))->getStyle('X' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("Y" . $rowNum, $this->reduceTotal($rows, 'Meter Macet'))->getStyle('Y' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("Z" . $rowNum, $this->reduceTotal($rows, 'Meter Tera'))->getStyle('Z' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("AA" . $rowNum, $this->reduceTotal($rows, 'Meter Terbalik'))->getStyle('AA' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("AB" . $rowNum, $this->reduceTotal($rows, 'Air Tidak Terpakai'))->getStyle('AB' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("AC" . $rowNum, $this->reduceTotal($rows, 'Lain-Lain'))->getStyle('AC' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("AD" . $rowNum, $this->reduceTotal($rows, 'unknown'))->getStyle('AD' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
+        $sheet->setCellValue("AE" . $rowNum, $this->reduceTotal($rows, 'total'))->getStyle('AE' . $rowNum)->applyFromArray(['borders' => $this->allBorder]);
     }
 
     private function reduceTotal($data, $field)

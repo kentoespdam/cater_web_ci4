@@ -33,6 +33,11 @@ class Kondisi extends BaseController
         $result = $flattenKondisi->get();
         $footer = $flattenKondisi->getFooter();
 
+        // echo "<pre>";
+        // print_r($result);
+        // echo "</pre>";
+        // exit;
+
         return response()->setJSON([
             "rows" => $result,
             "total" => count($result),

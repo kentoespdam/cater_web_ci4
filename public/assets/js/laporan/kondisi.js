@@ -130,6 +130,13 @@ dg.datagrid({
 				styler: (value) => "background-color:yellow",
 			},
 			{
+				field: "Meter Hilang",
+				title: "Meter Hilang",
+				align: "right",
+
+				styler: (value) => "background-color:yellow",
+			},
+			{
 				field: "Meter Pecah",
 				title: "Meter Pecah",
 				align: "right",
