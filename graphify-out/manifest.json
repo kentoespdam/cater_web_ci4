@@ -48,9 +48,9 @@
     "semantic_hash": ""
   },
   "app/Config/App.php": {
-    "mtime": 1791910262.3946943,
-    "seen": 1791910472.5194588,
-    "ast_hash": "ec459f8b11f557f84322f27c29099c31",
+    "mtime": 1791912988.8218386,
+    "seen": 1791913058.1540658,
+    "ast_hash": "f827234f5a0b81fee8d4fdd5998ec4e2",
     "semantic_hash": ""
   },
   "app/Config/Autoload.php": {
@@ -300,9 +300,9 @@
     "semantic_hash": ""
   },
   "app/Controllers/Api/CekFoto.php": {
-    "mtime": 1791910231.2509072,
-    "seen": 1791910472.5208216,
-    "ast_hash": "812d543e0c8cd418438a757daf162eca",
+    "mtime": 1791913002.5768156,
+    "seen": 1791913058.155523,
+    "ast_hash": "8d7679ff198f79039282e06691bfe6c3",
     "semantic_hash": ""
   },
   "app/Controllers/Api/HasilBaca.php": {
@@ -390,9 +390,9 @@
     "semantic_hash": ""
   },
   "app/Controllers/Cetak/FotoMeter.php": {
-    "mtime": 1791910230.968558,
-    "seen": 1791910472.5208886,
-    "ast_hash": "433c417da0b2bc6fd9994c1dcce4ed52",
+    "mtime": 1791913006.7268088,
+    "seen": 1791913058.156068,
+    "ast_hash": "c2359f43e64af3eba0deadd7f8900fd7",
     "semantic_hash": ""
   },
   "app/Controllers/Cetak/RekapKondisiBaca.php": {
@@ -510,9 +510,9 @@
     "semantic_hash": ""
   },
   "app/Libraries/ImageToString.php": {
-    "mtime": 1791910269.1655009,
-    "seen": 1791910472.5210435,
-    "ast_hash": "81d765cd5ee1e87e23722f36236a0b11",
+    "mtime": 1791913027.4870565,
+    "seen": 1791913058.1567645,
+    "ast_hash": "d38d2c18084bf7976c86f7c6eaba36d6",
     "semantic_hash": ""
   },
   "app/Libraries/KondisiToExcel.php": {
@@ -27807,6 +27807,12 @@
     "mtime": 1791910216.7611396,
     "seen": 1791910472.54169,
     "ast_hash": "6f8ce3fb23249c77b252046cf92aa09c",
+    "semantic_hash": ""
+  },
+  "tests/app/Libraries/ImageToStringTest.php": {
+    "mtime": 1791913027.5233922,
+    "seen": 1791913058.1827064,
+    "ast_hash": "0c4d3d0e60cd9fd0ca5534958602d781",
     "semantic_hash": ""
   }
 }
