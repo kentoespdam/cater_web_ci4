@@ -100,7 +100,7 @@ class BacaMeterModel extends Model
         if ($cek == "0") {
             $builder->whereIn("cek", ["0", ""]);
         } elseif ($cek == "4") {
-            $builder->whereIn("cek", ["0", "1", "2", "3",""]);
+            $builder->whereIn("cek", ["0", "1", "2", "3", ""]);
         } else {
             $builder->where("cek", $cek);
         }
@@ -122,7 +122,7 @@ class BacaMeterModel extends Model
         }
 
         if ($kondisi) {
-            $builder->where("kondisi", $kondisi);
+            $builder->where("LOWER(kondisi)", strtolower($kondisi));
         }
 
         if ($sort) {
@@ -150,7 +150,7 @@ class BacaMeterModel extends Model
         if ($cek == "0")
             $builder->whereIn("cek", ["0", ""]);
         elseif ($cek == "4")
-            $builder->whereIn("cek", ["0", "1", "2", "3",""]);
+            $builder->whereIn("cek", ["0", "1", "2", "3", ""]);
         else
             $builder->where("cek", $cek);
 
@@ -171,7 +171,7 @@ class BacaMeterModel extends Model
 
         if ($kondisi)
             $builder->where("kondisi", $kondisi);
-        $result= $builder->first();
+        $result = $builder->first();
         // echo $this->getLastQuery();
         return $result;
     }
@@ -241,41 +241,18 @@ class BacaMeterModel extends Model
 
     public function getKondisiBaca(string $tglAwal, string $tglAkhir): array
     {
-        // $builder = $this->select("
-        //         baca_meter.kondisi AS kondisi,
-        //         COUNT(baca_meter.no_sam) AS total,
-        //         munit.satker AS satker
-        //     ")
-        //     ->join('munit', 'SUBSTRING(baca_meter.no_sam,1,2) = munit.unit', 'inner')
-        //     ->where("baca_meter.tgl BETWEEN '$tglAwal' AND '$tglAkhir'")
-        //     ->groupBy('baca_meter.kondisi')
-        //     ->groupBy("munit.satker");
-        // $result= $builder->findAll();
-
         $builder = $this->select("
-            CASE
-                WHEN baca_meter.kondisi = 'WM Terpendam' THEN 'Meter Terpendam'
-                WHEN baca_meter.kondisi = 'WM Rusak' THEN 'Meter Pecah'
-                WHEN baca_meter.kondisi = 'WM Hilang' THEN 'Meter Hilang'
-                ELSE baca_meter.kondisi
-            END AS kondisi,
-            COUNT(baca_meter.no_sam) AS total,
-            munit.satker AS satker
-        ")
-        ->join('munit', 'SUBSTRING(baca_meter.no_sam,1,2) = munit.unit', 'inner')
-        ->where("baca_meter.tgl BETWEEN '$tglAwal' AND '$tglAkhir'")
-        // ->where('baca_meter.pakai', 0)
-        ->groupBy("
-            CASE
-                WHEN baca_meter.kondisi = 'WM Terpendam' THEN 'Meter Terpendam'
-                WHEN baca_meter.kondisi = 'WM Rusak' THEN 'Meter Pecah'
-                WHEN baca_meter.kondisi = 'WM Hilang' THEN 'Meter Hilang'
-                ELSE baca_meter.kondisi
-            END
-        ", false)
-        ->groupBy('munit.satker');
+                LOWER(baca_meter.kondisi) AS kondisi,
+                COUNT(baca_meter.no_sam) AS total,
+                munit.satker AS satker
+            ")
+            ->join('munit', 'SUBSTRING(baca_meter.no_sam,1,2) = munit.unit', 'inner')
+            ->where("baca_meter.tgl BETWEEN '$tglAwal' AND '$tglAkhir'")
+            ->groupBy('LOWER(baca_meter.kondisi)')
+            ->groupBy("munit.satker");
+        $result = $builder->findAll();
         // echo $this->getLastQuery();
-        $result= $builder->findAll();
+
         return $result;
     }
 
@@ -286,37 +263,37 @@ class BacaMeterModel extends Model
      */
     public function getKondisiBaca0(string $tglAwal, string $tglAkhir): array
     {
-        // $builder = $this->select("
-        //         baca_meter.kondisi AS kondisi,
-        //         COUNT(baca_meter.no_sam) AS total,
-        //         munit.satker AS satker
-        //     ")
-        //     ->join('munit', 'SUBSTRING(baca_meter.no_sam,1,2) = munit.unit', 'inner')
-        //     ->where("baca_meter.tgl BETWEEN '$tglAwal' AND '$tglAkhir'")
-        //     ->where("baca_meter.pakai", 0)
-        //     ->groupBy('baca_meter.kondisi')
-        //     ->groupBy("munit.satker");
-
         $builder = $this->select("
-            CASE
-                WHEN baca_meter.kondisi = 'WM Terpendam' THEN 'Meter Terpendam'
-                WHEN baca_meter.kondisi = 'WM Rusak' THEN 'Meter Pecah'
-                ELSE baca_meter.kondisi
-            END AS kondisi,
-            COUNT(baca_meter.no_sam) AS total,
-            munit.satker AS satker
-        ")
-        ->join('munit', 'SUBSTRING(baca_meter.no_sam,1,2) = munit.unit', 'inner')
-        ->where("baca_meter.tgl BETWEEN '$tglAwal' AND '$tglAkhir'")
-        ->where('baca_meter.pakai', 0)
-        ->groupBy("
-            CASE
-                WHEN baca_meter.kondisi = 'WM Terpendam' THEN 'Meter Terpendam'
-                WHEN baca_meter.kondisi = 'WM Rusak' THEN 'Meter Pecah'
-                ELSE baca_meter.kondisi
-            END
-        ", false)
-        ->groupBy('munit.satker');
+                baca_meter.kondisi AS kondisi,
+                COUNT(baca_meter.no_sam) AS total,
+                munit.satker AS satker
+            ")
+            ->join('munit', 'SUBSTRING(baca_meter.no_sam,1,2) = munit.unit', 'inner')
+            ->where("baca_meter.tgl BETWEEN '$tglAwal' AND '$tglAkhir'")
+            ->where("baca_meter.pakai", 0)
+            ->groupBy('baca_meter.kondisi')
+            ->groupBy("munit.satker");
+
+        // $builder = $this->select("
+        //     CASE
+        //         WHEN baca_meter.kondisi = 'WM Terpendam' THEN 'Meter Terpendam'
+        //         WHEN baca_meter.kondisi = 'WM Rusak' THEN 'Meter Pecah'
+        //         ELSE baca_meter.kondisi
+        //     END AS kondisi,
+        //     COUNT(baca_meter.no_sam) AS total,
+        //     munit.satker AS satker
+        // ")
+        // ->join('munit', 'SUBSTRING(baca_meter.no_sam,1,2) = munit.unit', 'inner')
+        // ->where("baca_meter.tgl BETWEEN '$tglAwal' AND '$tglAkhir'")
+        // ->where('baca_meter.pakai', 0)
+        // ->groupBy("
+        //     CASE
+        //         WHEN baca_meter.kondisi = 'WM Terpendam' THEN 'Meter Terpendam'
+        //         WHEN baca_meter.kondisi = 'WM Rusak' THEN 'Meter Pecah'
+        //         ELSE baca_meter.kondisi
+        //     END
+        // ", false)
+        // ->groupBy('munit.satker');
 
         return $builder->findAll();
     }

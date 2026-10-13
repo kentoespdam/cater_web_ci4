@@ -7,102 +7,117 @@ use App\Models\Sikompak\CabangModel;
 
 class FlattenByKondisi
 {
+    private static ?array $cachedBranches = null;
+    private static ?array $cachedConditions = null;
+
     private array $data;
     private string $periode;
     private array $branchList;
     private array $conditionList;
-    private array $kondisiTidakMengalir = ["kondisi" => "Tidak Mengalir"];
 
-    public function __construct(array $data, string $periode)
-    {
+    private ?array $rows = null;
+    private ?array $footer = null;
+
+    public function __construct(
+        array $data,
+        string $periode,
+        ?array $branchList = null,
+        ?array $conditionList = null
+    ) {
         $this->data = $data;
         $this->periode = $periode;
 
-        $branches = new CabangModel();
-        $this->branchList = $branches->findAll();
+        $this->branchList = $branchList ?? (self::$cachedBranches ??= (new CabangModel())->findAll());
+        $this->conditionList = $conditionList ?? (self::$cachedConditions ??= (new KondisiModel())->select("LOWER(kondisi) AS kondisi")->findAll());
+    }
 
-        $conditions = new KondisiModel();
-        $this->conditionList = $conditions->findAll();
-        array_push($this->conditionList, (object)$this->kondisiTidakMengalir);
+    public static function clearCache(): void
+    {
+        self::$cachedBranches = null;
+        self::$cachedConditions = null;
     }
 
     public function get(): array
     {
-        return array_map(function (object $branch) {
-            return $this->flattenBranch($branch);
-        }, $this->branchList);
+        if ($this->rows === null) {
+            $this->process();
+        }
+
+        return $this->rows;
     }
 
     public function getFooter(): array
     {
-        return $this->flattenFooter();
-    }
-
-    private function flattenBranch(object $branch): array
-    {
-        $result = [
-            'satker' => $branch->id_cabang,
-            'cabang' => $branch->nm_cabang,
-            'periode' => $this->periode,
-            'total' => $this->countBranchTotal($branch),
-        ];
-
-        foreach ($this->conditionList as $condition) {
-            $result[$condition->kondisi] = $this->countBranchConditionTotal($branch, $condition);
+        if ($this->footer === null) {
+            $this->process();
         }
 
-        $result['unknown'] = $this->countBranchUnknownTotal($branch);
-
-        return $result;
+        return $this->footer;
     }
 
-    private function countBranchTotal(object $branch): int
+    private function process(): void
     {
-        return array_reduce($this->data, function (int $total, object $row) use ($branch) {
-            return $row->satker === $branch->id_cabang ? $total + $row->total : $total;
-        }, 0);
-    }
+        $matrix = [];
+        $branchTotals = [];
+        $branchUnknowns = [];
+        $condTotals = [];
+        $grandTotal = 0;
+        $totalUnknown = 0;
 
-    private function countBranchConditionTotal(object $branch, object $condition): int
-    {
-        return array_reduce($this->data, function (int $count, object $row) use ($branch, $condition) {
-            return $row->satker === $branch->id_cabang && $row->kondisi === $condition->kondisi ? $count + $row->total : $count;
-        }, 0);
-    }
+        foreach ($this->data as $item) {
+            $satker = (string) (is_object($item) ? ($item->satker ?? '') : ($item['satker'] ?? ''));
+            $kondisi = (string) (is_object($item) ? ($item->kondisi ?? '') : ($item['kondisi'] ?? ''));
+            $total = (int) (is_object($item) ? ($item->total ?? 0) : ($item['total'] ?? 0));
 
-    private function countBranchUnknownTotal(object $branch): int
-    {
-        return array_reduce($this->data, function (int $count, object $row) use ($branch) {
-            return $row->satker === $branch->id_cabang && $row->kondisi === '' ? $count + $row->total : $count;
-        }, 0);
-    }
+            $grandTotal += $total;
+            $branchTotals[$satker] = ($branchTotals[$satker] ?? 0) + $total;
 
-    private function flattenFooter(): array
-    {
-        $result = [
-            "cabang" => "Total",
-            "total" => $this->countTotal()
-        ];
-
-        foreach ($this->conditionList as $condition) {
-            $result[$condition->kondisi] = $this->countConditionTotal($condition);
+            $kLower = strtolower(trim($kondisi));
+            if ($kLower === '' || $kLower === 'unknown') {
+                $branchUnknowns[$satker] = ($branchUnknowns[$satker] ?? 0) + $total;
+                $totalUnknown += $total;
+                $matrix[$satker]['unknown'] = $branchUnknowns[$satker];
+                $condTotals['unknown'] = $totalUnknown;
+            } else {
+                $matrix[$satker][$kLower] = ($matrix[$satker][$kLower] ?? 0) + $total;
+                $condTotals[$kLower] = ($condTotals[$kLower] ?? 0) + $total;
+            }
         }
 
-        $result['unknown'] = $this->countConditionTotal((object)["kondisi" => "unknown"]);
+        $this->rows = [];
+        foreach ($this->branchList as $branch) {
+            $satker = (string) (is_object($branch) ? ($branch->id_cabang ?? '') : ($branch['id_cabang'] ?? ''));
+            $nmCabang = (string) (is_object($branch) ? ($branch->nm_cabang ?? '') : ($branch['nm_cabang'] ?? ''));
 
-        return [$result];
-    }
-    private function countTotal(): int
-    {
-        return array_reduce($this->data, fn (int $carry, object $item) => $carry + $item->total, 0);
-    }
+            $row = [
+                'satker'  => $satker,
+                'cabang'  => $nmCabang,
+                'periode' => $this->periode,
+                'total'   => $branchTotals[$satker] ?? 0,
+            ];
 
-    private function countConditionTotal(object $condition): int
-    {
-        return array_reduce(
-            $this->data,
-            fn (int $carry, object $item) => $carry + ($item->kondisi === $condition->kondisi ? $item->total : 0),
-            0
-        );
+            foreach ($this->conditionList as $cond) {
+                $cName = (string) (is_object($cond) ? ($cond->kondisi ?? '') : ($cond['kondisi'] ?? ''));
+                $cKey = strtolower(trim($cName));
+                $row[$cName] = $matrix[$satker][$cKey] ?? 0;
+            }
+
+            $row['unknown'] = $branchUnknowns[$satker] ?? 0;
+            $this->rows[] = $row;
+        }
+
+        $footerRow = [
+            'cabang' => 'Total',
+            'total'  => $grandTotal,
+        ];
+
+        foreach ($this->conditionList as $cond) {
+            $cName = (string) (is_object($cond) ? ($cond->kondisi ?? '') : ($cond['kondisi'] ?? ''));
+            $cKey = strtolower(trim($cName));
+            $footerRow[$cName] = $condTotals[$cKey] ?? 0;
+        }
+
+        $footerRow['unknown'] = $totalUnknown;
+        $this->footer = [$footerRow];
     }
 }
