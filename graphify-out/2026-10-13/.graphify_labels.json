@@ -55,7 +55,7 @@
   "53": "createPrototypeRange",
   "54": "CodeIgniter\\Test\\CIUnitTestCase",
   "55": "BacaMeterModel",
-  "56": "PegawaiModel",
+  "56": "CodeIgniter\\Model",
   "57": "bootstrap3-wysihtml5.all.min.js",
   "58": "sf",
   "59": "SelectAdapter",

@@ -1,7 +1,7 @@
 # Graph Report - cater_web_ci4  (2026-10-13)
 
 ## Corpus Check
-- 735 files · ~3,359,087 words
+- 735 files · ~3,358,876 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 580 file(s) not represented in the graph (top: .css 483, .scss 24, .less 22)
 
@@ -11,7 +11,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `0b7ba098`
+- Built from commit: `d604cafc`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
