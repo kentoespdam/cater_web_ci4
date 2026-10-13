@@ -129,3 +129,6 @@ nb-configuration.xml
 .dolt/
 *.db
 .beads-credential-key
+
+.claude/skills/
+graphify-out/cache/
