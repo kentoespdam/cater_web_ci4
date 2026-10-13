@@ -188,19 +188,36 @@ class KondisiToExcel
         return response()->download($tempFile, null)->setFileName($this->fileName . '.xlsx');
     }
 
-    private function setHeader($sheet)
+    private function setHeader(Worksheet $sheet)
     {
         $headers = [
-            "No", "Periode", "Cabang", "Normal", "Mati", "Stand Tunggu", "Stand Mundur",
-            "Ganti WM", "Pencurian Air", "Tidak Terjangkau", "Berembun", "Hilang",
-            "Rusak", "Buram", "Terpendam", "Tempel Angka", "Pagar Kunci",
-            "Segel Putus", "Cabut Meter", "Tanpa Keterangan", "Total",
+            "No",
+            "Periode",
+            "Cabang",
+            "Normal",
+            "Mati",
+            "Stand Tunggu",
+            "Stand Mundur",
+            "Ganti WM",
+            "Pencurian Air",
+            "Tidak Terjangkau",
+            "Berembun",
+            "Hilang",
+            "Rusak",
+            "Buram",
+            "Terpendam",
+            "Tempel Angka",
+            "Pagar Kunci",
+            "Segel Putus",
+            "Cabut Meter",
+            "Tanpa Keterangan",
+            "Total",
         ];
 
         $sheet->fromArray($headers, null, 'A1');
     }
 
-    private function reduceTotal($data, $field)
+    private function reduceTotal(array $data, string $field): int
     {
         return array_sum(array_column($data, $field));
     }

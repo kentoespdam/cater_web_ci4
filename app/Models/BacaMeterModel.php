@@ -332,4 +332,81 @@ class BacaMeterModel extends Model
 
         return $builder->findAll();
     }
+
+    public function getDataVerifCursor(
+        string $tglAwal,
+        string $tglAkhir,
+        string $cek,
+        string $order = 'asc',
+        ?string $cabang = null,
+        ?string $petugas = null,
+        ?string $kampung = null,
+        ?string $kondisi = null,
+        ?string $nosamw = null
+    ): \Generator {
+        $builder = $this->select("
+            baca_meter.tgl AS tgl,
+            baca_meter.no_sam AS no_sam,
+            baca_meter.stan_kini AS stan_kini,
+            baca_meter.stan_lalu AS stan_lalu,
+            baca_meter.pakai AS pakai,
+            baca_meter.petugas AS petugas,
+            baca_meter.kondisi AS kondisi,
+            baca_meter.ket AS ket,
+            baca_meter.info AS info,
+            baca_meter.ptgs_met AS ptgs_met,
+            baca_meter.rata AS rata,
+            LEFT ( baca_meter.no_sam, 2 ) AS kd_wil,
+            munit.nama AS wil,
+            munit.satker AS kd_cabang,
+            mcabang.nm_cabang AS nm_cabang,
+            t_status_cek.kd_cek AS kd_cek,
+            t_status_cek.status AS status_cek,
+            baca_meter.nama AS nama,
+            baca_meter.alamat AS alamat 
+        ")
+            ->join("munit", "SUBSTRING(baca_meter.no_sam,1,2)=munit.unit")
+            ->join("mcabang", "munit.satker=mcabang.id_cabang")
+            ->join("t_status_cek", "baca_meter.cek=t_status_cek.kd_cek")
+            ->where("tgl BETWEEN '$tglAwal' AND '$tglAkhir'");
+
+        if ($cek == "0") {
+            $builder->whereIn("cek", ["0", ""]);
+        } elseif ($cek == "4") {
+            $builder->whereIn("cek", ["0", "1", "2", "3", ""]);
+        } else {
+            $builder->where("cek", $cek);
+        }
+
+        if ($nosamw) {
+            $builder->where("no_sam", $nosamw);
+        }
+
+        if ($cabang) {
+            $builder->where('munit.satker', $cabang);
+        }
+
+        if ($petugas) {
+            $builder->where("user", $petugas);
+        }
+
+        if ($kampung) {
+            $builder->where("ptgs_met", $kampung);
+        }
+
+        if ($kondisi) {
+            $builder->where("LOWER(kondisi)", strtolower($kondisi));
+        }
+
+        if ($order) {
+            $builder->orderBy("baca_meter.tgl", $order);
+        }
+
+        $query = $builder->get();
+
+        while ($row = $query->getUnbufferedRow('array')) {
+            yield $row;
+        }
+    }
 }
+
