@@ -342,7 +342,7 @@ class BacaMeterModel extends Model
         ?string $petugas = null,
         ?string $kampung = null,
         ?string $kondisi = null,
-        ?string $nosamw = null
+        ?string $nosamw = null,
     ): \Generator {
         $builder = $this->select("
             baca_meter.tgl AS tgl,
@@ -409,4 +409,3 @@ class BacaMeterModel extends Model
         }
     }
 }
-

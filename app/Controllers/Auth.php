@@ -9,12 +9,10 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
-
 class Auth extends Controller
 {
-    protected $request;
-
     use ResponseTrait;
+    protected $request;
     protected $type = "json";
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
@@ -41,6 +39,7 @@ class Auth extends Controller
 
         if (empty($username) || empty($password)) {
             $session->setFlashdata("message", "user atau password tidak boleh kosong!");
+
             return redirect("auth");
         }
 
@@ -48,20 +47,23 @@ class Auth extends Controller
 
         if (empty($user) || $password != $user->encrypted_password) {
             $session->setFlashdata("message", "user atau password salah!!!");
+
             return redirect("auth");
         }
 
         $session->set("logged_in", [
             "username" => $user->username,
             "nama" => $user->nama_lengkap,
-            "kdStatus" => $user->kd_status
+            "kdStatus" => $user->kd_status,
         ]);
+
         return redirect("/");
     }
 
     public function logout()
     {
         session()->destroy();
+
         return redirect("/");
     }
 }

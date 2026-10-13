@@ -13,6 +13,7 @@ class Kondisi extends BaseController
         $view = \Config\Services::renderer();
         $session = session()->get("logged_in");
         $kondisiModel = new KondisiModel();
+
         return $view->setVar("session", $session)
             ->setVar("kondisiList", $kondisiModel->findAll())
             ->render("laporan/kondisi");

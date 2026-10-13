@@ -58,7 +58,7 @@
     <div class="wrapper">
         <?= $this->include('template/topbar') ?>
         <?= $this->include('template/navigation')
-        ?>
+    ?>
 
         <div class="content-wrapper">
             <section class="content" style="min-height: 92vh;">

@@ -58,8 +58,8 @@ setTimeout(window.close, 0);">
                             <td>
                                 <?php
                                 $exp = explode("-", $row->tgl);
-                                echo $exp[0] . " - " . getMonthName((int)$exp[1])
-                                ?>
+            echo $exp[0] . " - " . getMonthName((int) $exp[1])
+            ?>
                             </td>
                         </tr>
                         <tr>

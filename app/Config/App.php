@@ -19,6 +19,11 @@ class App extends BaseConfig
     public string $baseURL = 'http://localhost:8080/';
 
     /**
+     * Image server host and port for water meter images
+     */
+    public string $imageServerHost = '192.168.1.215:5553';
+
+    /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
      * If you want to accept multiple Hostnames, set this.
      *

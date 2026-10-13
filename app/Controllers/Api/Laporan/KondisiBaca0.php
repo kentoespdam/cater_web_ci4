@@ -4,28 +4,26 @@ namespace App\Controllers\Api\Laporan;
 
 use App\Controllers\BaseController;
 use App\Libraries\FlattenByKondisi;
-use App\Libraries\MyDate;
 use App\Models\BacaMeterModel;
-use CodeIgniter\HTTP\ResponseInterface;
 
 class KondisiBaca0 extends BaseController
 {
     public function index()
     {
-        $req = (object)request()->getGet();
-        if (!isset($req->tahun) || !isset($req->bulan) || empty($req->tahun) || empty($req->bulan))
+        $req = (object) request()->getGet();
+
+        if (!isset($req->tahun) || !isset($req->bulan) || empty($req->tahun) || empty($req->bulan)) {
             return response()->setJSON([
                 "rows" => [],
                 "total" => 0,
-                "footer" => null
+                "footer" => null,
             ]);
+        }
 
         $bulan = $req->bulan < 10 ? '0' . $req->bulan : $req->bulan;
         $periode = "{$req->tahun}-{$bulan}";
 
-        $myDate = MyDate::withDateYearAndMonth($req->tahun, $req->bulan);
-        $tglAwal = $myDate->getStartDate();
-        $tglAkhir = $myDate->getEndDate();
+        [$tglAwal, $tglAkhir] = get_start_end_date_from_year_month($req->tahun ?? null, $req->bulan ?? null);
 
         $model = new BacaMeterModel();
         $data = $model->getKondisiBaca0($tglAwal, $tglAkhir);
@@ -37,7 +35,7 @@ class KondisiBaca0 extends BaseController
         return response()->setJSON([
             "rows" => $result,
             "total" => count($result),
-            "footer" => $footer
+            "footer" => $footer,
         ]);
     }
 }

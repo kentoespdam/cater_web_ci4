@@ -35,7 +35,7 @@ $routes->group("api", static function ($routes) {
         $routes->get("", "Api\CekFoto::index");
         $routes->get("detail/(:num)", "Api\CekFoto::detail/$1");
     });
-    $routes->group("selisih",  static function ($routes) {
+    $routes->group("selisih", static function ($routes) {
         $routes->get("", "Api\Selisih::index");
         $routes->get("default_property", "Api\Selisih::defaultPropertyGrid");
     });

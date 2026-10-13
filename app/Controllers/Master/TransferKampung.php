@@ -5,7 +5,6 @@ namespace App\Controllers\Master;
 use App\Controllers\BaseController;
 use App\Models\Sikompak\PegawaiModel;
 use App\Models\UserAndroidModel;
-use CodeIgniter\HTTP\ResponseInterface;
 
 class TransferKampung extends BaseController
 {
@@ -14,8 +13,10 @@ class TransferKampung extends BaseController
         helper('bulan');
         $view = \Config\Services::renderer();
         $session = session()->get("logged_in");
-        if ($session['kdStatus'] !== "admin")
+
+        if ($session['kdStatus'] !== "admin") {
             return redirect()->to('/');
+        }
 
         $userModel = new UserAndroidModel();
         $userList = $userModel->select("username")->findAll();

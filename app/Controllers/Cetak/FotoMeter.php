@@ -5,7 +5,6 @@ namespace App\Controllers\Cetak;
 use App\Controllers\BaseController;
 use App\Libraries\ImageToString;
 use App\Models\BacaMeterModel;
-use CodeIgniter\HTTP\ResponseInterface;
 
 class FotoMeter extends BaseController
 {
@@ -31,6 +30,7 @@ class FotoMeter extends BaseController
             ->orderBy("baca_meter.tgl", "asc")
             ->findAll();
         $data = $this->resultBuilder($bacameter);
+
         return $view->setVar("data", $data)
             ->render("cetak/fotometer");
     }
@@ -45,15 +45,16 @@ class FotoMeter extends BaseController
 
         $result["rows"] = array_map(function ($baca) {
             $imgToStr = new ImageToString($baca->foto);
-            return (object)[
+
+            return (object) [
                 "foto" => $imgToStr->get(),
                 "tgl" => $baca->tgl,
                 "tgl_baca" => $baca->tgl_baca,
                 "stan_kini" => $baca->stan_kini,
-                "petugas" => $baca->petugas
+                "petugas" => $baca->petugas,
             ];
         }, $data);
 
-        return (object)$result;
+        return (object) $result;
     }
 }

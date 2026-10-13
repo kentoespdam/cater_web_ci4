@@ -17,7 +17,7 @@ class AuthModel extends Model
         "nama_lengkap",
         "cabang",
         "encrypted_password",
-        "kd_status"
+        "kd_status",
     ];
 
 }

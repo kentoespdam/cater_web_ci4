@@ -5,7 +5,6 @@ namespace App\Controllers\Hasilbaca;
 use App\Controllers\BaseController;
 use App\Models\KondisiModel;
 use App\Models\Sikompak\CabangModel;
-use CodeIgniter\HTTP\ResponseInterface;
 
 class Verif extends BaseController
 {
@@ -17,6 +16,7 @@ class Verif extends BaseController
         $cabangModel = new CabangModel();
         $kondisiModel = new KondisiModel();
         $cabangData = $cabangModel->orderBy("id_cabang", "asc")->findAll();
+
         return $view->setVar("session", $session)
             ->setVar("cabangs", $cabangData)
             ->setVar("kondisis", $kondisiModel->findAll())

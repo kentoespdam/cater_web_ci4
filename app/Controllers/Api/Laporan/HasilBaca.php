@@ -10,8 +10,8 @@ class HasilBaca extends BaseController
     public function index()
     {
         $req = (object) request()->getGet();
-        $page = empty($req->page) ? 0 : (int)$req->page;
-        $size = empty($req->rows) ? 10 : (int)$req->rows;
+        $page = empty($req->page) ? 0 : (int) $req->page;
+        $size = empty($req->rows) ? 10 : (int) $req->rows;
         $sort = empty($req->sort) ? null : $req->sort;
         $order = empty($req->order) ? "asc" : $req->order;
         $nosamw = isset($req->nosamw) && !empty($req->nosamw) ? $req->nosamw : null;
@@ -39,7 +39,7 @@ class HasilBaca extends BaseController
             $petugas,
             $kampung,
             $kondisi,
-            $nosamw
+            $nosamw,
         );
         $totalData = $bacaMeter->getTotalData(
             $tglAwal,
@@ -49,11 +49,11 @@ class HasilBaca extends BaseController
             $petugas,
             $kampung,
             $kondisi,
-            $nosamw
+            $nosamw,
         );
         $result = [
             "rows" => $dataVerif,
-            "total" => $totalData->total
+            "total" => $totalData->total,
         ];
 
         return response()->setJSON($result);

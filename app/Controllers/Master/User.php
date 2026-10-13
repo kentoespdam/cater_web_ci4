@@ -12,8 +12,10 @@ class User extends BaseController
         helper('bulan');
         $view = \Config\Services::renderer();
         $session = session()->get("logged_in");
-        if ($session['kdStatus'] !== "admin")
+
+        if ($session['kdStatus'] !== "admin") {
             return redirect()->to('/');
+        }
 
         $cabangModel = new CabangModel();
         $cabangList = $cabangModel->findAll();
@@ -27,8 +29,11 @@ class User extends BaseController
     {
         $view = \Config\Services::renderer();
         $session = session()->get("logged_in");
-        if ($session['kdStatus'] !== "admin")
+
+        if ($session['kdStatus'] !== "admin") {
             return redirect()->to('/');
+        }
+
         return $view->setVar("session", $session)
             ->render('master/user_add');
     }

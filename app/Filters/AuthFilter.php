@@ -27,8 +27,10 @@ class AuthFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         $serverPath = $request->getUri()->getPath();
-        if (!session()->get("logged_in") && !str_starts_with($serverPath, "/auth")) // && !in_array("auth", $path))
+
+        if (!session()->get("logged_in") && !str_starts_with($serverPath, "/auth")) { // && !in_array("auth", $path))
             return redirect()->to("auth");
+        }
     }
 
     /**

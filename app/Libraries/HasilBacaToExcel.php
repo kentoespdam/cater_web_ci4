@@ -21,6 +21,7 @@ class HasilBacaToExcel
     public function download(): DownloadResponse
     {
         $tempFile = tempnam(sys_get_temp_dir(), 'hasil_baca_');
+
         if ($tempFile === false) {
             throw new \RuntimeException('Failed to create temporary file.');
         }
@@ -35,7 +36,7 @@ class HasilBacaToExcel
         $writer->openToFile($tempFile);
 
         $fields = [
-            "tgl", "no_sam", "stan_kini", "stan_lalu", "pakai", "petugas", "kondisi", "ket", "info", "ptgs_met", "rata", "kd_wil", "wil", "kd_cabang", "nm_cabang", "kd_cek", "status_cek", "nama", "alamat"
+            "tgl", "no_sam", "stan_kini", "stan_lalu", "pakai", "petugas", "kondisi", "ket", "info", "ptgs_met", "rata", "kd_wil", "wil", "kd_cabang", "nm_cabang", "kd_cek", "status_cek", "nama", "alamat",
         ];
 
         $boldStyle = (new Style())->withFontBold(true);
@@ -47,6 +48,7 @@ class HasilBacaToExcel
                 $item = (array) $item;
             }
             $rowValues = [];
+
             foreach ($fields as $field) {
                 $rowValues[] = $item[$field] ?? '';
             }

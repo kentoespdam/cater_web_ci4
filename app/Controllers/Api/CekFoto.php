@@ -10,14 +10,17 @@ class CekFoto extends BaseController
 {
     public function index()
     {
-        $req = (object)request()->getGet();
-        if (!isset($req->nosamw) || !isset($req->tglAwal) || !isset($req->tglAkhir) || empty($req->nosamw) || empty($req->tglAwal) || empty($req->tglAkhir))
+        $req = (object) request()->getGet();
+
+        if (!isset($req->nosamw) || !isset($req->tglAwal) || !isset($req->tglAkhir) || empty($req->nosamw) || empty($req->tglAwal) || empty($req->tglAkhir)) {
             return response()->setJSON([]);
+        }
         $bacaMeterModel = new BacaMeterModel();
         $data = $bacaMeterModel->cekFoto($req->nosamw, $req->tglAwal, $req->tglAkhir);
+
         return response()->setJSON([
             "rows" => $data,
-            "total" => count($data)
+            "total" => count($data),
         ]);
     }
 
@@ -29,6 +32,7 @@ class CekFoto extends BaseController
             ->find($id);
         $imgToString = new ImageToString($data->foto);
         $data->foto = $imgToString->get();
+
         return response()->setJSON([$data]);
     }
 }

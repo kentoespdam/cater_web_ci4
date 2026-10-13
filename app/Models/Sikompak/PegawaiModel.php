@@ -21,6 +21,6 @@ class PegawaiModel extends Model
         "cabang",
         "jmltarget",
         "jmlterbaca",
-        "persentase"
+        "persentase",
     ];
 }

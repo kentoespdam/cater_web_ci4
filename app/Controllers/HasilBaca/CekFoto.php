@@ -3,7 +3,6 @@
 namespace App\Controllers\Hasilbaca;
 
 use App\Controllers\BaseController;
-use CodeIgniter\HTTP\ResponseInterface;
 
 class CekFoto extends BaseController
 {

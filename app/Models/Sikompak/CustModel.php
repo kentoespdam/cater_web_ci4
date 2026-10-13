@@ -3,7 +3,6 @@
 namespace App\Models\Sikompak;
 
 use CodeIgniter\Model;
-use \Config\Database\connect;
 
 class CustModel extends Model
 {
@@ -89,7 +88,7 @@ class CustModel extends Model
         'lati',
         'kode_sumber',
         'kode_wil',
-        'unit'
+        'unit',
     ];
 
     public function getTotalPelangganPerPembaca()
@@ -107,12 +106,15 @@ class CustModel extends Model
             ->groupBy("p.pembaca_meter")
             ->orderBy("p.wil", "asc");
         $result = $builder->findAll();
+
         return $result;
     }
 
     public function getDetailKampungPelanggan($kdPelanggan)
     {
-        if (count($kdPelanggan) == 0) return [];
+        if (count($kdPelanggan) == 0) {
+            return [];
+        }
         $db = \Config\Database::connect("sikompak");
         $builder = $db->table("$this->table c")
             ->select("

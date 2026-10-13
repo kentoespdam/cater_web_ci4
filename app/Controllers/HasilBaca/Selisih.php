@@ -23,12 +23,14 @@ class Selisih extends BaseController
     private function getCabang(): array
     {
         $cabangModel = new CabangModel();
+
         return $cabangModel->orderBy("id_cabang", "asc")->findAll();
     }
 
     private function getPegawai(): array
     {
         $pegawaiModel = new PegawaiModel();
+
         return $pegawaiModel->select("pembaca_meter AS petugas")
             ->where("pembaca_meter IS NOT NULL")
             ->where("pembaca_meter <> '-'")

@@ -9,6 +9,7 @@ class Home extends BaseController
         helper('bulan');
         $view = \Config\Services::renderer();
         $session = session()->get("logged_in");
+
         return $view->setVar("session", $session)
             ->render('welcome_message');
     }

@@ -5,7 +5,6 @@ namespace App\Controllers\Cetak;
 use App\Controllers\BaseController;
 use App\Libraries\FlattenByKondisi;
 use App\Libraries\KondisiToExcel;
-use App\Libraries\MyDate;
 use App\Models\BacaMeterModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -26,9 +25,7 @@ class RekapKondisiBaca extends BaseController
         $bulan = $req->bulan < 10 ? '0' . $req->bulan : $req->bulan;
         $periode = "{$req->tahun}-{$bulan}";
 
-        $myDate = MyDate::withPeriode($periode);
-        $tglAwal = $myDate->getStartDate();
-        $tglAkhir = $myDate->getEndDate();
+        [$tglAwal, $tglAkhir] = get_start_end_date_from_periode($periode);
 
         $model = new BacaMeterModel();
         $data = $model->getKondisiBaca($tglAwal, $tglAkhir);

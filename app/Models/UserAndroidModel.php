@@ -23,7 +23,7 @@ class UserAndroidModel extends Model
         "salt",
         "created_at",
         "updated_at",
-        "password"
+        "password",
     ];
 
 }

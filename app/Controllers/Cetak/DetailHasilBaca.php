@@ -4,7 +4,6 @@ namespace App\Controllers\Cetak;
 
 use App\Controllers\BaseController;
 use App\Libraries\HasilBacaToExcel;
-use App\Libraries\MyDate;
 use App\Models\BacaMeterModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -13,12 +12,9 @@ class DetailHasilBaca extends BaseController
     public function index(): ResponseInterface
     {
         ini_set('memory_limit', "-1");
-        $req = (object)request()->getGet();
+        $req = (object) request()->getGet();
 
-        $dateLib = MyDate::withPeriode($req->periode);
-
-        $tglAwal = $dateLib->getStartDate();
-        $tglAkhir = $dateLib->getEndDate();
+        [$tglAwal, $tglAkhir] = get_start_end_date_from_periode($req->periode ?? null);
         $order = empty($req->order) ? "asc" : $req->order;
         $nosamw = isset($req->nosamw) && !empty($req->nosamw) ? $req->nosamw : null;
         $cabang = isset($req->cabang) && $req->cabang != "" ? $req->cabang : null;
@@ -37,7 +33,7 @@ class DetailHasilBaca extends BaseController
             $petugas,
             $kampung,
             $kondisi,
-            $nosamw
+            $nosamw,
         );
 
         $filename = "detail_hasil_baca_" . $req->periode . "-" . date('YmdHis');
@@ -46,4 +42,3 @@ class DetailHasilBaca extends BaseController
         return $toExcel->download();
     }
 }
-

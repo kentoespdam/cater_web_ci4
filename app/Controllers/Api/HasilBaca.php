@@ -2,7 +2,6 @@
 
 namespace App\Controllers\Api;
 
-use App\Libraries\MyDate;
 use App\Models\BacaMeterModel;
 use App\Models\Sikompak\CustModel;
 use CodeIgniter\Controller;
@@ -12,10 +11,8 @@ class HasilBaca extends Controller
     public function index()
     {
         $requestedDate = request()->getGet("periode");
-        $myDate = MyDate::withPeriode($requestedDate);
-        $startDate = $myDate->getStartDate();
-        $endDate = $myDate->getEndDate();
-		
+        [$startDate, $endDate] = get_start_end_date_from_periode($requestedDate);
+
 
         $cacheKey = "hasil_baca_data_$startDate-$endDate";
 
@@ -34,7 +31,7 @@ class HasilBaca extends Controller
         $data = [
             "total" => count($result),
             "rows" => $result,
-            "footer" => $footer
+            "footer" => $footer,
         ];
 
         cache()->save($cacheKey, $data, 120);
@@ -47,18 +44,22 @@ class HasilBaca extends Controller
         return
             array_map(function ($item) use ($hasilBaca) {
                 $curHasilBaca = $this->getCurrentHasilBaca($hasilBaca, $item->petugas);
-                if ($curHasilBaca == null) return [
-                    "petugas" => $item->petugas,
-                    "nama" => $item->nama,
-                    "cabang" => $item->cabang,
-                    "jml_pelanggan" => $item->jml_pelanggan,
-                    "jml_baca" => 0,
-                    "cek_koperasi" => 0,
-                    "cek_cabang" => 0,
-                    "gagal" => 0,
-                    "progress" => 0,
-                ];
+
+                if ($curHasilBaca == null) {
+                    return [
+                        "petugas" => $item->petugas,
+                        "nama" => $item->nama,
+                        "cabang" => $item->cabang,
+                        "jml_pelanggan" => $item->jml_pelanggan,
+                        "jml_baca" => 0,
+                        "cek_koperasi" => 0,
+                        "cek_cabang" => 0,
+                        "gagal" => 0,
+                        "progress" => 0,
+                    ];
+                }
                 $persen = ($curHasilBaca->jml_baca / $item->jml_pelanggan) * 100;
+
                 return [
                     "petugas" => $item->petugas,
                     "nama" => $item->nama,
@@ -68,7 +69,7 @@ class HasilBaca extends Controller
                     "cek_koperasi" => $curHasilBaca->cek_koperasi,
                     "cek_cabang" => $curHasilBaca->cek_cabang,
                     "gagal" => $curHasilBaca->gagal,
-                    "progress" => number_format($persen, 2)
+                    "progress" => number_format($persen, 2),
                 ];
             }, $cust);
     }
@@ -78,9 +79,10 @@ class HasilBaca extends Controller
         $values = array_values(
             array_filter($hasilBaca, function ($item) use ($petugas) {
                 return $item->petugas == $petugas;
-            })
+            }),
         );
-        return count($values) == 0 ? null : (object)$values[0];
+
+        return count($values) == 0 ? null : (object) $values[0];
     }
 
     private function generateFooter(array $data): array
@@ -99,9 +101,11 @@ class HasilBaca extends Controller
 
     public function getDataGagal()
     {
-        $req = (object)request()->getGet();
-        if (!isset($req->petugas) || !isset($req->periode) || empty($req->petugas) || empty($req->periode))
+        $req = (object) request()->getGet();
+
+        if (!isset($req->petugas) || !isset($req->periode) || empty($req->petugas) || empty($req->periode)) {
             return response()->setJSON([]);
+        }
         $skrng = new \DateTime("$req->periode-01");
         $tglAwal = date("Y-m-d", $skrng->getTimestamp());
         $akhir = new \DateTime($skrng->format('Y-m-t'));
@@ -119,7 +123,7 @@ class HasilBaca extends Controller
         return response()->setJSON([
             "id" => $req->petugas,
             "total" => count($custData),
-            "rows" => $custData
+            "rows" => $custData,
         ]);
     }
 }

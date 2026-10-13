@@ -5,22 +5,14 @@ namespace App\Controllers\Cetak;
 use App\Controllers\BaseController;
 use App\Libraries\FlattenByKondisi;
 use App\Libraries\KondisiToExcel;
-use App\Libraries\MyDate;
 use App\Models\BacaMeterModel;
-use CodeIgniter\HTTP\ResponseInterface;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class RekapKondisiBaca0 extends BaseController
 {
-
-
     public function index()
     {
-        $req = (object)request()->getGet();
-        $dateLib = MyDate::withDateYearAndMonth($req->tahun, $req->bulan);
-
-        $tglAwal = $dateLib->getStartDate();
-        $tglAkhir = $dateLib->getEndDate();
+        $req = (object) request()->getGet();
+        [$tglAwal, $tglAkhir] = get_start_end_date_from_year_month($req->tahun ?? null, $req->bulan ?? null);
         $bulan = $req->bulan < 10 ? '0' . $req->bulan : $req->bulan;
         $periode = "{$req->tahun}-{$bulan}";
 

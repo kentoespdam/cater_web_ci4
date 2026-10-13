@@ -13,6 +13,7 @@ class HasilBaca0 extends BaseController
         $view = \Config\Services::renderer();
         $session = session()->get("logged_in");
         $cabangModel = new CabangModel();
+
         return $view->setVar("session", $session)
             ->setVar("cabangList", $cabangModel->findAll())
             ->render("laporan/hasilBaca0");

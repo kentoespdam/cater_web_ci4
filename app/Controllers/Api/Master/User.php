@@ -14,7 +14,7 @@ class User extends BaseController
 
     public function index()
     {
-        $req = (object)$this->request->getGet();
+        $req = (object) $this->request->getGet();
         $page = $req->page ?? 1;
         $size = $req->rows ?? 10;
         $sort = $req->sort ?? "user";
@@ -22,7 +22,7 @@ class User extends BaseController
 
         return $this->respond([
             "total" => $this->getTotal(),
-            "rows" => $this->getListUser($page, $size, $sort, $order)
+            "rows" => $this->getListUser($page, $size, $sort, $order),
         ]);
     }
 
@@ -36,6 +36,7 @@ class User extends BaseController
         $offset = ($page - 1) * $size;
 
         $userModel = new UserAndroidModel();
+
         return $userModel->select("
                     uid, 
                     username AS user,
@@ -55,6 +56,7 @@ class User extends BaseController
             ->where("pembaca_meter IS NOT NULL")
             ->where("pembaca_meter !=", "-")
             ->findAll();
+
         return count($data);
     }
 
@@ -64,6 +66,7 @@ class User extends BaseController
         $data = $pegawaiModel->select("nik AS id, nama AS kampung")
             ->where("pembaca_meter", $user)
             ->findAll();
+
         return $data;
     }
 
@@ -85,7 +88,7 @@ class User extends BaseController
                 'required' => 'Nama harus diisi!',
             ], 'email' => [
                 'required' => 'Email harus diisi!',
-                'valid_email' => 'Email tidak valid!'
+                'valid_email' => 'Email tidak valid!',
             ],
             'cabang' => [
                 'required' => 'Cabang harus diisi!',
@@ -99,7 +102,7 @@ class User extends BaseController
             return $this->fail($validation->getErrors());
         }
 
-        $resp = $this->saveUser((object)$input);
+        $resp = $this->saveUser((object) $input);
 
         return $this->respondCreated($resp);
     }
@@ -108,12 +111,14 @@ class User extends BaseController
     {
         $userModel = new UserAndroidModel();
         $exist = $userModel->where("email", $input->email)->first();
-        if ($exist)
+
+        if ($exist) {
             return [
                 'error' => 400,
                 'status' => 400,
-                'message' => 'Email sudah terdaftar'
+                'message' => 'Email sudah terdaftar',
             ];
+        }
 
         $data = [
             "unique_id" => uniqid(),
@@ -121,10 +126,11 @@ class User extends BaseController
             "nama_lengkap" => $input->nama,
             "cabang" => $input->cabang,
             "email" => $input->email,
-            "password" => "tanggal25"
+            "password" => "tanggal25",
         ];
 
         $userModel->insert($data);
+
         return [
             'status' => 201,
             'message' => 'User created',
@@ -138,16 +144,18 @@ class User extends BaseController
             ->where("users.username", $user)
             ->findAll();
 
-        if (count($rows) > 0)
+        if (count($rows) > 0) {
             return $this->respond([
                 "error" => 500,
                 "status" => 500,
-                "messages" => 'Tidak dapat menghapus User, User masih memiliki kampung!'
+                "messages" => 'Tidak dapat menghapus User, User masih memiliki kampung!',
             ])->setStatusCode(500);
+        }
 
         $userModel->where("username", $user)->delete();
+
         return $this->respondDeleted([
-            "messages" => 'User deleted'
+            "messages" => 'User deleted',
         ]);
     }
 }

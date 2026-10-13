@@ -1,6 +1,7 @@
 <?php
 
 use CodeIgniter\CLI\CLI;
+
 CLI::write('[' . get_class($exception) . ']', 'light_gray', 'red');
 CLI::write($message);
 CLI::write('at ' . CLI::color(clean_path($exception->getFile()) . ':' . $exception->getLine(), 'green'));
@@ -61,16 +62,19 @@ if (defined('SHOW_DEBUG_BACKTRACE') && SHOW_DEBUG_BACKTRACE) {
                     if(is_object($value)) {
                         return "Object(" . get_class($value) . ")";
                     }
+
                     if(is_array($value)) {
                         return count($value) ? '[...]' : '[]';
                     }
+
                     if($value == null) {
                         return "null";
                     }
+
                     return var_export($value, true);
                 },
-                array_values($error['args'] ?? [])
-            )
+                array_values($error['args'] ?? []),
+            ),
         );
 
         $function .= '(' . $args . ')';

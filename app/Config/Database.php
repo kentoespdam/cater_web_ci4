@@ -49,7 +49,7 @@ class Database extends Config
             'time'     => 'H:i:s',
         ],
     ];
-    
+
     public array $sikompak = [
         'DSN'          => '',
         'hostname'     => 'localhost',
