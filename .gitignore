@@ -124,3 +124,8 @@ nb-configuration.xml
 
 /results/
 /phpunit*.xml
+
+# Beads / Dolt files (added by bd init)
+.dolt/
+*.db
+.beads-credential-key

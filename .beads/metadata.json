@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "cater_web_ci4",
+  "project_id": "9ed71639-030b-4b52-ad16-be04843b3565"
+}
