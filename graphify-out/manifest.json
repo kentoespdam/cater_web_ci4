@@ -42,15 +42,15 @@
     "semantic_hash": ""
   },
   "app/Common.php": {
-    "mtime": 1791788651.5059407,
-    "seen": 1791900966.991041,
-    "ast_hash": "24c51abb039300c131fdf46d192816dd",
+    "mtime": 1791910382.114181,
+    "seen": 1791910472.5194547,
+    "ast_hash": "ff526a26e510b04b1eda011d19c6a97c",
     "semantic_hash": ""
   },
   "app/Config/App.php": {
-    "mtime": 1791788651.5059407,
-    "seen": 1791900966.9910433,
-    "ast_hash": "70f958b7b747a68fe21ac28b9e3822a5",
+    "mtime": 1791910262.3946943,
+    "seen": 1791910472.5194588,
+    "ast_hash": "ec459f8b11f557f84322f27c29099c31",
     "semantic_hash": ""
   },
   "app/Config/Autoload.php": {
@@ -114,9 +114,9 @@
     "semantic_hash": ""
   },
   "app/Config/Database.php": {
-    "mtime": 1791788651.5061502,
-    "seen": 1791900966.9910667,
-    "ast_hash": "01d686650132a8c809c69e18c2a030e0",
+    "mtime": 1791910230.7050707,
+    "seen": 1791910472.5198479,
+    "ast_hash": "2b24093520bd85ba9b6717b0d0f0d04b",
     "semantic_hash": ""
   },
   "app/Config/DocTypes.php": {
@@ -138,9 +138,9 @@
     "semantic_hash": ""
   },
   "app/Config/Events.php": {
-    "mtime": 1791788651.5061502,
-    "seen": 1791900966.9910746,
-    "ast_hash": "2afb0600237bb85dd7f1c4f2adae00d2",
+    "mtime": 1791910230.6585793,
+    "seen": 1791910472.519961,
+    "ast_hash": "fbced2b8c96db4ccad04bffaecf75cef",
     "semantic_hash": ""
   },
   "app/Config/Exceptions.php": {
@@ -156,9 +156,9 @@
     "semantic_hash": ""
   },
   "app/Config/Filters.php": {
-    "mtime": 1791788651.5061502,
-    "seen": 1791900966.9910803,
-    "ast_hash": "5ca03159532e90ce89d71d157ea0a6c0",
+    "mtime": 1791910230.7256231,
+    "seen": 1791910472.52004,
+    "ast_hash": "9f0029b3157957f9aaa77dc9aad8fbee",
     "semantic_hash": ""
   },
   "app/Config/ForeignCharacters.php": {
@@ -246,9 +246,9 @@
     "semantic_hash": ""
   },
   "app/Config/Routes.php": {
-    "mtime": 1791788651.5066216,
-    "seen": 1791900966.9911046,
-    "ast_hash": "1f50d7a55171d40565981a7df9d6def0",
+    "mtime": 1791910230.5052836,
+    "seen": 1791910472.520564,
+    "ast_hash": "d763811f1c2d13b2007f4e1c1be95fd3",
     "semantic_hash": ""
   },
   "app/Config/Routing.php": {
@@ -294,81 +294,81 @@
     "semantic_hash": ""
   },
   "app/Config/View.php": {
-    "mtime": 1791788651.5066216,
-    "seen": 1791900966.9911208,
-    "ast_hash": "d12b9a0519983fdd7c42223166775ce6",
+    "mtime": 1791910230.6121628,
+    "seen": 1791910472.5208192,
+    "ast_hash": "967fa0cca568fd41e4178fee6e050a7c",
     "semantic_hash": ""
   },
   "app/Controllers/Api/CekFoto.php": {
-    "mtime": 1791788651.5076025,
-    "seen": 1791900966.9911227,
-    "ast_hash": "4c4805fb5804116b6027afdd1cfd1a2b",
+    "mtime": 1791910231.2509072,
+    "seen": 1791910472.5208216,
+    "ast_hash": "812d543e0c8cd418438a757daf162eca",
     "semantic_hash": ""
   },
   "app/Controllers/Api/HasilBaca.php": {
-    "mtime": 1791788651.5076635,
-    "seen": 1791900966.991124,
-    "ast_hash": "5dd6c2e72d174aceba9bdb7b1f26bc3e",
+    "mtime": 1791910331.6996753,
+    "seen": 1791910472.5208235,
+    "ast_hash": "5d394fece5ee384844cbe8c22b895547",
     "semantic_hash": ""
   },
   "app/Controllers/Api/Laporan/HasilBaca.php": {
-    "mtime": 1791879729.6532211,
-    "seen": 1791900966.9911256,
-    "ast_hash": "bc509df4f6d2c62e9856c9c0671f52f4",
+    "mtime": 1791910231.175947,
+    "seen": 1791910472.520826,
+    "ast_hash": "ca36409755bb78c02a3d92021e62b0fa",
     "semantic_hash": ""
   },
   "app/Controllers/Api/Laporan/HasilBaca0.php": {
-    "mtime": 1791788651.5077758,
-    "seen": 1791900966.991127,
-    "ast_hash": "28868c83e4637062ffe626fba770b310",
+    "mtime": 1791910337.53369,
+    "seen": 1791910472.5208282,
+    "ast_hash": "46bd441cb35178d37e79f7a8d1c3d903",
     "semantic_hash": ""
   },
   "app/Controllers/Api/Laporan/Kondisi.php": {
-    "mtime": 1791788651.5077758,
-    "seen": 1791900966.9911282,
-    "ast_hash": "5b5ce3ec612f63c06afc5c7bf07e246e",
+    "mtime": 1791910343.0217035,
+    "seen": 1791910472.5208302,
+    "ast_hash": "8a7450884daab26f97c0108c164f9e8d",
     "semantic_hash": ""
   },
   "app/Controllers/Api/Laporan/KondisiBaca0.php": {
-    "mtime": 1791788651.5077758,
-    "seen": 1791900966.99113,
-    "ast_hash": "160ac6b348389d495418d26b8fad90d8",
+    "mtime": 1791910349.1867182,
+    "seen": 1791910472.520832,
+    "ast_hash": "e8bbc68a6fb606d1a8e58f4c064da76e",
     "semantic_hash": ""
   },
   "app/Controllers/Api/Laporan/Target.php": {
-    "mtime": 1791788651.5077758,
-    "seen": 1791900966.9911315,
-    "ast_hash": "ffa6448923804b553c1e758f320680fb",
+    "mtime": 1791910353.4737287,
+    "seen": 1791910472.520834,
+    "ast_hash": "07b6956fd17f10157523629d7f511fbc",
     "semantic_hash": ""
   },
   "app/Controllers/Api/Master/User.php": {
-    "mtime": 1791788651.5077758,
-    "seen": 1791900966.9911337,
-    "ast_hash": "196311b47c8ffff89ab879fb98685832",
+    "mtime": 1791910231.1544154,
+    "seen": 1791910472.5208359,
+    "ast_hash": "6037b3c296141698777b4dcd52aae1fa",
     "semantic_hash": ""
   },
   "app/Controllers/Api/Selisih.php": {
-    "mtime": 1791788651.5077758,
-    "seen": 1791900966.9911351,
-    "ast_hash": "abbdffc0ec367b816594879f9157d825",
+    "mtime": 1791910231.1238003,
+    "seen": 1791910472.5208378,
+    "ast_hash": "442397424e05a8ca322c7d42c0809128",
     "semantic_hash": ""
   },
   "app/Controllers/Api/Sikompak/Cabang.php": {
-    "mtime": 1791788651.5077758,
-    "seen": 1791900966.9911366,
-    "ast_hash": "55eca91e7b9138c5a54e1792cbc507e8",
+    "mtime": 1791910231.2663739,
+    "seen": 1791910472.5208395,
+    "ast_hash": "d4ef2e1de98e090c12770551ecebc3c6",
     "semantic_hash": ""
   },
   "app/Controllers/Api/Sikompak/Pegawai.php": {
-    "mtime": 1791788651.50811,
-    "seen": 1791900966.991138,
-    "ast_hash": "3abcdae556e418769af03a337054b2dc",
+    "mtime": 1791910231.261756,
+    "seen": 1791910472.5208414,
+    "ast_hash": "3051b2d804f60ba58ececcd2f4a5b4ce",
     "semantic_hash": ""
   },
   "app/Controllers/Auth.php": {
-    "mtime": 1791788651.50811,
-    "seen": 1791900966.9911397,
-    "ast_hash": "b8d2f3aa3222add1301f4a771141c660",
+    "mtime": 1791910231.0544415,
+    "seen": 1791910472.5208428,
+    "ast_hash": "2d628815789d156b7cabdfc1f73200d7",
     "semantic_hash": ""
   },
   "app/Controllers/BaseController.php": {
@@ -378,63 +378,63 @@
     "semantic_hash": ""
   },
   "app/Controllers/Cetak/DetailHasilBaca.php": {
-    "mtime": 1791908765.4043868,
-    "seen": 1791908792.2905753,
-    "ast_hash": "7e093299e1d2b0c29793ba3a32faa02e",
+    "mtime": 1791910359.8347435,
+    "seen": 1791910472.520885,
+    "ast_hash": "fd4142f1685baaa4cc8c9ebccb8e3dc7",
     "semantic_hash": ""
   },
   "app/Controllers/Cetak/DetailHasilBaca0.php": {
-    "mtime": 1791907479.6932633,
-    "seen": 1791907544.518191,
-    "ast_hash": "3f11b508578d2470c471472f69645224",
+    "mtime": 1791910363.7987525,
+    "seen": 1791910472.520887,
+    "ast_hash": "380cc95ea82572b515a0fffea661fb6d",
     "semantic_hash": ""
   },
   "app/Controllers/Cetak/FotoMeter.php": {
-    "mtime": 1791788651.5082688,
-    "seen": 1791900966.9911463,
-    "ast_hash": "0dc0193d352578f6df88adff23a32925",
+    "mtime": 1791910230.968558,
+    "seen": 1791910472.5208886,
+    "ast_hash": "433c417da0b2bc6fd9994c1dcce4ed52",
     "semantic_hash": ""
   },
   "app/Controllers/Cetak/RekapKondisiBaca.php": {
-    "mtime": 1791906936.1931589,
-    "seen": 1791906956.9567144,
-    "ast_hash": "740c2a5afaeed92300e985e2e187b770",
+    "mtime": 1791910371.010769,
+    "seen": 1791910472.5208907,
+    "ast_hash": "2ba9fe88902a90ed08539816becbb03b",
     "semantic_hash": ""
   },
   "app/Controllers/Cetak/RekapKondisiBaca0.php": {
-    "mtime": 1791788651.5082688,
-    "seen": 1791900966.99115,
-    "ast_hash": "fa5657b3d7a7af3413871189f2655469",
+    "mtime": 1791910375.98478,
+    "seen": 1791910472.5208924,
+    "ast_hash": "5c51f1d8dba7fa802a47517636e997fc",
     "semantic_hash": ""
   },
   "app/Controllers/Cetak/SelisihFoto.php": {
-    "mtime": 1791788651.5082688,
-    "seen": 1791900966.991151,
-    "ast_hash": "31551d80f2706659fce285eebcbfd686",
+    "mtime": 1791910230.9816759,
+    "seen": 1791910472.520894,
+    "ast_hash": "3309d223d1c17a44d70db9a2709f322a",
     "semantic_hash": ""
   },
   "app/Controllers/HasilBaca/CekFoto.php": {
-    "mtime": 1791788651.5082688,
-    "seen": 1791900966.991154,
-    "ast_hash": "13a352ed7a76740659cfc0ce1f5c7d79",
+    "mtime": 1791910231.0727973,
+    "seen": 1791910472.5208955,
+    "ast_hash": "bef91ff85f8b01ff279701428d7e26bd",
     "semantic_hash": ""
   },
   "app/Controllers/HasilBaca/Selisih.php": {
-    "mtime": 1791788651.5085416,
-    "seen": 1791900966.9911554,
-    "ast_hash": "4967a3cafda17b3c57b1c94097e6bce6",
+    "mtime": 1791910231.062502,
+    "seen": 1791910472.520897,
+    "ast_hash": "53c199475e63ee0e2ebe043d8f25d0fb",
     "semantic_hash": ""
   },
   "app/Controllers/HasilBaca/Verif.php": {
-    "mtime": 1791788651.5085416,
-    "seen": 1791900966.9911573,
-    "ast_hash": "51f4bd48f4d0a959e17aea303462bdd1",
+    "mtime": 1791910231.0687513,
+    "seen": 1791910472.5208988,
+    "ast_hash": "204a12aeb8e2f44762bc2c1fd85de630",
     "semantic_hash": ""
   },
   "app/Controllers/Home.php": {
-    "mtime": 1791788651.5085416,
-    "seen": 1791900966.9911587,
-    "ast_hash": "6cb4474f6dca4621101b4ef6c18be9c6",
+    "mtime": 1791910231.0078883,
+    "seen": 1791910472.5209007,
+    "ast_hash": "9a51f83d5e3c4c02e006f050eaa126e6",
     "semantic_hash": ""
   },
   "app/Controllers/Laporan/HasilBaca.php": {
@@ -444,51 +444,51 @@
     "semantic_hash": ""
   },
   "app/Controllers/Laporan/HasilBaca0.php": {
-    "mtime": 1791788651.5086703,
-    "seen": 1791900966.9911618,
-    "ast_hash": "3a86b1a8091e0629e32ce2b54dfba491",
+    "mtime": 1791910231.0322068,
+    "seen": 1791910472.5209448,
+    "ast_hash": "ce548af89953e37983eac253176bbe18",
     "semantic_hash": ""
   },
   "app/Controllers/Laporan/Kondisi.php": {
-    "mtime": 1791788651.5086703,
-    "seen": 1791900966.9911633,
-    "ast_hash": "28654a0fb401b08063b7c68f5c425e42",
+    "mtime": 1791910231.0365453,
+    "seen": 1791910472.5209467,
+    "ast_hash": "6796c59a9053af0725458954ea2a58af",
     "semantic_hash": ""
   },
   "app/Controllers/Laporan/KondisiBaca0.php": {
-    "mtime": 1791788651.5086703,
-    "seen": 1791900966.991165,
-    "ast_hash": "3a13e6714603862e369e7a724c118cc8",
+    "mtime": 1791910231.0410326,
+    "seen": 1791910472.5209484,
+    "ast_hash": "7dbe738203160dc7c0f46d7df884b247",
     "semantic_hash": ""
   },
   "app/Controllers/Laporan/Target.php": {
-    "mtime": 1791788651.5086703,
-    "seen": 1791900966.9911668,
-    "ast_hash": "94e5e3474069905b321b5c21fce3be32",
+    "mtime": 1791910231.0275888,
+    "seen": 1791910472.5209503,
+    "ast_hash": "cef931c78cd7e8c380be1f8af9adc885",
     "semantic_hash": ""
   },
   "app/Controllers/Master/TransferKampung.php": {
-    "mtime": 1791788651.5086703,
-    "seen": 1791900966.9911685,
-    "ast_hash": "1409ddbaabf7416e3f7b5ee5249a1e67",
+    "mtime": 1791910231.015377,
+    "seen": 1791910472.520952,
+    "ast_hash": "b99b29155f1079dd7b1808edc5448758",
     "semantic_hash": ""
   },
   "app/Controllers/Master/User.php": {
-    "mtime": 1791788651.508833,
-    "seen": 1791900966.9911704,
-    "ast_hash": "b0fc91fa2ffe53ac8f480b3c9fd69f84",
+    "mtime": 1791910231.0242248,
+    "seen": 1791910472.520954,
+    "ast_hash": "c66eb8ea7d658ac3a7bd04194d3fe8df",
     "semantic_hash": ""
   },
   "app/Filters/AuthFilter.php": {
-    "mtime": 1791788651.5089931,
-    "seen": 1791900966.991172,
-    "ast_hash": "de2b34d75b716e53f57a8883ecd01898",
+    "mtime": 1791910230.9391565,
+    "seen": 1791910472.5209556,
+    "ast_hash": "361ebf28699b1a7493c3db278044a8d8",
     "semantic_hash": ""
   },
   "app/Helpers/bulan_helper.php": {
-    "mtime": 1791788651.5090668,
-    "seen": 1791900966.9911737,
-    "ast_hash": "b6244ac7ea1148bf9b407d2a61640672",
+    "mtime": 1791910416.864864,
+    "seen": 1791910472.5209577,
+    "ast_hash": "7727e3be76a6a396a65f9003a41b9c8e",
     "semantic_hash": ""
   },
   "app/Language/en/Validation.php": {
@@ -504,39 +504,33 @@
     "semantic_hash": ""
   },
   "app/Libraries/HasilBacaToExcel.php": {
-    "mtime": 1791907504.6615133,
-    "seen": 1791907544.5186043,
-    "ast_hash": "a2e7d579f86e3481f7e23c49df746979",
+    "mtime": 1791910230.9069552,
+    "seen": 1791910472.5210414,
+    "ast_hash": "e7d86b3a470b7e4366f24e33fdc47fb7",
     "semantic_hash": ""
   },
   "app/Libraries/ImageToString.php": {
-    "mtime": 1791788651.5092087,
-    "seen": 1791900966.9911795,
-    "ast_hash": "53d655aee3f7d32159045a74e930d539",
+    "mtime": 1791910269.1655009,
+    "seen": 1791910472.5210435,
+    "ast_hash": "81d765cd5ee1e87e23722f36236a0b11",
     "semantic_hash": ""
   },
   "app/Libraries/KondisiToExcel.php": {
-    "mtime": 1791906995.2610478,
-    "seen": 1791907544.5186255,
-    "ast_hash": "5048bf045f9ef92053a40121d28bdb3d",
-    "semantic_hash": ""
-  },
-  "app/Libraries/MyDate.php": {
-    "mtime": 1791904524.9925678,
-    "seen": 1791904552.1130195,
-    "ast_hash": "c4d31fb975c9fdf204c8f96f693cd670",
+    "mtime": 1791910230.9325814,
+    "seen": 1791910472.521045,
+    "ast_hash": "4187489ceb54842ee9f4ff1166900651",
     "semantic_hash": ""
   },
   "app/Models/AuthModel.php": {
-    "mtime": 1791788651.5094147,
-    "seen": 1791900966.9911864,
-    "ast_hash": "438420c90aeff91c5ba25b10a3367b1d",
+    "mtime": 1791910230.8604705,
+    "seen": 1791910472.521047,
+    "ast_hash": "207056ea7f1d116f7e7fa97b5fd376ef",
     "semantic_hash": ""
   },
   "app/Models/BacaMeterModel.php": {
-    "mtime": 1791908759.4801285,
-    "seen": 1791908792.291077,
-    "ast_hash": "39947eb66377dd28ff1437d13198433d",
+    "mtime": 1791910230.8560884,
+    "seen": 1791910472.5210488,
+    "ast_hash": "096feaf1db1b3a224427519a2f7d6841",
     "semantic_hash": ""
   },
   "app/Models/KondisiModel.php": {
@@ -552,15 +546,15 @@
     "semantic_hash": ""
   },
   "app/Models/Sikompak/CustModel.php": {
-    "mtime": 1791788651.509583,
-    "seen": 1791900966.9911923,
-    "ast_hash": "03e1188722ca3588a4a25304ad40ab87",
+    "mtime": 1791910230.8863776,
+    "seen": 1791910472.5211287,
+    "ast_hash": "75bb978c62565c310977789cc40fb501",
     "semantic_hash": ""
   },
   "app/Models/Sikompak/PegawaiModel.php": {
-    "mtime": 1791788651.509583,
-    "seen": 1791900966.991194,
-    "ast_hash": "c868c446ea75191822a4ff46e75dddb1",
+    "mtime": 1791910230.8904588,
+    "seen": 1791910472.5211303,
+    "ast_hash": "42530256fc7b5e3f3c6ada408b7b1695",
     "semantic_hash": ""
   },
   "app/Models/Sikompak/UnitModel.php": {
@@ -570,9 +564,9 @@
     "semantic_hash": ""
   },
   "app/Models/UserAndroidModel.php": {
-    "mtime": 1791788651.509583,
-    "seen": 1791900966.9911969,
-    "ast_hash": "8d5a59f14d564214d0855de4c9f4d4d8",
+    "mtime": 1791910230.8662903,
+    "seen": 1791910472.5211716,
+    "ast_hash": "6cf969b3b0cc1f25d37207049eb29889",
     "semantic_hash": ""
   },
   "app/Views/auth.php": {
@@ -582,9 +576,9 @@
     "semantic_hash": ""
   },
   "app/Views/cetak/fotometer.php": {
-    "mtime": 1791788651.5098104,
-    "seen": 1791900966.9912016,
-    "ast_hash": "205a3284857005eb37449a5bf1101880",
+    "mtime": 1791910231.282983,
+    "seen": 1791910472.521217,
+    "ast_hash": "bb64a4d96bb47fe3375e636a828f260e",
     "semantic_hash": ""
   },
   "app/Views/cetak/selisih.php": {
@@ -600,9 +594,9 @@
     "semantic_hash": ""
   },
   "app/Views/errors/cli/error_exception.php": {
-    "mtime": 1791788651.5099363,
-    "seen": 1791900966.991206,
-    "ast_hash": "90756051cee9ba9fb1938e6aa64f4299",
+    "mtime": 1791910231.439998,
+    "seen": 1791910472.5213037,
+    "ast_hash": "d48639a2ebfad4d9d4ef635cfe9beccd",
     "semantic_hash": ""
   },
   "app/Views/errors/cli/production.php": {
@@ -624,9 +618,9 @@
     "semantic_hash": ""
   },
   "app/Views/errors/html/error_exception.php": {
-    "mtime": 1791788651.5100548,
-    "seen": 1791900966.9912188,
-    "ast_hash": "743482afa0e7d5e54a96b61928741d15",
+    "mtime": 1791910231.417068,
+    "seen": 1791910472.521431,
+    "ast_hash": "ab2b45f4728e1c8da14b814cf61a40a2",
     "semantic_hash": ""
   },
   "app/Views/errors/html/production.php": {
@@ -702,9 +696,9 @@
     "semantic_hash": ""
   },
   "app/Views/template/index.php": {
-    "mtime": 1791788651.5105155,
-    "seen": 1791900966.9912388,
-    "ast_hash": "77b4a42e6ab2752ab20b4f878edf5d8f",
+    "mtime": 1791910231.4553514,
+    "seen": 1791910472.5218937,
+    "ast_hash": "212814172093a7c8011c6f25d4267959",
     "semantic_hash": ""
   },
   "app/Views/template/navigation.php": {
@@ -732,9 +726,9 @@
     "semantic_hash": ""
   },
   "composer.json": {
-    "mtime": 1791907444.241549,
-    "seen": 1791907544.5193899,
-    "ast_hash": "59c44721a38125ec9f2a60b4efdd251d",
+    "mtime": 1791910216.876254,
+    "seen": 1791910472.5220413,
+    "ast_hash": "bd85d04984213e1e0e7ad83d287ad27c",
     "semantic_hash": ""
   },
   "preload.php": {
@@ -4248,9 +4242,9 @@
     "semantic_hash": ""
   },
   "tests/unit/HealthTest.php": {
-    "mtime": 1791788651.7497182,
-    "seen": 1791900966.9921808,
-    "ast_hash": "aa9f83257c87e63503fe7cffeb56b9c9",
+    "mtime": 1791910231.4837315,
+    "seen": 1791910472.5416863,
+    "ast_hash": "090d35334c0d37e65fc4d72f4d045453",
     "semantic_hash": ""
   },
   ".beads/README.md": {
@@ -27789,6 +27783,30 @@
     "mtime": 1791907524.8903801,
     "seen": 1791907544.534985,
     "ast_hash": "5bda805962b88c71558778368608a712",
+    "semantic_hash": ""
+  },
+  "tests/unit/BulanHelperTest.php": {
+    "mtime": 1791910422.374746,
+    "seen": 1791910472.5416367,
+    "ast_hash": "46dc69f540ac2fb9427c00a8fae889a3",
+    "semantic_hash": ""
+  },
+  "tests/unit/DateTest.php": {
+    "mtime": 1791910381.6687922,
+    "seen": 1791910472.5416403,
+    "ast_hash": "8289646124930674164f9bf6fa3c6166",
+    "semantic_hash": ""
+  },
+  "tests/unit/ImageToStringTest.php": {
+    "mtime": 1791910277.0665345,
+    "seen": 1791910472.541688,
+    "ast_hash": "38081ac29437a2b6fa2cb366500c2a80",
+    "semantic_hash": ""
+  },
+  "tests/unit/KondisiToExcelTest.php": {
+    "mtime": 1791910216.7611396,
+    "seen": 1791910472.54169,
+    "ast_hash": "6f8ce3fb23249c77b252046cf92aa09c",
     "semantic_hash": ""
   }
 }
