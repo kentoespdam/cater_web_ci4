@@ -7,18 +7,21 @@ use App\Libraries\FlattenByKondisi;
 use App\Libraries\KondisiToExcel;
 use App\Libraries\MyDate;
 use App\Models\BacaMeterModel;
+use CodeIgniter\HTTP\ResponseInterface;
 
 class RekapKondisiBaca extends BaseController
 {
-    public function index()
+    public function index(): ResponseInterface
     {
-        $req = (object)request()->getGet();
-        if (!isset($req->tahun) || !isset($req->bulan) || empty($req->tahun) || empty($req->bulan))
+        $req = (object) request()->getGet();
+
+        if (!isset($req->tahun) || !isset($req->bulan) || empty($req->tahun) || empty($req->bulan)) {
             return response()->setJSON([
                 "rows" => [],
                 "total" => 0,
-                "footer" => null
+                "footer" => null,
             ]);
+        }
 
         $bulan = $req->bulan < 10 ? '0' . $req->bulan : $req->bulan;
         $periode = "{$req->tahun}-{$bulan}";

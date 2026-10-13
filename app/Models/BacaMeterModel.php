@@ -253,6 +253,47 @@ class BacaMeterModel extends Model
         return $result;
     }
 
+    public function getHasilBaca0Cursor(string $tglAwal, string $tglAkhir, ?string $satker = null): \Generator
+    {
+        $builder = $this->select("
+                baca_meter.tgl AS tgl,
+                baca_meter.no_sam AS no_sam,
+                baca_meter.stan_kini AS stan_kini,
+                baca_meter.stan_lalu AS stan_lalu,
+                baca_meter.pakai AS pakai,
+                baca_meter.petugas AS petugas,
+                baca_meter.kondisi AS kondisi,
+                baca_meter.ket AS ket,
+                baca_meter.info AS info,
+                baca_meter.ptgs_met AS ptgs_met,
+                baca_meter.rata AS rata,
+                LEFT ( baca_meter.no_sam, 2 ) AS kd_wil,
+                munit.nama AS wil,
+                munit.satker AS kd_cabang,
+                mcabang.nm_cabang AS nm_cabang,
+                t_status_cek.kd_cek AS kd_cek,
+                t_status_cek.status AS status_cek,
+                baca_meter.nama AS nama,
+                baca_meter.alamat AS alamat 
+            ")
+            ->join("munit", "SUBSTRING(baca_meter.no_sam,1,2)=munit.unit")
+            ->join("mcabang", "munit.satker=mcabang.id_cabang")
+            ->join("t_status_cek", "baca_meter.cek=t_status_cek.kd_cek")
+            ->where('baca_meter.tgl >=', $tglAwal)
+            ->where('baca_meter.tgl <=', $tglAkhir)
+            ->where("baca_meter.pakai", 0);
+
+        if ($satker) {
+            $builder->where("munit.satker", $satker);
+        }
+
+        $query = $builder->get();
+
+        while ($row = $query->getUnbufferedRow('array')) {
+            yield $row;
+        }
+    }
+
     public function getKondisiBaca(string $tglAwal, string $tglAkhir): array
     {
         $builder = $this->select("
