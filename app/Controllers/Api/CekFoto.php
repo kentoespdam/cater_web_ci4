@@ -28,10 +28,11 @@ class CekFoto extends BaseController
     {
         $bacaMeterModel = new BacaMeterModel();
         $data = $bacaMeterModel
-            ->select("no AS id, tgl, info,stan_kini, CONCAT(folderSS,'|',fileSS) AS foto")
+            ->select("no AS id, tgl, info,stan_kini, CONCAT(folderSL,'|',fileSS) AS foto")
             ->find($id);
         $imgToString = new ImageToString($data->foto);
-        $data->foto = $imgToString->get();
+        $isOriginal = request()->getGet('original') === '1' || request()->getGet('size') === 'original';
+        $data->foto = $isOriginal ? $imgToString->getOriginal() : $imgToString->get();
 
         return response()->setJSON([$data]);
     }

@@ -16,59 +16,92 @@ class ImageToString
         return $this->getThumbnailBase64();
     }
 
-    private function getThumbnailBase64()
+    public function getOriginal(): string
+    {
+        return $this->getOriginalBase64();
+    }
+
+    private function resolveImagePath(): string
+    {
+        $configFotoPath = env('app.fotoWmPath') ?: (config('App')->fotoWmPath ?? ROOTPATH . 'fotowm/');
+        $basePath = rtrim($configFotoPath, '/') . '/';
+
+        $cleanRelPath = ltrim(str_replace('|', '/', $this->pathFromDb), '/');
+        $targetPath = $basePath . $cleanRelPath;
+
+        if (is_file($targetPath)) {
+            return $targetPath;
+        }
+
+        $fallbackPath = $basePath . 'notFound.png';
+
+        if (is_file($fallbackPath)) {
+            return $fallbackPath;
+        }
+
+        return '';
+    }
+
+    private function getThumbnailBase64(): string
     {
         try {
-            $filePath = str_replace("|", "/", $this->pathFromDb);
-            $imageServerHost = config('App')->imageServerHost ?? '192.168.1.215:5553';
-            $filePath = str_replace("//192.168.1.215", $imageServerHost, $filePath);
-            $filePath = str_replace("/fotowm", "", $filePath);
-            $url = str_starts_with($filePath, 'http') ? $filePath : "http://$filePath";
-            $imageData = file_get_contents($url);
+            $resolvedPath = $this->resolveImagePath();
+
+            if ($resolvedPath === '') {
+                return '';
+            }
+
+            $imageData = file_get_contents($resolvedPath);
+
+            if ($imageData === false) {
+                return '';
+            }
 
             $sourceImage = imagecreatefromstring($imageData);
-            $thumbnailDimensions = $this->calculateThumbnailDimensions(imagesx($sourceImage), imagesy($sourceImage));
-            $thumbnail = $this->createThumbnail($sourceImage, $thumbnailDimensions['width'], $thumbnailDimensions['height']);
-            $thumbnailData = $this->generateThumbnailData($thumbnail);
-            $this->cleanUp($sourceImage, $thumbnail);
+
+            if ($sourceImage === false) {
+                return '';
+            }
+
+            $srcW = imagesx($sourceImage);
+            $srcH = imagesy($sourceImage);
+            $thumbW = (int) ($srcW * 0.5);
+            $thumbH = (int) ($srcH * 0.5);
+
+            $thumbnail = imagecreatetruecolor($thumbW, $thumbH);
+            imagecopyresampled($thumbnail, $sourceImage, 0, 0, 0, 0, $thumbW, $thumbH, $srcW, $srcH);
+
+            ob_start();
+            imagejpeg($thumbnail);
+            $thumbnailData = ob_get_clean();
+
+            imagedestroy($sourceImage);
+            imagedestroy($thumbnail);
 
             return base64_encode($thumbnailData);
-        } catch (\Exception $e) {
-            return "";
+        } catch (\Throwable $e) {
+            return '';
         }
     }
 
-    private function calculateThumbnailDimensions($sourceWidth, $sourceHeight)
+    private function getOriginalBase64(): string
     {
-        $thumbnailWidth = $sourceWidth * 0.5;
-        $thumbnailHeight = $sourceHeight * 0.5;
+        try {
+            $resolvedPath = $this->resolveImagePath();
 
-        return [
-            'width' => $thumbnailWidth,
-            'height' => $thumbnailHeight,
-        ];
-    }
+            if ($resolvedPath === '') {
+                return '';
+            }
 
-    private function createThumbnail($sourceImage, $width, $height)
-    {
-        $thumbnail = imagecreatetruecolor($width, $height);
-        imagecopyresized($thumbnail, $sourceImage, 0, 0, 0, 0, $width, $height, imagesx($sourceImage), imagesy($sourceImage));
+            $imageData = file_get_contents($resolvedPath);
 
-        return $thumbnail;
-    }
+            if ($imageData === false) {
+                return '';
+            }
 
-    private function generateThumbnailData($thumbnail)
-    {
-        ob_start();
-        imagejpeg($thumbnail);
-        $thumbnailData = ob_get_clean();
-
-        return $thumbnailData;
-    }
-
-    private function cleanUp($sourceImage, $thumbnail)
-    {
-        imagedestroy($sourceImage);
-        imagedestroy($thumbnail);
+            return base64_encode($imageData);
+        } catch (\Throwable $e) {
+            return '';
+        }
     }
 }

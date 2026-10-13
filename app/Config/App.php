@@ -24,6 +24,19 @@ class App extends BaseConfig
     public string $imageServerHost = '192.168.1.215:5553';
 
     /**
+     * Path to fotowm directory
+     */
+    public string $fotoWmPath;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->fotoWmPath = env('app.fotoWmPath', ROOTPATH . 'fotowm/');
+    }
+
+
+
+    /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
      * If you want to accept multiple Hostnames, set this.
      *

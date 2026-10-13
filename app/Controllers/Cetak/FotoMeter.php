@@ -22,7 +22,7 @@ class FotoMeter extends BaseController
                 baca_meter.info AS tgl_baca, 
                 baca_meter.stan_kini,
                 users.nama_lengkap AS petugas, 
-                CONCAT(baca_meter.folderSS,'|',baca_meter.fileSS) AS foto
+                CONCAT(baca_meter.folderSL,'|',baca_meter.fileSS) AS foto
             ")
             ->join("users", "baca_meter.user=users.username")
             ->where("baca_meter.no_sam", $nosamw)
