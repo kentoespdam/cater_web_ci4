@@ -1,17 +1,17 @@
 # Graph Report - cater_web_ci4  (2026-10-13)
 
 ## Corpus Check
-- 735 files · ~3,359,079 words
+- 735 files · ~3,359,087 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 580 file(s) not represented in the graph (top: .css 483, .scss 24, .less 22)
 
 ## Summary
-- 6829 nodes · 14486 edges · 742 communities (270 shown, 472 thin omitted)
+- 6829 nodes · 14485 edges · 742 communities (270 shown, 472 thin omitted)
 - Extraction: 88% EXTRACTED · 12% INFERRED · 0% AMBIGUOUS · INFERRED: 1698 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `5c81a40e`
+- Built from commit: `0b7ba098`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -72,7 +72,7 @@
 - createPrototypeRange
 - CodeIgniter\Test\CIUnitTestCase
 - BacaMeterModel
-- PegawaiModel
+- CodeIgniter\Model
 - bootstrap3-wysihtml5.all.min.js
 - sf
 - SelectAdapter
@@ -460,7 +460,7 @@ Nodes (43): a(), ae(), be(), C(), ce(), ct(), Ee(), et() (+35 more)
 
 ### Community 20 - "BaseController"
 Cohesion: 0.06
-Nodes (20): Session, HasilBaca, Kondisi, Selisih, Cabang, BaseController, SelisihFoto, CekFoto (+12 more)
+Nodes (19): Session, HasilBaca, Kondisi, Selisih, Cabang, BaseController, SelisihFoto, CekFoto (+11 more)
 
 ### Community 21 - "maskScope"
 Cohesion: 0.15
@@ -598,9 +598,9 @@ Nodes (8): App, Services, ExampleDatabaseTest, ExampleSessionTest, ExampleSeeder
 Cohesion: 0.10
 Nodes (9): CekFoto, HasilBaca0, {closure#1}(), FotoMeter, ImageToString, BacaMeterModel, 6.1 Manajemen Foto Meter Air (`CekFoto`, `FotoMeter`), 6.2 Ekspor Spreadsheet (`PhpSpreadsheet`) (+1 more)
 
-### Community 56 - "PegawaiModel"
-Cohesion: 0.14
-Nodes (6): User, Pegawai, Selisih, TransferKampung, PegawaiModel, UserAndroidModel
+### Community 56 - "CodeIgniter\Model"
+Cohesion: 0.11
+Nodes (7): User, Pegawai, TransferKampung, AuthModel, PegawaiModel, UnitModel, UserAndroidModel
 
 ### Community 57 - "bootstrap3-wysihtml5.all.min.js"
 Cohesion: 0.45
@@ -827,7 +827,7 @@ Cohesion: 0.14
 Nodes (5): Defaults(), InfiniteScroll(), oldMatcher(), wrappedMatcher(), Translation()
 
 ### Community 120 - "Api/HasilBaca.php"
-Cohesion: 0.10
+Cohesion: 0.11
 Nodes (11): {closure#1}(), HasilBaca, CustModel, 3.1 Controller Rules (`app/Controllers/`), 3.2 Service Layer (`app/Services/`), 3.3 Model Rules (`app/Models/`), 3.4 Entity Rules (`app/Entities/`), 3. Arsitektur Berlapis: Controller - Service - Model - Entity (+3 more)
 
 ### Community 123 - "jquery.validatebox.js"

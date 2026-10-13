@@ -151,7 +151,8 @@ $namaPetugas = $user?->petugas?->nama ?? 'Unknown';
 1. **Thin Controller**: Controller hanya bertugas menangani siklus HTTP (menerima input, memanggil service, mengembalikan output).
 2. **Tidak Ada Query Database di Controller**: Dilarang instansiasi `$db->query(...)` atau memanggil logika kalkulasi berat di controller.
 3. **Response Standardization**:
-   - Untuk Web HTML: Selalu return `string` (dari fungsi `view()`) atau `ResponseInterface` (dari `redirect()`).
+   - Untuk Web HTML: Selalu return `string` (dari fungsi `view()` atau `\Config\Services::renderer()`) atau `ResponseInterface` (dari `redirect()`).
+   - **View Rendering Standard (`Services::renderer()` vs `view()`)**: Controller web di project ini menggunakan pola `\Config\Services::renderer()` untuk me-render view dengan method chaining (`setVar()`, `render()`). Pastikan `Config\View::$saveData` bernilai `true` (default pada project ini) sehingga variabel seperti `$session` tetap tersedia bagi layout utama (`template/index.php`) dan partials (`template/navigation.php`). Pola `Services::renderer()` adalah standar arsitektur repo ini dan BUKAN over-engineering.
    - Untuk REST API: Selalu return `ResponseInterface` (via `$this->response->setJSON(...)` atau `ResponseTrait`).
 4. **Gunakan Redirect Method yang Benar**:
    - SALAH: `return redirect("auth");`

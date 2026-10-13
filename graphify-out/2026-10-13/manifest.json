@@ -498,9 +498,9 @@
     "semantic_hash": ""
   },
   "app/Libraries/FlattenByKondisi.php": {
-    "mtime": 1791900294.689526,
-    "seen": 1791900966.9911764,
-    "ast_hash": "350b8c05b3b0814b775658d59ea7f721",
+    "mtime": 1791901795.9236922,
+    "seen": 1791901830.1490395,
+    "ast_hash": "5fb67b50d791eda87370544221b5ef30",
     "semantic_hash": ""
   },
   "app/Libraries/HasilBacaToExcel.php": {
@@ -534,9 +534,9 @@
     "semantic_hash": ""
   },
   "app/Models/BacaMeterModel.php": {
-    "mtime": 1791879753.6211033,
-    "seen": 1791900966.9911878,
-    "ast_hash": "1533e5bb349b4872221b5ef21d0fd632",
+    "mtime": 1791901796.620837,
+    "seen": 1791901830.1492867,
+    "ast_hash": "1528c71a199bebc44ee595b52651de13",
     "semantic_hash": ""
   },
   "app/Models/KondisiModel.php": {
@@ -4248,9 +4248,9 @@
     "semantic_hash": ""
   },
   "tests/unit/FlattenByKondisiTest.php": {
-    "mtime": 1791900361.1756084,
-    "seen": 1791900966.992179,
-    "ast_hash": "de47cfeec48940e0a66a85ffe3ffdc7d",
+    "mtime": 1791901793.1096618,
+    "seen": 1791901830.182289,
+    "ast_hash": "4732301918ba675612ce160e4dab0065",
     "semantic_hash": ""
   },
   "tests/unit/HealthTest.php": {
@@ -4271,46 +4271,10 @@
     "ast_hash": "aec7a117b79fee8ec97cf14937bf320a",
     "semantic_hash": ""
   },
-  ".claude/skills/gitnexus/gitnexus-cli/SKILL.md": {
-    "mtime": 1791900941.3620858,
-    "seen": 1791900966.9921856,
-    "ast_hash": "8bc4ec1bb5ba25c3da58052cdaf14e43",
-    "semantic_hash": ""
-  },
-  ".claude/skills/gitnexus/gitnexus-debugging/SKILL.md": {
-    "mtime": 1791900941.3583305,
-    "seen": 1791900966.992187,
-    "ast_hash": "3998c14d1bb3558b716ea55d9971826b",
-    "semantic_hash": ""
-  },
-  ".claude/skills/gitnexus/gitnexus-exploring/SKILL.md": {
-    "mtime": 1791900941.3565812,
-    "seen": 1791900966.992189,
-    "ast_hash": "e938f38cf262c7daad36be1794517ca2",
-    "semantic_hash": ""
-  },
-  ".claude/skills/gitnexus/gitnexus-guide/SKILL.md": {
-    "mtime": 1791900941.3612964,
-    "seen": 1791900966.9921904,
-    "ast_hash": "52a6df29e7e6161fc0ccfc3a42a1cb88",
-    "semantic_hash": ""
-  },
-  ".claude/skills/gitnexus/gitnexus-impact-analysis/SKILL.md": {
-    "mtime": 1791900941.3592048,
-    "seen": 1791900966.992192,
-    "ast_hash": "aad191ea3512d8a10e3749f24cabca46",
-    "semantic_hash": ""
-  },
-  ".claude/skills/gitnexus/gitnexus-refactoring/SKILL.md": {
-    "mtime": 1791900941.3605294,
-    "seen": 1791900966.9921937,
-    "ast_hash": "9ba618bb478c9fe1efb360d255a25eba",
-    "semantic_hash": ""
-  },
   "AGENTS.md": {
-    "mtime": 1791900941.3536797,
-    "seen": 1791900966.9921954,
-    "ast_hash": "cd9bb3ad454b1e2ca39d72e868c20054",
+    "mtime": 1791900995.640617,
+    "seen": 1791901830.182428,
+    "ast_hash": "4ea1affe39062d581ff280863e65c837",
     "semantic_hash": ""
   },
   "CLAUDE.md": {
@@ -4320,9 +4284,9 @@
     "semantic_hash": ""
   },
   "GEMINI.md": {
-    "mtime": 1791900517.466186,
-    "seen": 1791900966.9921982,
-    "ast_hash": "0d9823aea7e6ee782a4e6256c839ec62",
+    "mtime": 1791901206.1823494,
+    "seen": 1791901830.1824763,
+    "ast_hash": "a33bcc8758e335dc9a36dca4a522ec7e",
     "semantic_hash": ""
   },
   "README.md": {
@@ -27813,6 +27777,18 @@
     "mtime": 1791788651.7412395,
     "seen": 1791900966.9978235,
     "ast_hash": "41732f58be91fcdc79381f239685c0e1",
+    "semantic_hash": ""
+  },
+  ".php-cs-fixer.dist.php": {
+    "mtime": 1791900974.4069529,
+    "seen": 1791901830.1453717,
+    "ast_hash": "1b60aa8d8eef10fdf9314bc8bc612e2e",
+    "semantic_hash": ""
+  },
+  "CODING_RULES.md": {
+    "mtime": 1791900971.1384475,
+    "seen": 1791901830.1824732,
+    "ast_hash": "14cbea55f4100b8296b4be11eff887fe",
     "semantic_hash": ""
   }
 }

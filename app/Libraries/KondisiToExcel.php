@@ -29,7 +29,7 @@ class KondisiToExcel
         ],
         'alignment' => [
             'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-        ]
+        ],
     ];
 
     public function __construct(array $data, string $fileName)
@@ -54,6 +54,7 @@ class KondisiToExcel
 
         $urut = 1;
         $rowNum = 2;
+
         foreach ($this->data as $row) {
             $this->setCellValue($sheet, $row, $rowNum, $urut);
             $rowNum++;
