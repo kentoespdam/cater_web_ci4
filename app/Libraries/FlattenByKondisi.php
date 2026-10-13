@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Libraries;
 
 use App\Models\KondisiModel;
@@ -22,7 +24,7 @@ class FlattenByKondisi
         array $data,
         string $periode,
         ?array $branchList = null,
-        ?array $conditionList = null
+        ?array $conditionList = null,
     ) {
         $this->data = $data;
         $this->periode = $periode;
@@ -73,11 +75,10 @@ class FlattenByKondisi
             $branchTotals[$satker] = ($branchTotals[$satker] ?? 0) + $total;
 
             $kLower = strtolower(trim($kondisi));
+
             if ($kLower === '' || $kLower === 'unknown') {
                 $branchUnknowns[$satker] = ($branchUnknowns[$satker] ?? 0) + $total;
                 $totalUnknown += $total;
-                $matrix[$satker]['unknown'] = $branchUnknowns[$satker];
-                $condTotals['unknown'] = $totalUnknown;
             } else {
                 $matrix[$satker][$kLower] = ($matrix[$satker][$kLower] ?? 0) + $total;
                 $condTotals[$kLower] = ($condTotals[$kLower] ?? 0) + $total;
@@ -85,6 +86,7 @@ class FlattenByKondisi
         }
 
         $this->rows = [];
+
         foreach ($this->branchList as $branch) {
             $satker = (string) (is_object($branch) ? ($branch->id_cabang ?? '') : ($branch['id_cabang'] ?? ''));
             $nmCabang = (string) (is_object($branch) ? ($branch->nm_cabang ?? '') : ($branch['nm_cabang'] ?? ''));
