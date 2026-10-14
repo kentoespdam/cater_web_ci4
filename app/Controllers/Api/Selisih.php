@@ -25,7 +25,7 @@ class Selisih extends BaseController
         }
 
         $client = \Config\Services::curlrequest([
-            "baseURI" => "http://192.168.1.215:82/selisih/",
+            "baseURI" => env("SELISIH_APP_URL"),
         ]);
 
         $result = $client->get(

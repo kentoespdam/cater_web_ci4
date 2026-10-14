@@ -1,68 +1,90 @@
-# CodeIgniter 4 Application Starter
+# Cater Web (CodeIgniter 4 - `cater_web_ci4`)
 
-## What is CodeIgniter?
+Aplikasi web manajemen katering berbasis framework **CodeIgniter 4** (PHP 8.2+). Repositori ini mendukung dua mode lingkungan kerja yang fleksibel: pengembangan lokal langsung di host atau containerized deployment menggunakan Docker.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+---
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+## 🚀 Dua Mode Lingkungan Kerja
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+### 1. Local Development (Koding Langsung di Host)
+Digunakan ketika Anda ingin melakukan koding secara langsung di mesin host tanpa menggunakan container Docker.
+* **Konfigurasi Environment**: Menggunakan file `.env` lokal host (salin dari `env`).
+* **Perintah Menjalankan Server**:
+  ```bash
+  make dev-serve
+  # atau secara langsung:
+  php spark serve
+  ```
+* **Akses**: `http://localhost:8080`
+* **Database**: Terhubung ke database lokal (MySQL/MariaDB) sesuai konfigurasi pada file `.env`.
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+### 2. Docker Deployment (Containerized)
+Digunakan untuk environment production, staging, atau pengujian yang terisolasi dan konsisten menggunakan Docker & Nginx + PHP-FPM.
+* **Konfigurasi Environment**: Menggunakan file `.env.docker` terisolasi.
+* **Perintah Menjalankan**:
+  ```bash
+  make up
+  # atau secara manual:
+  docker compose --env-file .env.docker up -d
+  ```
+* **Akses**: `http://localhost:84` (Port dapat disesuaikan melalui `APP_PORT` di `.env.docker`).
+* **Database**: Terhubung ke external/host database (menggunakan `host.docker.internal` atau IP server database eksternal).
 
-## Installation & updates
+---
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+## 🐳 Arsitektur Docker
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+Arsitektur Docker pada proyek ini dirancang dengan prinsip keamanan, performa, dan kemudahan deployment:
 
-## Setup
+1. **Multi-Stage Build**
+   - **Stage 1 (`vendor-builder`)**: Menggunakan image resmi `composer:2` untuk menginstal dependensi produksi (`composer install --no-dev`) tanpa menyertakan build tools di image akhir.
+   - **Stage 2 (`php:8.2-fpm-alpine`)**: Runtime production yang ramping, ringan, dan aman, bersih dari file cache composer yang tidak perlu.
+2. **Isolated Container**
+   - Source code disalin ke dalam image saat proses *build*. Komputer host **tidak perlu** menginstal PHP atau Composer untuk menjalankan Docker deployment.
+3. **3-Layer Volume Architecture**
+   - **`app_code`**: Shared named volume antara layanan PHP-FPM (`rw`) dan Nginx (`ro`) untuk memastikan sinkronisasi kode secara *real-time* dan menjadikan kode sebagai *single source of truth*.
+   - **`writable_data`**: Dedicated persistent volume (`/var/www/html/writable`) untuk menyimpan cache, logs, dan sessions secara aman di luar container lifespan.
+   - **`fotowm`**: Host bind mount (`./fotowm`) untuk penyimpanan persisten foto watermark/galeri.
+4. **Database Safety Guarantee (Zero Auto-Migration)**
+   - Tidak ada migrasi database otomatis saat container startup. Seluruh eksekusi migrasi atau seeder dilakukan secara manual melalui perintah `spark`, menjadikannya sangat aman untuk production.
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+---
 
-## Important Change with index.php
+## 🛠️ Panduan Perintah `Makefile`
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+Seluruh operasional Docker, CodeIgniter Spark, Composer, testing, dan linting dikelola melalui `Makefile`. 
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+| Perintah | Deskripsi |
+|---|---|
+| `make help` | Menampilkan daftar lengkap perintah Makefile yang tersedia |
+| `make build` | Membangun ulang (build) image container Docker |
+| `make up` | Menjalankan container Docker di background (port 84) |
+| `make down` | Menghentikan dan menghapus container Docker |
+| `make restart` | Merestart container Docker |
+| `make rebuild` | Menghentikan container, membersihkan volume kode, dan build ulang dari awal |
+| `make ps` | Melihat status container yang sedang berjalan |
+| `make logs` | Memantau live logs dari semua service (Nginx & PHP-FPM) |
+| `make logs-app` | Memantau live logs dari service PHP-FPM (`app`) |
+| `make logs-web` | Memantau live logs dari service Nginx (`web`) |
+| `make bash` | Masuk ke shell container PHP-FPM (`app`) |
+| `make bash-web` | Masuk ke shell container Nginx (`web`) |
+| `make routes` | Menampilkan daftar route CodeIgniter 4 (`php spark routes`) |
+| `make cache-clear` | Membersihkan cache aplikasi (`php spark cache:clear`) |
+| `make spark CMD="..."`| Menjalankan perintah custom CodeIgniter Spark |
+| `make composer-install`| Menjalankan `composer install` di dalam container |
+| `make composer-update`| Menjalankan `composer update` di dalam container |
+| `make test` | Menjalankan unit testing PHPUnit di dalam container |
+| `make lint` | Menjalankan linting PHP CS Fixer (dry-run) di dalam container |
+| `make dev-serve` | Menjalankan development server lokal di host (`http://localhost:8080`) |
 
-**Please** read the user guide for a better explanation of how CI4 works!
+---
 
-## Repository Management
+## 📋 Server Requirements (Local Mode)
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Server Requirements
-
-PHP version 8.1 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-
-> [!WARNING]
-> The end of life date for PHP 7.4 was November 28, 2022.
-> The end of life date for PHP 8.0 was November 26, 2023.
-> If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> The end of life date for PHP 8.1 will be November 25, 2024.
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+Jika menjalankan mode lokal tanpa Docker, pastikan PHP 8.1+ terinstal dengan ekstensi berikut:
+- `intl`
+- `mbstring`
+- `json`
+- `mysqlnd`
+- `libcurl`
+- `gd`, `exif`, `zip`, `opcache`, `bcmath`
