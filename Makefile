@@ -3,7 +3,11 @@
 
 ENV_FILE := .env.docker
 COMPOSE  := docker compose --env-file $(ENV_FILE)
-COMPOSE_OLD := docker-compose --env-file $(ENV_FILE) -f docker-compose-old.yml
+# docker-compose 1.8.0 tidak mendukung flag CLI --env-file (baru tersedia di v1.25.0+).
+# Ekstrak variabel environment standar (KEY=VAL) dari ENV_FILE lalu injeksikan via 'env'
+ENV_VARS_OLD := $(shell [ -f $(ENV_FILE) ] && grep -E '^[A-Za-z_][A-Za-z0-9_]*=' $(ENV_FILE) | sed -e 's/[[:space:]]*\#.*//' 2>/dev/null)
+COMPOSE_OLD  := $(if $(ENV_VARS_OLD),env $(ENV_VARS_OLD) )docker-compose -f docker-compose-old.yml
+
 
 # Colors for terminal output
 COLOR_RESET   := \033[0m
