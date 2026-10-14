@@ -26,7 +26,7 @@ function dateParser(date) {
 function imageFormatter(img, row) {
 	if (!img)
 		return `<div style="min-height: 180px; "><img src="${baseUri}/assets/images/no-image.png" id="zoomify-${row.id}" width="300"></div>`;
-	return `<img src="data:image/jpg;base64, ${img}" id="zoomify-${row.id}" width="300" height="350">`;
+	return `<img src="data:image/jpg;base64, ${img}" class="img-previewable" onclick="previewFoto(this)" id="zoomify-${row.id}" data-id="${row.id}" data-tgl="${row.tgl || ''}" data-nosamw="${row.nosamw || ''}" title="Klik untuk melihat foto original" width="300" height="350">`;
 }
 
 $.extend($.fn.combobox.methods, {

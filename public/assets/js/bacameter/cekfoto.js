@@ -71,7 +71,9 @@ function doSearch() {
 function showErrorToast(message) {
 	Toastify({
 		text: message,
-		backgroundColor: "red",
+		style: {
+			background: "red",
+		},
 	}).showToast();
 }
 
@@ -156,3 +158,95 @@ dg.datagrid({
 		dg.datagrid("fixRowHeight");
 	},
 });
+
+window.previewFoto = function (el) {
+	const imgEl = $(el);
+	const id = imgEl.data("id");
+	const tgl = imgEl.data("tgl") || "foto";
+	const nosamw = imgEl.data("nosamw") || id;
+
+	const viewer = new Viewer(el, {
+		inline: false,
+		toolbar: {
+			zoomIn: true,
+			zoomOut: true,
+			oneToOne: true,
+			reset: true,
+			prev: false,
+			next: false,
+			rotateLeft: true,
+			rotateRight: true,
+			flipHorizontal: false,
+			flipVertical: false,
+			download: function () {
+				const currentSrc = (viewer.image && viewer.image.src) ? viewer.image.src : imgEl.attr("src");
+				const a = document.createElement("a");
+				a.href = currentSrc;
+				a.download = `foto_meter_${nosamw}_${tgl}.jpg`;
+				document.body.appendChild(a);
+				a.click();
+				document.body.removeChild(a);
+			},
+		},
+		hidden: function () {
+			viewer.destroy();
+		},
+	});
+
+	viewer.show();
+
+	Toastify({
+		text: "Memuat foto original...",
+		style: {
+			background: "#3498db",
+		},
+		duration: 3000,
+	}).showToast();
+
+	$.ajax({
+		url: `${apiUri}/detail/${id}?original=1`,
+		method: "GET",
+		dataType: "json",
+		success: function (res) {
+			if (res && res.length > 0 && res[0].foto) {
+				const origBase64 = res[0].foto;
+				const origSrc = 'data:image/jpeg;base64,' + origBase64.trim();
+				
+				imgEl.attr('src', origSrc);
+				if (viewer && viewer.image) {
+					viewer.image.src = origSrc;
+				}
+				if (viewer && typeof viewer.update === "function") {
+					viewer.update();
+				}
+
+				Toastify({
+					text: "Foto resolusi original dimuat",
+					style: {
+						background: "green",
+					},
+					duration: 3000,
+				}).showToast();
+			} else {
+				Toastify({
+					text: "Gagal memuat foto original",
+					style: {
+						background: "orange",
+					},
+					duration: 3000,
+				}).showToast();
+			}
+		},
+		error: function () {
+			Toastify({
+				text: "Gagal memuat foto original (Network Error)",
+				style: {
+					background: "red",
+				},
+				duration: 3000,
+			}).showToast();
+		},
+	});
+};
+
+

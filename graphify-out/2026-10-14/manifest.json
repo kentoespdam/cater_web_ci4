@@ -48,9 +48,9 @@
     "semantic_hash": ""
   },
   "app/Config/App.php": {
-    "mtime": 1791910262.3946943,
-    "seen": 1791910472.5194588,
-    "ast_hash": "ec459f8b11f557f84322f27c29099c31",
+    "mtime": 1791914230.236203,
+    "seen": 1791915066.7248738,
+    "ast_hash": "16ce232c79e16a95e11a0956db0906f7",
     "semantic_hash": ""
   },
   "app/Config/Autoload.php": {
@@ -300,9 +300,9 @@
     "semantic_hash": ""
   },
   "app/Controllers/Api/CekFoto.php": {
-    "mtime": 1791910231.2509072,
-    "seen": 1791910472.5208216,
-    "ast_hash": "812d543e0c8cd418438a757daf162eca",
+    "mtime": 1791913002.5768156,
+    "seen": 1791913058.155523,
+    "ast_hash": "8d7679ff198f79039282e06691bfe6c3",
     "semantic_hash": ""
   },
   "app/Controllers/Api/HasilBaca.php": {
@@ -390,9 +390,9 @@
     "semantic_hash": ""
   },
   "app/Controllers/Cetak/FotoMeter.php": {
-    "mtime": 1791910230.968558,
-    "seen": 1791910472.5208886,
-    "ast_hash": "433c417da0b2bc6fd9994c1dcce4ed52",
+    "mtime": 1791913006.7268088,
+    "seen": 1791913058.156068,
+    "ast_hash": "c2359f43e64af3eba0deadd7f8900fd7",
     "semantic_hash": ""
   },
   "app/Controllers/Cetak/RekapKondisiBaca.php": {
@@ -510,9 +510,9 @@
     "semantic_hash": ""
   },
   "app/Libraries/ImageToString.php": {
-    "mtime": 1791910269.1655009,
-    "seen": 1791910472.5210435,
-    "ast_hash": "81d765cd5ee1e87e23722f36236a0b11",
+    "mtime": 1791914234.1291893,
+    "seen": 1791915066.7279484,
+    "ast_hash": "9e6aac75d4811bb034109a6a65cdbdc9",
     "semantic_hash": ""
   },
   "app/Libraries/KondisiToExcel.php": {
@@ -630,9 +630,9 @@
     "semantic_hash": ""
   },
   "app/Views/hasilbaca/cekfoto.php": {
-    "mtime": 1791788651.5100548,
-    "seen": 1791900966.991222,
-    "ast_hash": "fdfbed62970be671c11b907c10316c72",
+    "mtime": 1791915038.8051198,
+    "seen": 1791915066.7287507,
+    "ast_hash": "16f65ef28c1030fe947331ecb99d67ec",
     "semantic_hash": ""
   },
   "app/Views/hasilbaca/selisih.php": {
@@ -1554,9 +1554,9 @@
     "semantic_hash": ""
   },
   "public/assets/js/bacameter/cekfoto.js": {
-    "mtime": 1791788651.6906211,
-    "seen": 1791900966.9914577,
-    "ast_hash": "adedcd14bc6fedf86a3d9d39dcbb94cb",
+    "mtime": 1791946508.4027593,
+    "seen": 1791946686.1381016,
+    "ast_hash": "880bb998ae13ac0542ffcfd3a430cd35",
     "semantic_hash": ""
   },
   "public/assets/js/bacameter/script.js": {
@@ -1584,9 +1584,9 @@
     "semantic_hash": ""
   },
   "public/assets/js/global.js": {
-    "mtime": 1791788651.6912665,
-    "seen": 1791900966.9914649,
-    "ast_hash": "54303202013561abb3e80dc02b1df72b",
+    "mtime": 1791946085.8567595,
+    "seen": 1791946686.1383083,
+    "ast_hash": "d3a011afe1a2b7478160e8c780204765",
     "semantic_hash": ""
   },
   "public/assets/js/jquery.min.js": {
@@ -27807,6 +27807,24 @@
     "mtime": 1791910216.7611396,
     "seen": 1791910472.54169,
     "ast_hash": "6f8ce3fb23249c77b252046cf92aa09c",
+    "semantic_hash": ""
+  },
+  "tests/app/Libraries/ImageToStringTest.php": {
+    "mtime": 1791914239.1491716,
+    "seen": 1791915066.7515783,
+    "ast_hash": "07ab28670822d7576139c286a2af7244",
+    "semantic_hash": ""
+  },
+  "public/assets/libs/viewerjs/viewer.min.js": {
+    "mtime": 1791915034.0251424,
+    "seen": 1791915066.7361562,
+    "ast_hash": "fb635001dd5717ce3b7be32f6e5be60d",
+    "semantic_hash": ""
+  },
+  "package.json": {
+    "mtime": 1791945549.041521,
+    "seen": 1791946686.13086,
+    "ast_hash": "0cf6445a1c63288d8a91e581e9aec847",
     "semantic_hash": ""
   }
 }
