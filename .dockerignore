@@ -1,18 +1,76 @@
-.git
-.github
+# ==============================================================================
+# .dockerignore - Docker Build Context Optimization & Security Filter
+# ==============================================================================
+
+# --- 1. Version Control & Git ---
+.git/
+.github/
 .gitignore
+
+# --- 2. AI Assistant, Workspace & Agent Artifacts ---
+.agents/
+.beads/
+.claude/
+.gemini/
+.gitnexus/
+graphify-out/
+
+# --- 3. Environment Secrets & Credentials ---
 .env
 .env.*
+env
+*.env
+*.pem
+*.key
+*.cert
+# Pengecualian: Dibutuhkan oleh Dockerfile PHP (COPY .env.docker /var/www/html/.env)
 !.env.docker
+
+# --- 4. Dependencies & Build Artifacts ---
+vendor/
+node_modules/
+build/
+builds/
+
+# --- 5. Host Mount & Large Media Assets ---
+# fotowm di-mount via volume host di docker-compose (bukan bagian image)
 fotowm/
+
+# --- 6. CodeIgniter Dynamic / Writable Data ---
+# Cegah cache, log, dan sesi lokal masuk ke build image
 writable/cache/*
 writable/debugbar/*
 writable/logs/*
 writable/session/*
 writable/uploads/*
-tests/
-node_modules/
-vendor/
-docker-compose*.yml
-README.md
+!writable/cache/.gitkeep
+!writable/debugbar/.gitkeep
+!writable/logs/.gitkeep
+!writable/session/.gitkeep
+!writable/uploads/.gitkeep
 
+# --- 7. Automated Tests & Testing Tooling ---
+tests/
+phpunit.xml*
+
+# --- 8. Local Linters, Dev Tools & Package Managers ---
+.php-cs-fixer.cache
+.php-cs-fixer.dist.php
+Makefile
+package.json
+package-lock.json
+
+# --- 9. Documentation, AI Rules & Legal ---
+*.md
+LICENSE
+
+# --- 10. Docker Compose & Docker Workspace Files ---
+docker-compose*.yml
+.dockerignore
+
+# --- 11. IDE & OS Metadata ---
+.idea/
+.vscode/
+*.sublime-*
+.DS_Store
+Thumbs.db

@@ -49,6 +49,7 @@ COPY . /var/www/html
 # Copy vendor dari vendor-builder stage
 COPY --from=vendor-builder /app/vendor /var/www/html/vendor
 
+
 # Copy .env.docker sebagai file .env di dalam container
 COPY .env.docker /var/www/html/.env
 
