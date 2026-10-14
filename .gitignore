@@ -134,3 +134,5 @@ nb-configuration.xml
 graphify-out/cache/
 
 fotowm/*
+
+node_modules/
