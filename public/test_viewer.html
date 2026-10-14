@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Viewer.js Replace</title>
+    <link rel="stylesheet" href="./assets/libs/viewerjs/viewer.min.css">
+    <script src="./assets/libs/viewerjs/viewer.min.js"></script>
+</head>
+<body>
+    <img id="thumb" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" width="180" height="240">
+    <script>
+        const img = document.getElementById('thumb');
+        const viewer = new Viewer(img, {
+            inline: false,
+        });
+        viewer.show();
+        setTimeout(() => {
+            viewer.replace('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=');
+        }, 500);
+    </script>
+</body>
+</html>
