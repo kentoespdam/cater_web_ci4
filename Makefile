@@ -3,10 +3,17 @@
 
 ENV_FILE := .env.docker
 COMPOSE  := docker compose --env-file $(ENV_FILE)
-# docker-compose 1.8.0 tidak mendukung flag CLI --env-file (baru tersedia di v1.25.0+).
-# Ekstrak variabel environment standar (KEY=VAL) dari ENV_FILE lalu injeksikan via 'env'
-ENV_VARS_OLD := $(shell [ -f $(ENV_FILE) ] && grep -E '^[A-Za-z_][A-Za-z0-9_]*=' $(ENV_FILE) | sed -e 's/[[:space:]]*\#.*//' 2>/dev/null)
-COMPOSE_OLD  := $(if $(ENV_VARS_OLD),env $(ENV_VARS_OLD) )docker-compose -f docker-compose-old.yml
+# Default fallback variables untuk docker-compose 1.8.0
+UID ?= $(shell id -u 2>/dev/null || echo 1000)
+GID ?= $(shell id -g 2>/dev/null || echo 1000)
+APP_PORT ?= 84
+FOTOWM_PATH ?= ./fotowm
+
+# docker-compose 1.8.0 tidak mendukung flag CLI --env-file dan sintaks ${VAR:-default}.
+# Injeksi default fallbacks dan variabel dari ENV_FILE via 'env' agar selalu terdefinisi lengkap.
+ENV_DEFAULTS_OLD := UID=$(UID) GID=$(GID) APP_PORT=$(APP_PORT) FOTOWM_PATH=$(FOTOWM_PATH)
+ENV_VARS_OLD     := $(shell [ -f $(ENV_FILE) ] && grep -E '^[A-Za-z_][A-Za-z0-9_]*=' $(ENV_FILE) | sed -e 's/[[:space:]]*\#.*//' 2>/dev/null)
+COMPOSE_OLD      := env $(ENV_DEFAULTS_OLD) $(ENV_VARS_OLD) docker-compose -f docker-compose-old.yml
 
 
 # Colors for terminal output
