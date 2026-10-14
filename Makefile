@@ -1,8 +1,9 @@
 .DEFAULT_GOAL := help
-.PHONY: help build up down restart rebuild ps logs logs-app logs-web bash bash-web spark routes cache-clear composer-install composer-update test lint dev-serve
+.PHONY: help build up down restart rebuild ps logs logs-app logs-web bash bash-web spark routes cache-clear composer-install composer-update test lint dev-serve build-old up-old down-old
 
 ENV_FILE := .env.docker
 COMPOSE  := docker compose --env-file $(ENV_FILE)
+COMPOSE_OLD := docker-compose --env-file $(ENV_FILE) -f docker-compose-old.yml
 
 # Colors for terminal output
 COLOR_RESET   := \033[0m
@@ -30,6 +31,15 @@ up: ## Jalankan container di background (port 84)
 
 down: ## Hentikan dan hapus container
 	$(COMPOSE) down
+
+build-old: ## Build image container Docker menggunakan docker-compose-old.yml (Compose 1.8.0)
+	$(COMPOSE_OLD) build
+
+up-old: ## Jalankan container di background menggunakan docker-compose-old.yml (Compose 1.8.0)
+	$(COMPOSE_OLD) up -d
+
+down-old: ## Hentikan dan hapus container menggunakan docker-compose-old.yml (Compose 1.8.0)
+	$(COMPOSE_OLD) down
 
 restart: ## Restart container
 	$(COMPOSE) restart

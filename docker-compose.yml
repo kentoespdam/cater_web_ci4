@@ -16,8 +16,8 @@ services:
       - app_code:/var/www/html
       # Dedicated persistent volume for writable storage
       - writable_data:/var/www/html/writable
-      # Host bind mount for fotowm photos
-      - ${FOTOWM_PATH:-./fotowm}:/var/www/html/fotowm
+      # Host bind mount for fotowm photos (read-only)
+      - ${FOTOWM_PATH:-./fotowm}:/var/www/html/fotowm:ro
     extra_hosts:
       - "host.docker.internal:host-gateway"
     networks:
