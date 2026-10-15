@@ -23,8 +23,6 @@ env
 *.pem
 *.key
 *.cert
-# Pengecualian: Dibutuhkan oleh Dockerfile PHP (COPY .env.docker /var/www/html/.env)
-!.env.docker
 
 # --- 4. Dependencies & Build Artifacts ---
 vendor/

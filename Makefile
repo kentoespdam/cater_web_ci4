@@ -11,7 +11,7 @@ FOTOWM_PATH ?= ./fotowm
 
 # docker-compose 1.8.0 tidak mendukung flag CLI --env-file dan sintaks ${VAR:-default}.
 # Injeksi default fallbacks dan variabel dari ENV_FILE via 'env' agar selalu terdefinisi lengkap.
-ENV_DEFAULTS_OLD := UID=$(UID) GID=$(GID) APP_PORT=$(APP_PORT) FOTOWM_PATH=$(FOTOWM_PATH)
+ENV_DEFAULTS_OLD := UID=$(UID) GID=$(GID) APP_PORT=$(APP_PORT) FOTOWM_PATH=$(FOTOWM_PATH) ENV_FILE=$(ENV_FILE)
 ENV_VARS_OLD     := $(shell [ -f $(ENV_FILE) ] && grep -E '^[A-Za-z_][A-Za-z0-9_]*=' $(ENV_FILE) | sed -e 's/[[:space:]]*\#.*//' 2>/dev/null)
 COMPOSE_OLD      := env $(ENV_DEFAULTS_OLD) $(ENV_VARS_OLD) docker-compose -f docker-compose-old.yml
 
