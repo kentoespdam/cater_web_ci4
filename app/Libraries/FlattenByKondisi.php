@@ -66,6 +66,13 @@ class FlattenByKondisi
         $grandTotal = 0;
         $totalUnknown = 0;
 
+        $validConditions = [];
+
+        foreach ($this->conditionList as $cond) {
+            $cName = (string) (is_object($cond) ? ($cond->kondisi ?? '') : ($cond['kondisi'] ?? ''));
+            $validConditions[strtolower(trim($cName))] = true;
+        }
+
         foreach ($this->data as $item) {
             $satker = (string) (is_object($item) ? ($item->satker ?? '') : ($item['satker'] ?? ''));
             $kondisi = (string) (is_object($item) ? ($item->kondisi ?? '') : ($item['kondisi'] ?? ''));
@@ -76,7 +83,7 @@ class FlattenByKondisi
 
             $kLower = strtolower(trim($kondisi));
 
-            if ($kLower === '' || $kLower === 'unknown') {
+            if ($kLower === '' || $kLower === 'unknown' || !isset($validConditions[$kLower])) {
                 $branchUnknowns[$satker] = ($branchUnknowns[$satker] ?? 0) + $total;
                 $totalUnknown += $total;
             } else {

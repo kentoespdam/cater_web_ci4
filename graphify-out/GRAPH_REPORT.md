@@ -1,17 +1,17 @@
-# Graph Report - cater_web_ci4  (2026-10-14)
+# Graph Report - cater_web_ci4  (2026-10-15)
 
 ## Corpus Check
-- 741 files · ~3,360,499 words
+- 742 files · ~3,361,144 words
 - Verdict: corpus is large enough that graph structure adds value.
-- Unclassified: 582 file(s) not represented in the graph (top: .css 484, .scss 24, .less 22)
+- Unclassified: 589 file(s) not represented in the graph (top: .css 484, (none) 24, .scss 24)
 
 ## Summary
-- 6889 nodes · 14604 edges · 759 communities (289 shown, 470 thin omitted)
-- Extraction: 88% EXTRACTED · 12% INFERRED · 0% AMBIGUOUS · INFERRED: 1732 edges (avg confidence: 0.85)
+- 6892 nodes · 14610 edges · 749 communities (277 shown, 472 thin omitted)
+- Extraction: 88% EXTRACTED · 12% INFERRED · 0% AMBIGUOUS · INFERRED: 1735 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `29d4808a`
+- Built from commit: `0aa74b1d`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -30,7 +30,7 @@
 - excanvas.min.js
 - fullcalendar.js
 - Plot
-- remove
+- push
 - has
 - moment.js
 - all.min.js
@@ -38,7 +38,7 @@
 - easyui/jquery.min.js
 - BaseController
 - maskScope
-- parse
+- normalize
 - fontawesome.min.js
 - javascript.js
 - replace
@@ -49,7 +49,7 @@
 - EventManager
 - _ed
 - conflict-detection.js
-- push
+- DOMException
 - excanvas.js
 - .trigger
 - add
@@ -63,15 +63,15 @@
 - show
 - d
 - jquery.treegrid.js
-- L
+- ds
 - Calendar
 - composer.json
-- sync
+- ac
 - fullcalendar.min.js
 - _236
 - createPrototypeRange
-- Services
 - CodeIgniter\Test\CIUnitTestCase
+- ImageToString
 - CodeIgniter\Model
 - bootstrap3-wysihtml5.all.min.js
 - sf
@@ -80,7 +80,7 @@
 - Results
 - CodeIgniter\Config\BaseConfig
 - _759
-- i
+- constructor
 - Results
 - plugins/jquery.tabs.js
 - src/jquery.tabs.js
@@ -117,7 +117,7 @@
 - viewer.min.js
 - src/jquery.accordion.js
 - src/jquery.combobox.js
-- create__createDuration
+- localeData
 - _78
 - FastClick
 - plugins/jquery.form.js
@@ -128,7 +128,7 @@
 - Grid
 - jquery.combo.js
 - init
-- localeData
+- weekOfYear
 - dataTables.keyTable.min.js
 - plugins/jquery.accordion.js
 - ye
@@ -163,7 +163,7 @@
 - init
 - select2.min.js
 - Plugin
-- each
+- 3.2 Service Layer (`app/Services/`)
 - _slicedToArray
 - _slicedToArray
 - _convert
@@ -240,7 +240,7 @@
 - jquery.timespinner.js
 - createBox
 - src/jquery.resizable.js
-- normalize
+- brands.min.js
 - solid.min.js
 - ionicons/composer.json
 - target.js
@@ -250,7 +250,7 @@
 - jquery.flot.errorbars.min.js
 - icheck.js
 - icheck.min.js
-- CodeIgniter 4 Application Starter
+- Cater Web (CodeIgniter 4 - `cater_web_ci4`)
 - Exceptions.php
 - _5
 - j
@@ -260,9 +260,9 @@
 - src/jquery.propertygrid.js
 - script.js
 - js/datagrid-detailview.js
-- Chart.js
+- bootstrap-slider.js
 - e
-- gb
+- e
 - jquery.flot.time.js
 - jquery.flot.time.min.js
 - getViewSpec
@@ -276,11 +276,10 @@
 - debug.js
 - ScrollSpy
 - _4a9
-- r
-- index
+- ea
+- entrypoint.sh
 - jquery.passwordbox.js
-- Re
-- oe
+- _f5
 - generateMutation
 - generateMutation
 - manifest.json
@@ -311,7 +310,6 @@
 - Database
 - Images.php
 - Mimes
-- BulanHelperTest
 - _59f
 - jquery.slimscroll.js
 - _d6e
@@ -326,7 +324,6 @@
 - init
 - init
 - init
-- ct
 - jquery.inputmask.regex.extensions.js
 - pace.min.js
 - Autoload.php
@@ -353,20 +350,13 @@
 - CHANGELOG.md
 - _11
 - _3d
-- g
-- jquery-ui.min.js
 - mergeOptions
-- ds
 - _cd4
-- regular.min.js
-- show
 - _d22
-- Te
 - _1ae
 - package.json
 - _19e
 - _1c9
-- q
 
 ## God Nodes (most connected - your core abstractions)
 1. `find()` - 174 edges
@@ -381,21 +371,21 @@
 10. `show()` - 44 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `🐳 Arsitektur Docker` --references--> `ro()`  [INFERRED]
+  README.md → public/assets/js/tailwind.js
+- `3.2 Service Layer (`app/Services/`)` --references--> `Services`  [INFERRED]
+  CODING_RULES.md → app/Config/Services.php
 - `6.1 Manajemen Foto Meter Air (`CekFoto`, `FotoMeter`)` --references--> `FotoMeter`  [INFERRED]
   CODING_RULES.md → app/Controllers/Cetak/FotoMeter.php
 - `3.2 Service Layer (`app/Services/`)` --references--> `BacaMeterModel`  [INFERRED]
   CODING_RULES.md → app/Models/BacaMeterModel.php
 - `3.2 Service Layer (`app/Services/`)` --references--> `CustModel`  [INFERRED]
   CODING_RULES.md → app/Models/Sikompak/CustModel.php
-- `5.3 Keamanan Password & Kredensial` --references--> `md5()`  [INFERRED]
-  CODING_RULES.md → public/assets/font-awesome/js/conflict-detection.js
-- `3.2 Service Layer (`app/Services/`)` --references--> `Services`  [INFERRED]
-  CODING_RULES.md → app/Config/Services.php
 
 ## Import Cycles
 - None detected.
 
-## Communities (759 total, 470 thin omitted)
+## Communities (749 total, 472 thin omitted)
 
 ### Community 0 - "jquery.easyui.min.js"
 Cohesion: 0.02
@@ -403,7 +393,7 @@ Nodes (81): _1c3(), _1f8(), _202(), _205(), _208(), _20e(), _21(), _2cb() (+73 m
 
 ### Community 1 - "tailwind.js"
 Cohesion: 0.02
-Nodes (85): a1(), Ak(), Ap(), applyVariantOffset(), blueGray(), bt(), c1(), ca() (+77 more)
+Nodes (84): a1(), Ak(), Ap(), applyVariantOffset(), blueGray(), bt(), c1(), ca() (+76 more)
 
 ### Community 2 - "ckeditor.js"
 Cohesion: 0.07
@@ -419,15 +409,15 @@ Nodes (15): _23e(), _17a(), _17e(), _241(), _244(), _86(), _89(), _91() (+7 more
 
 ### Community 5 - "bootstrap3-wysihtml5.all.js"
 Cohesion: 0.03
-Nodes (26): actOnCachedSelection(), _appendLineBreak(), _checkAttribute(), _checkAttributes(), deleteProperties(), expandRangeToSurround(), _getApplier(), _getAttributesBeginningWith() (+18 more)
+Nodes (30): actOnCachedSelection(), _appendLineBreak(), _checkAttribute(), _checkAttributes(), copyComparisonConstants(), copyComparisonConstantsToObject(), createIterator(), deleteProperties() (+22 more)
 
 ### Community 6 - "find"
 Cohesion: 0.03
 Nodes (81): _130(), _134(), _135(), _229(), _244(), _269(), _277(), _2b6() (+73 more)
 
 ### Community 7 - "add"
-Cohesion: 0.08
-Nodes (54): ac(), c(), add(), o(), u(), already(), Ao(), Bd() (+46 more)
+Cohesion: 0.05
+Nodes (67): dg, add(), o(), u(), ae(), already(), ar(), B_() (+59 more)
 
 ### Community 8 - "codemirror.js"
 Cohesion: 0.06
@@ -453,29 +443,29 @@ Nodes (20): buildSlotSegLevels(), compareForwardSlotSegs(), compareSegs(), compu
 Cohesion: 0.06
 Nodes (53): Canvas(), floorInBase(), Plot(), adjustLayoutForThingsStickingOut(), allAxes(), allocateAxisBoxFirstPhase(), allocateAxisBoxSecondPhase(), axisNumber() (+45 more)
 
-### Community 14 - "remove"
-Cohesion: 0.13
-Nodes (28): _2(), after(), append(), before(), $c(), check(), co(), CS() (+20 more)
+### Community 14 - "push"
+Cohesion: 0.07
+Nodes (66): _2(), aa(), after(), Ao(), append(), before(), bn(), $c() (+58 more)
 
 ### Community 15 - "has"
-Cohesion: 0.06
-Nodes (55): e2(), pa(), an(), applyParallelOffset(), arbitraryProperty(), Bc(), Bu(), Bv() (+47 more)
+Cohesion: 0.05
+Nodes (65): A2(), an(), applyParallelOffset(), arbitraryProperty(), Bc(), Bu(), Bv(), Cn() (+57 more)
 
 ### Community 16 - "moment.js"
-Cohesion: 0.04
-Nodes (15): addParseToken(), addWeekParseToken(), duration_add_subtract__add(), duration_add_subtract__addSubtract(), duration_add_subtract__subtract(), duration_as__valueOf(), getDateOffset(), getSetOffset() (+7 more)
+Cohesion: 0.03
+Nodes (22): addParseToken(), addWeekParseToken(), compareArrays(), duration_add_subtract__add(), duration_add_subtract__addSubtract(), duration_add_subtract__subtract(), duration_as__valueOf(), getDateOffset() (+14 more)
 
 ### Community 17 - "all.min.js"
 Cohesion: 0.08
-Nodes (55): _1(), a(), a1(), a2(), c(), C1(), C2(), d() (+47 more)
+Nodes (54): _1(), a(), a1(), a2(), c(), C1(), C2(), d() (+46 more)
 
 ### Community 18 - "jquery-ui.js"
 Cohesion: 0.05
-Nodes (8): dx(), size(), Datepicker(), datepicker_bindHover(), datepicker_handleMouseover(), focusable(), position(), visible()
+Nodes (25): dx(), size(), animComplete(), childComplete(), complete(), Datepicker(), datepicker_bindHover(), datepicker_handleMouseover() (+17 more)
 
 ### Community 19 - "easyui/jquery.min.js"
-Cohesion: 0.09
-Nodes (17): a(), C(), et(), ft(), G(), I(), Je(), jt() (+9 more)
+Cohesion: 0.06
+Nodes (41): a(), ae(), be(), C(), ce(), Ee(), et(), fe() (+33 more)
 
 ### Community 20 - "BaseController"
 Cohesion: 0.06
@@ -485,21 +475,21 @@ Nodes (21): Session, HasilBaca, Kondisi, KondisiBaca0, Selisih, Cabang, Auth, Ba
 Cohesion: 0.12
 Nodes (52): opts(), opts_from_el(), UTCDate(), UTCToday(), generateMaskSets(), generateMask(), getMaskTemplate(), getTestingChain() (+44 more)
 
-### Community 22 - "parse"
-Cohesion: 0.13
-Nodes (22): atrule(), comment(), decl(), emptyRule(), end(), freeSemicolon(), getPosition(), ig() (+14 more)
+### Community 22 - "normalize"
+Cohesion: 0.05
+Nodes (54): atrule(), beforeAfter(), block(), body(), calcBefore(), clean(), cleanBrackets(), comment() (+46 more)
 
 ### Community 23 - "fontawesome.min.js"
 Cohesion: 0.09
-Nodes (46): aa(), at(), ba(), Ca(), Dt(), et(), ft(), ga() (+38 more)
+Nodes (45): aa(), at(), ba(), Ca(), Dt(), et(), ft(), ga() (+37 more)
 
 ### Community 24 - "javascript.js"
 Cohesion: 0.18
 Nodes (49): aa(), Ja(), M(), N(), A(), Aa(), b(), Ba() (+41 more)
 
 ### Community 25 - "replace"
-Cohesion: 0.07
-Nodes (42): addToError(), b2(), beforeAfter(), block(), body(), calcBefore(), cleanBrackets(), contain3d() (+34 more)
+Cohesion: 0.06
+Nodes (50): c(), Ad(), addToError(), b2(), Bo(), cd(), Ct(), dn() (+42 more)
 
 ### Community 26 - "select2.js"
 Cohesion: 0.06
@@ -511,7 +501,7 @@ Nodes (17): _1fb(), _46a(), _46d(), _b64(), _b6a(), _b6b(), _22(), _29() (+9 mor
 
 ### Community 28 - "js/jquery.min.js"
 Cohesion: 0.08
-Nodes (31): _init(), aa(), ca(), fa(), fb(), ga(), b(), ha() (+23 more)
+Nodes (32): _init(), aa(), ca(), fa(), fb(), ga(), b(), ha() (+24 more)
 
 ### Community 29 - "jquery-2.2.3.min.js"
 Cohesion: 0.08
@@ -529,9 +519,9 @@ Nodes (45): _10f(), _116(), _117(), _118(), _11d(), _122(), _123(), _127() (+37 
 Cohesion: 0.05
 Nodes (62): 1. Prinsip Utama & Filosofi Desain, 2.1 Deklarasi Strict Types Wajib, 2.2 Explicit Property & Return Type Hints, 2.3 Memanfaatkan Fitur Modern PHP 8.1+, 2. Standar Bahasa PHP 8.1+ & PSR-12, 4. Validasi Form & Input Handling, 5.1 Proteksi CSRF (Cross-Site Request Forgery), 5.2 Pencegahan XSS (Cross-Site Scripting) (+54 more)
 
-### Community 33 - "push"
-Cohesion: 0.07
-Nodes (41): _a(), aa(), B_(), cC(), cloneDiv(), colorStops(), convert(), Cr() (+33 more)
+### Community 33 - "DOMException"
+Cohesion: 0.22
+Nodes (10): assertNode(), assertNoDocTypeNotationEntityAncestor(), assertSameDocumentOrFragment(), assertValidOffset(), cloneSubtree(), DOMException(), extractSubtree(), getRangeDocument() (+2 more)
 
 ### Community 34 - "excanvas.js"
 Cohesion: 0.07
@@ -547,11 +537,11 @@ Nodes (30): _6ae(), _756(), _75b(), _76f(), _780(), _78e(), _79e(), _7a5() (+22 
 
 ### Community 37 - "moment.min.js"
 Cohesion: 0.07
-Nodes (17): bc(), da(), ea(), ec(), fa(), fc(), ga(), gc() (+9 more)
+Nodes (15): ec(), fb(), fc(), gc(), hc(), ic(), jc(), mc() (+7 more)
 
 ### Community 38 - "CHANGES.md"
 Cohesion: 0.05
-Nodes (40): div(), CKEditor 4.0, CKEditor 4.0.1, CKEditor 4.0.1.1, CKEditor 4.0.2, CKEditor 4.0.3, CKEditor 4.1, CKEditor 4.1.1 (+32 more)
+Nodes (38): CKEditor 4.0, CKEditor 4.0.1, CKEditor 4.0.1.1, CKEditor 4.0.2, CKEditor 4.0.3, CKEditor 4.1, CKEditor 4.1.1, CKEditor 4.1.2 (+30 more)
 
 ### Community 39 - ".trigger"
 Cohesion: 0.10
@@ -562,8 +552,8 @@ Cohesion: 0.08
 Nodes (12): {closure#1}(), AjaxMonitor(), Bar(), ElementMonitor(), ElementTracker(), Evented(), Events(), NoTargetError() (+4 more)
 
 ### Community 41 - "jquery.tree.js"
-Cohesion: 0.12
-Nodes (32): _11d(), _4(), _4d(), _56(), _5f(), _60(), _6f(), _79() (+24 more)
+Cohesion: 0.13
+Nodes (31): _11d(), _4(), _4d(), _56(), _5f(), _60(), _6f(), _79() (+23 more)
 
 ### Community 42 - "d"
 Cohesion: 0.15
@@ -581,9 +571,9 @@ Nodes (34): _287(), _28b(), _291(), _297(), _2a5(), _2a8(), _2a9(), _2df() (+26 
 Cohesion: 0.12
 Nodes (27): _108(), _1(), _10e(), _119(), _11f(), _15(), _16(), _1b() (+19 more)
 
-### Community 47 - "L"
-Cohesion: 0.11
-Nodes (31): ae(), ar(), clear(), Du(), fs(), Gb(), hC(), Iu() (+23 more)
+### Community 47 - "ds"
+Cohesion: 0.08
+Nodes (34): _a(), At(), Cu(), dr(), ds(), e0(), es(), fs() (+26 more)
 
 ### Community 48 - "Calendar"
 Cohesion: 0.12
@@ -593,29 +583,29 @@ Nodes (31): Calendar(), calcSize(), changeView(), destroyEvents(), elementVisibl
 Cohesion: 0.06
 Nodes (31): autoload, autoload-dev, psr-4, exclude-from-classmap, psr-4, config, optimize-autoloader, preferred-install (+23 more)
 
-### Community 50 - "sync"
-Cohesion: 0.13
-Nodes (21): async(), catch(), finally(), getAsyncError(), getIterator(), getProxyProcessor(), handleError(), messages() (+13 more)
+### Community 50 - "ac"
+Cohesion: 0.09
+Nodes (30): ac(), s(), async(), Bd(), catch(), ce(), finally(), fn() (+22 more)
 
 ### Community 51 - "fullcalendar.min.js"
-Cohesion: 0.08
-Nodes (14): ae(), ce(), de(), fe(), ge(), h(), he(), u() (+6 more)
+Cohesion: 0.07
+Nodes (23): ae(), ce(), d(), de(), ee(), fe(), ge(), h() (+15 more)
 
 ### Community 52 - "_236"
 Cohesion: 0.09
 Nodes (27): _217(), _218(), _22e(), _232(), _236(), _23c(), _246(), _248() (+19 more)
 
 ### Community 53 - "createPrototypeRange"
-Cohesion: 0.08
-Nodes (42): assertNodeNotReadOnly(), assertRangeValid(), assertValidNodeType(), assertValidOffset(), comparePoints(), copyComparisonConstants(), copyComparisonConstantsToObject(), createIterator() (+34 more)
-
-### Community 54 - "Services"
 Cohesion: 0.10
-Nodes (12): App, Services, 3.1 Controller Rules (`app/Controllers/`), 3.2 Service Layer (`app/Services/`), 3.3 Model Rules (`app/Models/`), 3.4 Entity Rules (`app/Entities/`), 3. Arsitektur Berlapis: Controller - Service - Model - Entity, Contoh Controller yang Sesuai Standar: (+4 more)
+Nodes (37): assertNodeNotReadOnly(), assertRangeValid(), assertValidNodeType(), comparePoints(), createPrototypeRange(), createBeforeAfterNodeSetter(), setRangeEnd(), setRangeStart() (+29 more)
 
-### Community 55 - "CodeIgniter\Test\CIUnitTestCase"
-Cohesion: 0.14
-Nodes (5): {closure#1}(), ImageToString, ImageToStringTest, ExampleSessionTest, ImageToStringTest
+### Community 54 - "CodeIgniter\Test\CIUnitTestCase"
+Cohesion: 0.08
+Nodes (10): App, Services, getMonthName(), listBulan(), ExampleSessionTest, ConfigReader, BulanHelperTest, HealthTest (+2 more)
+
+### Community 55 - "ImageToString"
+Cohesion: 0.19
+Nodes (3): {closure#1}(), ImageToString, ImageToStringTest
 
 ### Community 56 - "CodeIgniter\Model"
 Cohesion: 0.12
@@ -645,9 +635,9 @@ Nodes (13): ContentSecurityPolicy, Cors, CURLRequest, Email, Encryption, Feature
 Cohesion: 0.10
 Nodes (34): _757(), _758(), _759(), _7c2(), _7c5(), _7c6(), _7c8(), _7c9() (+26 more)
 
-### Community 64 - "i"
-Cohesion: 0.06
-Nodes (42): s(), Ad(), At(), Bo(), cd(), comma(), dn(), Fd() (+34 more)
+### Community 64 - "constructor"
+Cohesion: 0.09
+Nodes (26): comma(), constructor(), createTokenizer(), Dd(), i1(), isStretch(), ks(), load() (+18 more)
 
 ### Community 66 - "plugins/jquery.tabs.js"
 Cohesion: 0.16
@@ -678,12 +668,12 @@ Cohesion: 0.13
 Nodes (22): appendItem(), appendItems(), bindMenuEvent(), clickHandler(), createItem(), createMenu(), destroyMenu(), findItems() (+14 more)
 
 ### Community 74 - "getDocument"
-Cohesion: 0.11
-Nodes (23): assertNode(), assertNodeInSameDocument(), assertNoDocTypeNotationEntityAncestor(), assertSameDocumentOrFragment(), cloneSubtree(), DOMException(), extractSubtree(), fragmentFromNodeChildren() (+15 more)
+Cohesion: 0.09
+Nodes (27): addRangeToControlSelection(), assertNodeInSameDocument(), createControlSelection(), fragmentFromNodeChildren(), getBody(), getCommonAncestor(), getContentDocument(), getDocSelection() (+19 more)
 
 ### Community 75 - "f"
-Cohesion: 0.20
-Nodes (22): aa(), b(), ba(), ca(), cc(), d(), e(), f() (+14 more)
+Cohesion: 0.16
+Nodes (30): aa(), ab(), b(), ba(), ca(), cc(), d(), f() (+22 more)
 
 ### Community 76 - "all.js"
 Cohesion: 0.10
@@ -718,16 +708,16 @@ Cohesion: 0.12
 Nodes (22): $bulanOpt, $cabangOpt, $cekOpt, $dg, doExcel(), doSearch(), $excelBt, findKampungByPetugas() (+14 more)
 
 ### Community 85 - ".toString"
-Cohesion: 0.09
-Nodes (26): as(), constructor(), createTokenizer(), _emitEvictions(), _entriesAscending(), error(), fromOffset(), ia() (+18 more)
+Cohesion: 0.10
+Nodes (21): as(), breakpoints(), dk(), dt(), error(), fromOffset(), ia(), info() (+13 more)
 
 ### Community 86 - "local__createLocal"
 Cohesion: 0.18
 Nodes (23): clone(), cloneWithOffset(), diff(), duration_get__get(), endOf(), getSet(), getSetDayOfYear(), hasAlignedHourOffset() (+15 more)
 
 ### Community 87 - "getParsingFlags"
-Cohesion: 0.15
-Nodes (19): addTimeToArrayFromToken(), configFromISO(), configFromString(), configFromStringAndArray(), configFromStringAndFormat(), copyConfig(), defaultParsingFlags(), extend() (+11 more)
+Cohesion: 0.13
+Nodes (22): addTimeToArrayFromToken(), configFromISO(), configFromString(), configFromStringAndArray(), configFromStringAndFormat(), copyConfig(), defaultParsingFlags(), expandFormat() (+14 more)
 
 ### Community 88 - "init"
 Cohesion: 0.14
@@ -738,8 +728,8 @@ Cohesion: 0.27
 Nodes (18): a(), c(), d(), e(), f(), g(), h(), i() (+10 more)
 
 ### Community 90 - "me"
-Cohesion: 0.21
-Nodes (19): me(), B(), c(), h(), j(), k(), l(), N() (+11 more)
+Cohesion: 0.17
+Nodes (21): f(), me(), B(), c(), f(), h(), j(), k() (+13 more)
 
 ### Community 91 - "LLM Routing & Token Rules"
 Cohesion: 0.08
@@ -770,8 +760,8 @@ Cohesion: 0.16
 Nodes (5): RekapKondisiBaca0, RekapKondisiBaca, FlattenByKondisi, KondisiToExcel, FlattenByKondisiTest
 
 ### Community 98 - "viewer.min.js"
-Cohesion: 0.19
-Nodes (19): tt(), A(), C(), E(), Et(), F(), I(), l() (+11 more)
+Cohesion: 0.16
+Nodes (22): ct(), tt(), A(), C(), E(), Et(), F(), I() (+14 more)
 
 ### Community 99 - "src/jquery.accordion.js"
 Cohesion: 0.27
@@ -781,17 +771,17 @@ Nodes (16): add(), createPanel(), togglePanel(), doFirstSelect(), _select(), fin
 Cohesion: 0.18
 Nodes (12): clickHandler(), create(), doEnter(), doQuery(), _setValues(), getRowIndex(), loadData(), nav() (+4 more)
 
-### Community 101 - "create__createDuration"
-Cohesion: 0.11
-Nodes (21): create__createDuration(), duration_humanize__relativeTime(), expandFormat(), replaceLongDateFormatTokens(), format(), formatMoment(), from(), fromNow() (+13 more)
+### Community 101 - "localeData"
+Cohesion: 0.13
+Nodes (20): create__createDuration(), duration_humanize__relativeTime(), format(), formatMoment(), from(), fromNow(), getSetLocaleDayOfWeek(), getSetWeek() (+12 more)
 
 ### Community 102 - "_78"
 Cohesion: 0.19
 Nodes (15): _59(), _62(), _77(), _78(), _90(), _c3(), _c4(), _d0() (+7 more)
 
 ### Community 104 - "plugins/jquery.form.js"
-Cohesion: 0.11
-Nodes (18): _1(), _20(), _26(), _2a(), _2b(), _2f(), _42(), _45() (+10 more)
+Cohesion: 0.16
+Nodes (14): _1(), _20(), _26(), _2a(), _2b(), _2f(), _42(), _45() (+6 more)
 
 ### Community 105 - "jquery.layout.js"
 Cohesion: 0.22
@@ -814,12 +804,12 @@ Cohesion: 0.22
 Nodes (12): _1(), _10(), _14(), _16(), _1b(), _2(), _33(), _39() (+4 more)
 
 ### Community 112 - "init"
-Cohesion: 0.10
-Nodes (25): addRangeToControlSelection(), alertOrLog(), consoleLog(), createControlSelection(), createModule(), fail(), getBody(), getErrorDesc() (+17 more)
+Cohesion: 0.17
+Nodes (12): alertOrLog(), consoleLog(), createModule(), fail(), getErrorDesc(), init(), isHostMethod(), isHostObject() (+4 more)
 
-### Community 113 - "localeData"
-Cohesion: 0.12
-Nodes (20): addFormatToken(), addWeekYearFormatToken(), getISOWeeksInYear(), getSetDayOfWeek(), getSetISOWeek(), getSetISOWeekYear(), getSetLocaleDayOfWeek(), getSetWeek() (+12 more)
+### Community 113 - "weekOfYear"
+Cohesion: 0.25
+Nodes (8): getISOWeeksInYear(), getSetISOWeek(), getSetISOWeekYear(), getSetWeekYear(), getWeeksInYear(), localeWeek(), weekOfYear(), weeksInYear()
 
 ### Community 114 - "dataTables.keyTable.min.js"
 Cohesion: 0.21
@@ -830,8 +820,8 @@ Cohesion: 0.27
 Nodes (16): _1(), _10(), _15(), _17(), _19(), _1c(), _23(), _28() (+8 more)
 
 ### Community 116 - "ye"
-Cohesion: 0.24
-Nodes (17): i(), g(), I(), s(), w(), ye(), a(), b() (+9 more)
+Cohesion: 0.14
+Nodes (32): b(), i(), n(), j(), E(), g(), i(), l() (+24 more)
 
 ### Community 117 - "SelectAdapter"
 Cohesion: 0.26
@@ -858,8 +848,8 @@ Cohesion: 0.31
 Nodes (9): configFromArray(), createUTCDate(), currentDateArray(), dayOfYearFromWeekInfo(), dayOfYearFromWeeks(), daysInYear(), defaults(), getIsLeapYear() (+1 more)
 
 ### Community 125 - "z"
-Cohesion: 0.20
-Nodes (15): a(), bb(), cb(), db(), eb(), ha(), ia(), ma() (+7 more)
+Cohesion: 0.23
+Nodes (13): a(), bb(), cb(), db(), eb(), ha(), ia(), ma() (+5 more)
 
 ### Community 127 - "init"
 Cohesion: 0.10
@@ -867,7 +857,7 @@ Nodes (31): _1e8(), _2ee(), _2fc(), _301(), _303(), _305(), _308(), _311() (+23 
 
 ### Community 128 - "l"
 Cohesion: 0.17
-Nodes (9): C(), d(), s(), u(), v(), e(), l(), o() (+1 more)
+Nodes (8): e(), l(), o(), vt(), e(), M(), u(), V()
 
 ### Community 129 - "cekfoto.js"
 Cohesion: 0.16
@@ -882,8 +872,8 @@ Cohesion: 0.30
 Nodes (11): a(), b(), d(), f(), k(), e(), k(), q() (+3 more)
 
 ### Community 133 - "createFromConfig"
-Cohesion: 0.13
-Nodes (22): chooseLocale(), compareArrays(), configFromInput(), configFromObject(), create_utc__createUTC(), createFromConfig(), createLocalOrUTC(), defineLocale() (+14 more)
+Cohesion: 0.15
+Nodes (19): chooseLocale(), configFromInput(), configFromObject(), create_utc__createUTC(), createFromConfig(), createLocalOrUTC(), defineLocale(), Duration() (+11 more)
 
 ### Community 134 - "init"
 Cohesion: 0.29
@@ -945,9 +935,9 @@ Nodes (13): init(), clamp(), clearSelection(), extractRange(), getSelection(), o
 Cohesion: 0.42
 Nodes (13): a(), b(), b(), c(), d(), e(), f(), g() (+5 more)
 
-### Community 150 - "each"
-Cohesion: 0.11
-Nodes (23): breakpoints(), checkForWarning(), disabled(), disabledDecl(), disabledValue(), dO(), dt(), each() (+15 more)
+### Community 150 - "3.2 Service Layer (`app/Services/`)"
+Cohesion: 0.25
+Nodes (8): 3.1 Controller Rules (`app/Controllers/`), 3.2 Service Layer (`app/Services/`), 3.3 Model Rules (`app/Models/`), 3.4 Entity Rules (`app/Entities/`), 3. Arsitektur Berlapis: Controller - Service - Model - Entity, Contoh Controller yang Sesuai Standar:, Contoh Service Layer:, Refactoring Query Model yang Rentan (Anti-Pattern vs Best-Practice):
 
 ### Community 151 - "_slicedToArray"
 Cohesion: 0.18
@@ -982,8 +972,8 @@ Cohesion: 0.17
 Nodes (9): addBtn, cabangOpt, emailTxt, ff, namaTxt, resetBt, submitBt, userTxt (+1 more)
 
 ### Community 161 - "HasilBacaToExcel"
-Cohesion: 0.13
-Nodes (5): DetailHasilBaca0, DetailHasilBaca, HasilBacaToExcel, HasilBacaToExcelTest, KondisiToExcelTest
+Cohesion: 0.15
+Nodes (4): DetailHasilBaca0, DetailHasilBaca, HasilBacaToExcel, HasilBacaToExcelTest
 
 ### Community 163 - "_1e"
 Cohesion: 0.29
@@ -998,8 +988,8 @@ Cohesion: 0.33
 Nodes (9): _1(), _19(), _20(), _5(), _6(), _9(), _10(), _d() (+1 more)
 
 ### Community 166 - "plugins/jquery.propertygrid.js"
-Cohesion: 0.24
-Nodes (7): _6b(), _2(), _3(), _6d(), _61(), _67(), _68()
+Cohesion: 0.15
+Nodes (11): _6b(), _32(), _33(), _34(), _35(), _2(), _3(), _6d() (+3 more)
 
 ### Community 167 - "jquery.sidemenu.js"
 Cohesion: 0.31
@@ -1110,8 +1100,8 @@ Cohesion: 0.27
 Nodes (9): appendLi(), dstKampung, dstUser, getKampungFrom(), getKampungTo(), pairKampung(), srcUser, tmpDstKampungList (+1 more)
 
 ### Community 196 - "handleSelectionMousedown"
-Cohesion: 0.36
-Nodes (9): addClass(), addSelections(), bindSideclick(), handleMouseMove(), handleMouseUp(), handleSelectionMousedown(), removeCellSelections(), removeClass() (+1 more)
+Cohesion: 0.31
+Nodes (10): addClass(), addSelections(), bindSideclick(), handleMouseMove(), handleMouseUp(), handleSelectionMousedown(), removeCellSelections(), removeClass() (+2 more)
 
 ### Community 197 - "add_subtract__addSubtract"
 Cohesion: 0.18
@@ -1221,13 +1211,13 @@ Nodes (4): createBox(), doEnter(), doQuery(), setValue()
 Cohesion: 0.39
 Nodes (4): applySize(), doMove(), doUp(), resize()
 
-### Community 231 - "normalize"
-Cohesion: 0.17
-Nodes (13): group(), Ic(), insertAfter(), Kv(), markDirty(), normalize(), normalizeUnit(), removeChild() (+5 more)
+### Community 231 - "brands.min.js"
+Cohesion: 0.39
+Nodes (5): C(), d(), s(), u(), v()
 
 ### Community 232 - "solid.min.js"
-Cohesion: 0.48
-Nodes (5): a(), d(), e(), M(), u()
+Cohesion: 0.39
+Nodes (6): a(), d(), e(), L(), M(), u()
 
 ### Community 233 - "ionicons/composer.json"
 Cohesion: 0.25
@@ -1261,21 +1251,21 @@ Nodes (7): callbacks(), capitalize(), off(), on(), operate(), option(), tidy()
 Cohesion: 0.61
 Nodes (6): D(), F(), k(), L(), t(), x()
 
-### Community 241 - "CodeIgniter 4 Application Starter"
+### Community 241 - "Cater Web (CodeIgniter 4 - `cater_web_ci4`)"
 Cohesion: 0.25
-Nodes (7): CodeIgniter 4 Application Starter, Important Change with index.php, Installation & updates, Repository Management, Server Requirements, Setup, What is CodeIgniter?
+Nodes (7): 1. Local Development (Koding Langsung di Host), 2. Docker Deployment (Containerized), 🐳 Arsitektur Docker, Cater Web (CodeIgniter 4 - `cater_web_ci4`), 🚀 Dua Mode Lingkungan Kerja, 🛠️ Panduan Perintah `Makefile`, 📋 Server Requirements (Local Mode)
 
 ### Community 243 - "_5"
 Cohesion: 0.22
 Nodes (17): _117(), _11f(), _128(), _138(), _13d(), _14b(), _3(), _4() (+9 more)
 
 ### Community 244 - "j"
-Cohesion: 0.21
-Nodes (13): ab(), g(), i(), j(), k(), l(), m(), n() (+5 more)
+Cohesion: 0.33
+Nodes (6): i(), j(), k(), xb(), y(), zb()
 
 ### Community 245 - "plugins/datagrid-detailview.js"
-Cohesion: 0.60
-Nodes (4): createGrid(), getSubGrid(), setHeight(), setParentHeight()
+Cohesion: 0.48
+Nodes (5): createGrid(), getSubGrid(), _insert(), setHeight(), setParentHeight()
 
 ### Community 246 - "_39"
 Cohesion: 0.48
@@ -1290,16 +1280,16 @@ Cohesion: 0.29
 Nodes (5): bulanOpt, dg, resetBt, searchBt, tahunOpt
 
 ### Community 250 - "js/datagrid-detailview.js"
-Cohesion: 0.60
-Nodes (4): createGrid(), getSubGrid(), setHeight(), setParentHeight()
+Cohesion: 0.48
+Nodes (5): createGrid(), getSubGrid(), _insert(), setHeight(), setParentHeight()
 
-### Community 251 - "Chart.js"
-Cohesion: 0.17
-Nodes (5): value(), createNewSlider(), defineBridget(), noop(), e()
-
-### Community 253 - "gb"
+### Community 251 - "bootstrap-slider.js"
 Cohesion: 0.29
-Nodes (8): fb(), gb(), hb(), pc(), qc(), rc(), sc(), xc()
+Nodes (3): createNewSlider(), defineBridget(), noop()
+
+### Community 253 - "e"
+Cohesion: 0.33
+Nodes (5): bc(), e(), gb(), hb(), zc()
 
 ### Community 254 - "jquery.flot.time.js"
 Cohesion: 0.48
@@ -1321,25 +1311,13 @@ Nodes (4): getFirstChildWithTagName(), getHash(), init(), showTab()
 Cohesion: 0.47
 Nodes (6): _4a5(), _4a8(), _4a9(), _4ae(), _4b5(), _4b9()
 
-### Community 267 - "r"
-Cohesion: 0.18
-Nodes (17): b(), d(), ee(), n(), j(), a(), E(), i() (+9 more)
-
-### Community 269 - "index"
-Cohesion: 0.17
-Nodes (4): _insert(), _insert(), dg, index()
+### Community 267 - "ea"
+Cohesion: 0.40
+Nodes (5): da(), ea(), fa(), ga(), na()
 
 ### Community 270 - "jquery.passwordbox.js"
 Cohesion: 0.53
 Nodes (5): _1(), _14(), _19(), _6(), _7()
-
-### Community 271 - "Re"
-Cohesion: 0.27
-Nodes (10): ce(), Ie(), le(), m(), me(), N(), Re(), ve() (+2 more)
-
-### Community 272 - "oe"
-Cohesion: 0.40
-Nodes (6): ge(), ne(), oe(), t(), a(), ut()
 
 ### Community 273 - "generateMutation"
 Cohesion: 0.40
@@ -1441,17 +1419,13 @@ Nodes (3): init(), processThresholds(), thresholdData()
 Cohesion: 0.70
 Nodes (4): a(), b(), c(), d()
 
-### Community 303 - "BulanHelperTest"
-Cohesion: 0.27
-Nodes (3): getMonthName(), listBulan(), BulanHelperTest
-
 ### Community 305 - "_59f"
 Cohesion: 1.00
 Nodes (4): _59f(), _5a3(), _5a4(), _5a5()
 
 ### Community 306 - "jquery.slimscroll.js"
-Cohesion: 0.52
-Nodes (6): attachWheel(), getBarHeight(), hideBar(), _onWheel(), scrollContent(), showBar()
+Cohesion: 0.21
+Nodes (13): addFormatToken(), addWeekYearFormatToken(), meridiem(), millisecond__milliseconds(), offset(), ordinal(), zeroFill(), attachWheel() (+5 more)
 
 ### Community 307 - "_d6e"
 Cohesion: 0.67
@@ -1485,10 +1459,6 @@ Nodes (3): init(), findMatchingSeries(), stackData()
 Cohesion: 0.67
 Nodes (3): init(), processThresholds(), thresholdData()
 
-### Community 320 - "ct"
-Cohesion: 0.40
-Nodes (5): ae(), ct(), fe(), X(), Y()
-
 ### Community 321 - "jquery.inputmask.regex.extensions.js"
 Cohesion: 0.67
 Nodes (3): analyseRegex(), regexToken(), validateRegexToken()
@@ -1501,41 +1471,17 @@ Nodes (5): _11(), _1b(), _25(), _2d(), _26()
 Cohesion: 0.67
 Nodes (6): _34(), _3c(), _3d(), _3e(), _46(), _4f()
 
-### Community 745 - "g"
-Cohesion: 0.33
-Nodes (6): f(), f(), m(), p(), g(), N()
-
-### Community 746 - "jquery-ui.min.js"
-Cohesion: 0.62
-Nodes (10): a(), e(), h(), i(), i(), n(), o(), r() (+2 more)
-
 ### Community 747 - "mergeOptions"
 Cohesion: 0.50
 Nodes (4): isForcedAtomicOption(), mergeOptions(), mergeIntoTarget(), setDefaults()
-
-### Community 748 - "ds"
-Cohesion: 0.25
-Nodes (9): Cu(), dr(), ds(), e0(), es(), Hu(), K(), vi() (+1 more)
 
 ### Community 749 - "_cd4"
 Cohesion: 0.29
 Nodes (5): _cd4(), _cd8(), _ce5(), _ce7(), _ce8()
 
-### Community 750 - "regular.min.js"
-Cohesion: 0.43
-Nodes (4): e(), M(), u(), V()
-
-### Community 751 - "show"
-Cohesion: 0.29
-Nodes (7): animComplete(), childComplete(), complete(), _renderAxis(), run(), done(), show()
-
 ### Community 752 - "_d22"
 Cohesion: 0.33
 Nodes (5): _d22(), _d26(), _d2d(), _d30(), _d31()
-
-### Community 753 - "Te"
-Cohesion: 0.40
-Nodes (6): be(), Ee(), he(), se(), Te(), we()
 
 ### Community 754 - "_1ae"
 Cohesion: 0.40
@@ -1549,19 +1495,15 @@ Nodes (3): dependencies, puppeteer, puppeteer
 Cohesion: 0.67
 Nodes (3): _19e(), _1a1(), _19f()
 
-### Community 758 - "q"
-Cohesion: 0.67
-Nodes (3): q(), q(), u()
-
 ## Knowledge Gaps
 - **1 isolated node(s):** `puppeteer`
   These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 1813 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **470 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **472 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `document()` connect `document` to `jquery.easyui.min.js`, `tailwind.js`, `sf.js`, `jquery.dataTables.js`, `bootstrap3-wysihtml5.all.js`, `init`, `codemirror.js`, `_4a9`, `jquery.dataTables.min.js`, `excanvas.min.js`, `fullcalendar.js`, `jquery-ui.js`, `init`, `maskScope`, `each`, `parse`, `replace`, `js/jquery.min.js`, `jquery.slimscroll.min.js`, `.zoomIn`, `excanvas.js`, `_1e`, `plugins/jquery.propertygrid.js`, `jquery.sidemenu.js`, `d`, `show`, `jquery.slimscroll.js`, `fullcalendar.min.js`, `plugins/jquery.draggable.js`, `jquery.tooltip.js`, `plugins/jquery.window.js`, `bootstrap3-wysihtml5.all.min.js`, `src/jquery.draggable.js`, `src/jquery.window.js`, `sf`, `plugins/jquery.menu.js`, `src/jquery.menu.js`, `_4d`, `dataTables.keyTable.js`, `jquery.messager.js`, `plugins/jquery.resizable.js`, `viewer.min.js`, `src/jquery.resizable.js`, `jquery-ui.min.js`, `jquery.combo.js`, `init`, `dataTables.keyTable.min.js`, `src/jquery.propertygrid.js`, `.show`?**
+- **Why does `document()` connect `document` to `jquery.easyui.min.js`, `tailwind.js`, `sf.js`, `jquery.dataTables.js`, `bootstrap3-wysihtml5.all.js`, `init`, `codemirror.js`, `_4a9`, `jquery.dataTables.min.js`, `excanvas.min.js`, `fullcalendar.js`, `jquery-ui.js`, `init`, `maskScope`, `normalize`, `js/jquery.min.js`, `jquery.slimscroll.min.js`, `.zoomIn`, `excanvas.js`, `_1e`, `plugins/jquery.propertygrid.js`, `jquery.sidemenu.js`, `d`, `show`, `jquery.slimscroll.js`, `fullcalendar.min.js`, `plugins/jquery.draggable.js`, `jquery.tooltip.js`, `plugins/jquery.window.js`, `bootstrap3-wysihtml5.all.min.js`, `src/jquery.draggable.js`, `src/jquery.window.js`, `sf`, `plugins/jquery.menu.js`, `src/jquery.menu.js`, `.toString`, `_4d`, `dataTables.keyTable.js`, `jquery.messager.js`, `plugins/jquery.resizable.js`, `viewer.min.js`, `src/jquery.resizable.js`, `jquery.combo.js`, `init`, `dataTables.keyTable.min.js`, `src/jquery.propertygrid.js`, `.show`?**
   _High betweenness centrality (0.259) - this node is a cross-community bridge._
 - **Are the 110 inferred relationships involving `document()` (e.g. with `.checkPosition()` and `.enforceFocus()`) actually correct?**
   _`document()` has 110 INFERRED edges - model-reasoned connections that need verification._
@@ -1569,9 +1511,9 @@ _Questions this graph is uniquely positioned to answer:_
   _1 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `jquery.easyui.min.js` be split into smaller, more focused modules?**
   _Cohesion score 0.017910194380782615 - nodes in this community are weakly interconnected._
-- **Why does `opts()` connect `maskScope` to `jquery.easyui.min.js`, `tailwind.js`, `jquery.dataTables.js`, `parse`, `document`, `init`?**
-  _High betweenness centrality (0.074) - this node is a cross-community bridge._
+- **Why does `opts()` connect `maskScope` to `jquery.easyui.min.js`, `tailwind.js`, `jquery.dataTables.js`, `document`, `init`?**
+  _High betweenness centrality (0.071) - this node is a cross-community bridge._
 - **Should `tailwind.js` be split into smaller, more focused modules?**
-  _Cohesion score 0.023747031621047368 - nodes in this community are weakly interconnected._
-- **Why does `fn()` connect `add` to `i`, `tailwind.js`, `select2.full.js`, `remove`?**
-  _High betweenness centrality (0.044) - this node is a cross-community bridge._
+  _Cohesion score 0.02349206349206349 - nodes in this community are weakly interconnected._
+- **Why does `fn()` connect `ac` to `tailwind.js`, `select2.full.js`, `push`, `has`?**
+  _High betweenness centrality (0.043) - this node is a cross-community bridge._

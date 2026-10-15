@@ -169,6 +169,33 @@ final class FlattenByKondisiTest extends CIUnitTestCase
         $this->assertSame(5, $footer[0]['unknown']);
     }
 
+    public function testConditionNotInConditionListGoesToUnknown(): void
+    {
+        $data = [
+            (object) ['satker' => '0200', 'kondisi' => 'rusak parah', 'total' => 5],
+            (object) ['satker' => '0200', 'kondisi' => 'afkir', 'total' => 3],
+            (object) ['satker' => '0300', 'kondisi' => 'normal', 'total' => 10],
+        ];
+
+        $flatten = new FlattenByKondisi($data, '2026-10', $this->mockBranches, $this->mockConditions);
+        $rows = $flatten->get();
+        $footer = $flatten->getFooter();
+
+        // Branch 0200 unknown = 5 + 3 = 8
+        $this->assertSame(8, $rows[0]['unknown']);
+        $this->assertSame(8, $rows[0]['total']);
+
+        // Branch 0300 normal = 10, total = 10
+        $this->assertSame(10, $rows[1]['normal']);
+        $this->assertSame(10, $rows[1]['total']);
+        $this->assertSame(0, $rows[1]['unknown']);
+
+        // Footer unknown = 8, normal = 10, total = 18
+        $this->assertSame(8, $footer[0]['unknown']);
+        $this->assertSame(10, $footer[0]['normal']);
+        $this->assertSame(18, $footer[0]['total']);
+    }
+
     public function testResultMemoization(): void
     {
         $data = [
