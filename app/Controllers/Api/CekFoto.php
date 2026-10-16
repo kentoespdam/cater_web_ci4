@@ -5,9 +5,20 @@ namespace App\Controllers\Api;
 use App\Controllers\BaseController;
 use App\Libraries\ImageToString;
 use App\Models\BacaMeterModel;
+use App\Services\BacaMeterQueryService;
 
 class CekFoto extends BaseController
 {
+    public function __construct(
+        private readonly ?BacaMeterQueryService $queryService = null,
+    ) {
+    }
+
+    private function getQueryService(): BacaMeterQueryService
+    {
+        return $this->queryService ?? new BacaMeterQueryService();
+    }
+
     public function index()
     {
         $req = (object) request()->getGet();
@@ -15,8 +26,7 @@ class CekFoto extends BaseController
         if (!isset($req->nosamw) || !isset($req->tglAwal) || !isset($req->tglAkhir) || empty($req->nosamw) || empty($req->tglAwal) || empty($req->tglAkhir)) {
             return response()->setJSON([]);
         }
-        $bacaMeterModel = new BacaMeterModel();
-        $data = $bacaMeterModel->cekFoto($req->nosamw, $req->tglAwal, $req->tglAkhir);
+        $data = $this->getQueryService()->cekFoto($req->nosamw, $req->tglAwal, $req->tglAkhir);
 
         return response()->setJSON([
             "rows" => $data,

@@ -5,11 +5,21 @@ namespace App\Controllers\Cetak;
 use App\Controllers\BaseController;
 use App\Libraries\FlattenByKondisi;
 use App\Libraries\KondisiToExcel;
-use App\Models\BacaMeterModel;
+use App\Services\BacaMeterQueryService;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class RekapKondisiBaca extends BaseController
 {
+    public function __construct(
+        private readonly ?BacaMeterQueryService $queryService = null,
+    ) {
+    }
+
+    private function getQueryService(): BacaMeterQueryService
+    {
+        return $this->queryService ?? new BacaMeterQueryService();
+    }
+
     public function index(): ResponseInterface
     {
         $req = (object) request()->getGet();
@@ -27,8 +37,7 @@ class RekapKondisiBaca extends BaseController
 
         [$tglAwal, $tglAkhir] = get_start_end_date_from_periode($periode);
 
-        $model = new BacaMeterModel();
-        $data = $model->getKondisiBaca($tglAwal, $tglAkhir);
+        $data = $this->getQueryService()->getKondisiBaca($tglAwal, $tglAkhir);
 
         $flattenKondisi = new FlattenByKondisi($data, $periode);
         $result = $flattenKondisi->get();

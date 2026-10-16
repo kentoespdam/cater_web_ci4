@@ -4,10 +4,20 @@ namespace App\Controllers\Api\Laporan;
 
 use App\Controllers\BaseController;
 use App\Libraries\FlattenByKondisi;
-use App\Models\BacaMeterModel;
+use App\Services\BacaMeterQueryService;
 
 class KondisiBaca0 extends BaseController
 {
+    public function __construct(
+        private readonly ?BacaMeterQueryService $queryService = null,
+    ) {
+    }
+
+    private function getQueryService(): BacaMeterQueryService
+    {
+        return $this->queryService ?? new BacaMeterQueryService();
+    }
+
     public function index()
     {
         $req = (object) request()->getGet();
@@ -25,8 +35,7 @@ class KondisiBaca0 extends BaseController
 
         [$tglAwal, $tglAkhir] = get_start_end_date_from_year_month($req->tahun ?? null, $req->bulan ?? null);
 
-        $model = new BacaMeterModel();
-        $data = $model->getKondisiBaca0($tglAwal, $tglAkhir);
+        $data = $this->getQueryService()->getKondisiBaca0($tglAwal, $tglAkhir);
 
         $flattenKondisi = new FlattenByKondisi($data, $periode);
         $result = $flattenKondisi->get();

@@ -3,10 +3,20 @@
 namespace App\Controllers\Api\Laporan;
 
 use App\Controllers\BaseController;
-use App\Models\BacaMeterModel;
+use App\Services\BacaMeterQueryService;
 
 class HasilBaca extends BaseController
 {
+    public function __construct(
+        private readonly ?BacaMeterQueryService $queryService = null,
+    ) {
+    }
+
+    private function getQueryService(): BacaMeterQueryService
+    {
+        return $this->queryService ?? new BacaMeterQueryService();
+    }
+
     public function index()
     {
         $req = (object) request()->getGet();
@@ -26,8 +36,7 @@ class HasilBaca extends BaseController
         $kondisi = isset($req->kondisi) && !empty($req->kondisi) ? $req->kondisi : null;
         $cek =  isset($req->cek) && !empty($req->cek) ? $req->cek : "0";
 
-        $bacaMeter = new BacaMeterModel();
-        $dataVerif = $bacaMeter->getDataVerif(
+        $dataVerif = $this->getQueryService()->getDataVerif(
             $tglAwal,
             $tglAkhir,
             $cek,
@@ -41,7 +50,7 @@ class HasilBaca extends BaseController
             $kondisi,
             $nosamw,
         );
-        $totalData = $bacaMeter->getTotalData(
+        $totalData = $this->getQueryService()->getTotalData(
             $tglAwal,
             $tglAkhir,
             $cek,

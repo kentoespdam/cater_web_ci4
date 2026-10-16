@@ -4,11 +4,21 @@ namespace App\Controllers\Cetak;
 
 use App\Controllers\BaseController;
 use App\Libraries\HasilBacaToExcel;
-use App\Models\BacaMeterModel;
+use App\Services\BacaMeterQueryService;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class DetailHasilBaca extends BaseController
 {
+    public function __construct(
+        private readonly ?BacaMeterQueryService $queryService = null,
+    ) {
+    }
+
+    private function getQueryService(): BacaMeterQueryService
+    {
+        return $this->queryService ?? new BacaMeterQueryService();
+    }
+
     public function index(): ResponseInterface
     {
         ini_set('memory_limit', "-1");
@@ -23,8 +33,7 @@ class DetailHasilBaca extends BaseController
         $kondisi = isset($req->kondisi) && !empty($req->kondisi) ? $req->kondisi : null;
         $cek = isset($req->cek) && !empty($req->cek) ? $req->cek : "0";
 
-        $model = new BacaMeterModel();
-        $data = $model->getDataVerifCursor(
+        $data = $this->getQueryService()->getDataVerifCursor(
             $tglAwal,
             $tglAkhir,
             (string) $cek,

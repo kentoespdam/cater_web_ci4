@@ -3,10 +3,20 @@
 namespace App\Controllers\Api\Laporan;
 
 use App\Controllers\BaseController;
-use App\Models\BacaMeterModel;
+use App\Services\BacaMeterQueryService;
 
 class HasilBaca0 extends BaseController
 {
+    public function __construct(
+        private readonly ?BacaMeterQueryService $queryService = null,
+    ) {
+    }
+
+    private function getQueryService(): BacaMeterQueryService
+    {
+        return $this->queryService ?? new BacaMeterQueryService();
+    }
+
     public function index()
     {
         $req = (object) request()->getGet();
@@ -35,8 +45,7 @@ class HasilBaca0 extends BaseController
     private function getHasilBaca0($page, $size, $tglAwal, $tglAkhir, $cabang = null)
     {
         $offset = ($page - 1) * (int) $size;
-        $bacaMeterModel = new BacaMeterModel();
-        $result = $bacaMeterModel->getHasilBaca0($tglAwal, $tglAkhir, $cabang, $size, $offset);
+        $result = $this->getQueryService()->getHasilBaca0($tglAwal, $tglAkhir, $cabang, $size, $offset);
 
         return $result;
     }
