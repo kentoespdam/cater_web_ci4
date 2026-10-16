@@ -3,59 +3,55 @@
 namespace App\Controllers\Cetak;
 
 use App\Controllers\BaseController;
+use App\Services\SelisihFotoService;
 
 class SelisihFoto extends BaseController
 {
-    private $defaultPropertyGridData = [
-        "total" => 3,
-        "rows" => [
-            ["name" => "jmlData", "value" => 0],
-            ["name" => "jmlFoto", "value" => 0],
-            ["name" => "selisih", "value" => 0],
-        ],
-    ];
+    protected SelisihFotoService $service;
+
+    public function __construct()
+    {
+        $this->service = new SelisihFotoService();
+    }
 
     public function index()
     {
         helper("bulan");
-        $view = \Config\Services::renderer();
 
-        return $view
-            ->setVar("data", $this->getData())
-            ->render("cetak/selisih");
+        return view("cetak/selisih", ["data" => $this->getData()]);
     }
 
-    private function getData(): object
+    private function getData()
     {
-        if (request()->getServer("QUERY_STRING") == "") {
-            return response()->setJSON([
-                "rows" => [],
-                "total" => 0,
-                "propertygrid" => $this->defaultPropertyGridData,
-            ]);
+        $request = $this->request;
+        $tahun = $request->getGet('tahun') ?: date('Y');
+        $bulan = $request->getGet('bulan') ?: date('m');
+        $cabang = $request->getGet('cabang');
+        $petugas = $request->getGet('petugas');
+        $findByCabang = $request->getGet('findByCabang');
+
+        if (!empty($cabang) && $findByCabang === 'on') {
+            $result = $this->service->findByCabang($cabang, $bulan, $tahun);
+        } elseif (!empty($petugas)) {
+            $result = $this->service->findByPegawai($petugas, $bulan, $tahun);
+        } else {
+            $result = [
+                'jmlData' => 0,
+                'jmlFoto' => 0,
+                'selisih' => 0,
+                'data'    => [],
+            ];
         }
 
-        $client = \Config\Services::curlrequest([
-            "baseURI" => "http://192.168.1.215:82/selisih/",
-        ]);
-
-        $result = $client->get(
-            "api.php",
-            [
-                "query" => request()->getGet(),
-            ],
-        );
-        $data = json_decode($result->getBody());
-
         return (object) [
-            "rows" => $data->data,
-            "total" => count($data->data),
+            "rows" => $result['data'],
+            "total" => count($result['data']),
             "propertygrid" => (object) [
                 "total" => 3,
                 "rows" => [
-                    (object) ["name" => "jmlData", "value" => $data->jmlData],
-                    (object) ["name" => "jmlFoto", "value" => $data->jmlFoto],
-                    (object) ["name" => "selisih", "value" => $data->selisih],
+                    (object) ["name" => "jmlData", "value" => $result['jmlData']],
+                    (object) ["name" => "jmlFoto", "value" => $result['jmlFoto']],
+                    (object) ["name" => "selisih", "value" => $result['selisih']],
                 ],
             ],
         ];

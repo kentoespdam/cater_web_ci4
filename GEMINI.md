@@ -1,106 +1,110 @@
-# LLM Routing & Token Rules
+# LLM Routing & Token Rules — Manager-Worker Architecture
 
-## LLM Routing — Mandatory Classification
+## Prinsip Utama Arsitektur
 
-Root agent WAJIB mengklasifikasikan SETIAP task ke salah satu tier berikut SEBELUM bertindak. DILARANG skip klasifikasi.
+Sistem menggunakan pola **Manager-Worker (Orchestrator-Worker)** untuk efisiensi token, kebersihan context window, dan pemisahan wewenang yang tegas:
 
-| Tier | Trigger | Model | Role Name |
-|---|---|---|---|
-| `[LITE]` | Baca/tulis/edit file, **riset internet/web search**, baca docs, grep/find kode, jalankan command/test/lint, ekstrak log, seluruh pekerjaan I/O | `flash_lite` | Lite Worker |
-| `[PRO]` | **Pure reasoning SAJA**: Desain arsitektur, evaluasi keamanan, perancangan algoritma kompleks, evaluasi trade-off strategis, sintesis solusi | `flash` (Gemini Flash High) atau `inherit` jika root=Sonnet | Pro Reasoner |
-| `[DIRECT]` | Pertanyaan konseptual/sapaan trivial yang bisa dijawab 1–2 kalimat | root (inline) | — |
+- **Root Agent (Manager)**:
+  - **Model**: Sesi aktif (Gemini Flash High / Sonnet).
+  - **Fokus**: Pure Reasoning, analisis kebutuhan, perancangan arsitektur, dekomposisi task, verifikasi hasil, dan komunikasi dengan user.
+  - **Kebijakan Zero I/O**: Root Agent **DILARANG KERAS** melakukan operasi I/O langsung pada repositori, riset web, eksekusi command shell, atau modifikasi file. Seluruh pekerjaan teknis wajib didelegasikan ke Sub-Agent.
+- **Sub-Agent (Worker)**:
+  - **Model**: `flash_lite` (Gemini Flash Low/Lite).
+  - **Fokus**: Pemegang kuasa tunggal seluruh eksekusi teknis, I/O, riset internet, eksplorasi kode, pengujian, penulisan file, dan tugas-tugas mekanis non-reasoning.
 
 ---
 
-## Aturan Ketat Pembagian Tugas (Strict Role Boundaries)
+## Routing & Task Classification
 
-### 1. Lite Worker (`flash_lite`) — Pemegang Kuasa Tunggal Seluruh I/O
-- **Scope Wajib**:
-  - Semua pembacaan, penulisan, dan pengeditan file di repositori.
-  - **Seluruh riset internet** (`search_web`, `read_url_content`), pencarian dokumentasi library/framework.
-  - Eksplorasi codebase lokal (`grep_search`, `find_by_name`, `list_dir`, `view_file`).
-  - Eksekusi command terminal (`run_command`), testing (`phpunit`), linting (`php-cs-fixer`), git operations.
-- **Reporting Protocol**:
-  - Melaporkan **fakta mentah/data hasil riset** saja tanpa spekulasi strategis.
-  - Jika mengumpulkan data untuk Pro Reasoner, WAJIB menyimpannya ke file scratchpad (misal: `<artifactDir>/scratch/...`) dan melaporkan path ARTIFACT tersebut ke root.
-  - Menutup laporan dengan: *"Laporan selesai. Menunggu instruksi berikutnya dari root agent."*
+Sebelum bertindak, Root Agent mengklasifikasikan tugas pengguna ke salah satu dari dua kategori:
 
-### 2. Pro Reasoner — Zero I/O Policy (Dilarang I/O & Dilarang Riset Langsung)
+| Tier | Kriteria | Pelaksana | Model | Tindakan |
+|---|---|---|---|---|
+| `[DIRECT]` | Sapaan ramah, jawaban konseptual singkat (≤ 2 kalimat) tanpa perlu cek kode/tool | Root Agent (Inline) | Active Model | Jawab langsung tanpa tool / subagent |
+| `[DELEGATE]` | Seluruh pekerjaan teknis: baca/tulis/edit file, web search, terminal command, unit test, linting, grep, git | Sub-Agent (Worker) | `flash_lite` | Delegasikan via `invoke_subagent` / `send_message` |
+
+---
+
+## Strict Role Boundaries
+
+### 1. Root Agent (Manager) — Zero I/O & Pure Reasoning
+- **Wewenang**:
+  - Menganalisis masalah dan merancang solusi arsitektural.
+  - Memecah masalah kompleks menjadi sub-task yang terukur.
+  - Menugaskan dan mengorkestrasi sub-agent.
+  - Membaca laporan ringkas atau file artifact/scratchpad hasil kerja worker (`view_file` terbatas pada scratchpad/artifact).
+  - Melakukan evaluasi kualitas (QA review) sebelum menyerahkan hasil ke pengguna.
 - **DILARANG KERAS**:
   - DILARANG memanggil tool riset web (`search_web`, `read_url_content`).
-  - DILARANG membaca atau mencari file repositori secara luas (`grep_search`, `find_by_name`, `list_dir`).
-  - DILARANG menjalankan perintah terminal (`run_command`).
-  - DILARANG menulis atau memodifikasi file repositori secara langsung.
-- **Scope HANYA**:
-  - Menerima bahan/fakta mentah yang **SUDAH dikumpulkan oleh Lite Worker** via file ARTIFACT.
-  - Menganalisis, merancang arsitektur, memecahkan logika algoritma rumit, dan menyintesis dokumen solusi.
-  - Menghasilkan draf solusi di scratchpad lalu mengakhiri laporan dengan blok `<<<DISPATCH>>>`.
+  - DILARANG membaca atau mencari file repositori secara masif (`grep_search`, `find_by_name`, `list_dir`).
+  - DILARANG memodifikasi atau menulis file di repositori (`write_to_file`, `replace_file_content` pada direktori proyek).
+  - DILARANG menjalankan perintah terminal langsung (`run_command` untuk spark, phpunit, composer, git, dll).
+
+### 2. Sub-Agent (Worker) — Kuasa Tunggal Seluruh I/O & Pekerjaan Teknis
+- **Model Wajib**: `flash_lite`
+- **Wewenang**:
+  - Seluruh operasi file di repositori (baca, buat, edit, hapus).
+  - Seluruh riset internet dan dokumentasi web (`search_web`, `read_url_content`).
+  - Seluruh pencarian dan navigasi codebase (`grep_search`, `find_by_name`, `list_dir`).
+  - Seluruh eksekusi perintah shell (`run_command`: `php spark`, `phpunit`, `php-cs-fixer`, `git`, `bd`).
+- **Protokol Pelaporan**:
+  - Melaporkan **fakta mentah dan data objektif** tanpa spekulasi strategis.
+  - Wajib menerapkan **Artifact Offloading**: Hasil pencarian panjang, log terminal, atau data mentah WAJIB disimpan ke file scratchpad (misal: `<artifactDir>/scratch/...`).
+  - Hanya mengembalikan ringkasan eksekutif (1–3 paragraf), status (SUKSES/GAGAL), dan path file scratchpad ke Root Agent.
+  - Menutup laporan dengan: *"Laporan selesai. Menunggu instruksi berikutnya dari root agent."*
 
 ---
 
-## Routing Decision Matrix
+## Protokol Komunikasi & Kontrak Penugasan
 
-| Kebutuhan Tugas | Route ke | Catatan Eksekusi |
-|---|---|---|
-| Sapaan / pertanyaan dasar (≤2 kalimat) | `[DIRECT]` Root | Langsung jawab inline, 0 tool, 0 subagent |
-| Baca / tulis / edit file di repo | `[LITE]` Lite Worker | Gunakan micro-diff / tool file |
-| **Riset internet / web search / baca docs** | **`[LITE]` Lite Worker** | **DILARANG delegasikan ke Pro Reasoner** |
-| Eksplorasi codebase (grep, find, list file) | `[LITE]` Lite Worker | Ekstrak temuan mentah |
-| Run test, linter, spark, composer | `[LITE]` Lite Worker | Ekstrak log output |
-| Sintesis arsitektur dari bahan riset | `[PRO]` Pro Reasoner | Bahan WAJIB disiapkan oleh Lite Worker dulu |
-| Analisis akar masalah (root cause) kompleks | `[PRO]` Pro Reasoner | Log & file diekstrak oleh Lite Worker dulu |
-| Keputusan trade-off arsitektural | `[PRO]` Pro Reasoner | Pure reasoning via ARTIFACT |
+### 1. Format Penugasan (Root Manager → Sub-Agent Worker)
+Ketika mendelegasikan tugas ke worker, Root Agent wajib memberikan instruksi yang terstruktur:
 
----
-
-## Alur Eksekusi Task Campuran / Riset (Sequential Split)
-
-Jika suatu task membutuhkan riset/eksplorasi SEKALIGUS perancangan arsitektur:
-1. **Langkah 1 (`[LITE]` Lite Worker)**:
-   Lite Worker melakukan pencarian web, pembacaan file repo, atau ekstraksi log. Seluruh hasil temuan mentah ditulis ke file `ARTIFACT` (path scratchpad).
-2. **Langkah 2 (`[PRO]` Pro Reasoner)**:
-   Root mem-forward path `ARTIFACT` ke Pro Reasoner. Pro Reasoner melakukan reasoning/desain arsitektur berdasarkan artifact tersebut tanpa memanggil tool I/O/web search sendiri. Pro Reasoner menutup respon dengan blok `<<<DISPATCH>>>`.
-3. **Langkah 3 (`[LITE]` Lite Worker)**:
-   Root mengekstrak tugas dari `<<<DISPATCH>>>` dan menugaskan Lite Worker untuk menulis/mengubah file akhir di repositori.
-
----
-
-## DISPATCH Format (Pro → Root)
-
-Pro Reasoner WAJIB mengakhiri setiap output dengan blok ini:
-
-```
-<<<DISPATCH>>>
-TIER: LITE | DIRECT
-TUGAS: [instruksi spesifik untuk worker atau root]
-ARTIFACT: [absolute path file/scratchpad, atau NONE]
-<<<END_DISPATCH>>>
+```markdown
+GOAL: [Tujuan spesifik yang ingin dicapai]
+SCOPE: [Jalur file target absolut atau direktori yang relevan]
+ACTIONS: [Daftar tindakan teknis: edit file, jalankan test, web search, dll]
+SCRATCHPAD: [Path scratchpad untuk menyimpan output mentah jika ada]
+CONSTRAINTS: [Batasan: flag non-interactive, standar PHP 8.1 CI4, dsb]
 ```
 
-Root agent HANYA membaca konten antara `<<<DISPATCH>>>` dan `<<<END_DISPATCH>>>`. Semua reasoning di atas blok ini diabaikan.
+### 2. Format Laporan (Sub-Agent Worker → Root Manager)
+Worker merespons dengan format ringkas untuk menjaga context window Manager:
+
+```markdown
+STATUS: SUKSES | GAGAL
+RINGKASAN: [Intisari temuan / perubahan yang telah dilakukan]
+ARTIFACT: [Path absolut file scratchpad/artifact, atau NONE jika tidak ada]
+CATATAN: [Detail teknis penting jika ada]
+
+Laporan selesai. Menunggu instruksi berikutnya dari root agent.
+```
 
 ---
 
-## Subagent Reuse & Error Handling
+## Sub-Agent Lifecycle, Reuse, & Error Handling
 
-1. **Subagent Reuse Wajib**:
-   - Cek `manage_subagents(Action="list")` sebelum spawn.
-   - Jika ada worker yang idle → wajib gunakan `send_message`. Spawn baru HANYA jika killed atau context window penuh.
-   - Maksimal 1 Pro Reasoner per sesi.
-2. **Error Handling**:
-   - Lite Worker gagal → lapor ke root. Retry max 3x.
-   - Jika 3x gagal → eskalasi ke Pro Reasoner untuk analisis masalah (menggunakan log kegagalan yang sudah dikumpulkan worker).
-   - Pro Reasoner DILARANG melakukan *self-fix loop*.
+1. **Sub-Agent Reuse (Wajib)**:
+   - Root Agent WAJIB memeriksa sub-agent aktif via `manage_subagents(Action="list")` sebelum membuat sub-agent baru.
+   - Jika terdapat worker dengan status `idle`, gunakan `send_message` untuk memberikan tugas berikutnya.
+   - Spawn sub-agent baru HANYA jika belum ada worker aktif, worker sebelumnya telah di-kill, atau context window worker sudah jenuh.
+   - Maksimal 1 Worker aktif secara sekuensial (atau paralel jika task independen).
+
+2. **Protokol Penanganan Error (Fail-Fast & Escalation)**:
+   - Worker diperbolehkan melakukan *self-retry* maksimal **2–3 kali** untuk error teknis sederhana (misal salah ketik syntax minor).
+   - Jika tetap gagal setelah 3x percobaan, Worker **DILARANG** melakukan loop perbaikan tanpa henti.
+   - Worker WAJIB mencatat log kegagalan ke scratchpad dan mengirim laporan eskalasi ke Root Manager.
+   - Root Manager melakukan analisis mendalam (root-cause analysis) dan memberikan instruksi perbaikan yang terarah kepada Worker.
 
 ---
 
-## Catatan Konfigurasi
+## Catatan Konfigurasi & Budgeting
 
-| Parameter | Value | Alasan |
+| Parameter | Value | Keterangan |
 |---|---|---|
-| Max Lite Workers | Unlimited (paralel) | Task I/O bisa berjalan paralel |
-| Max Pro Reasoners | 1 per sesi | Cegah konflik reasoning, hemat cost |
-| Retry limit Lite | 3x sebelum eskalasi Pro | Cegah silent failure loop |
-| GEMINI.md size | < 24 KB | Batas inline Antigravity sebelum demotion |
-| Total rules budget | < 20,000 token | Batas Antigravity sebelum path pointer |
-| Pro model config | `flash` (Gemini Flash High) / `inherit` jika root=Sonnet | Antigravity tidak memiliki model Pro, gunakan Flash High atau inherit Sonnet |
+| Worker Model | `flash_lite` | Model ringan dan cepat untuk seluruh pekerjaan mekanis/I/O |
+| Manager Model | Active Session (`flash` High / Sonnet) | Model dengan kapasitas penalaran tinggi untuk orkestrasi |
+| Max Worker Retries | 3x | Batas retry sebelum eskalasi ke Manager |
+| Scratchpad Path | `<artifactDir>/scratch/` | Tempat penyimpanan log dan data mentah |
+| GEMINI.md Size Budget | < 24 KB | Memastikan aturan tetap berada di bawah batas inline |
+| Integration | Beads (`bd`), CI4, Git | Aturan Beads dan alur kerja Git di `AGENTS.md` tetap wajib dipatuhi |
