@@ -74,5 +74,6 @@ app.fotoWmPath = 'fotowm/'
 # DOCKER CONFIGURATION
 #--------------------------------------------------------------------
 APP_PORT=84
+FOTOWM_PATH=/path/to/mount
 UID=1000
 GID=1000
