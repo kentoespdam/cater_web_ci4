@@ -306,9 +306,9 @@
     "semantic_hash": ""
   },
   "app/Controllers/Api/HasilBaca.php": {
-    "mtime": 1791910331.6996753,
-    "seen": 1791910472.5208235,
-    "ast_hash": "5d394fece5ee384844cbe8c22b895547",
+    "mtime": 1792117657.5398185,
+    "seen": 1792117683.5593166,
+    "ast_hash": "7bef90f8e972b84c4a855904e8b3cc6d",
     "semantic_hash": ""
   },
   "app/Controllers/Api/Laporan/HasilBaca.php": {
@@ -27909,6 +27909,30 @@
     "mtime": 1792116395.0119889,
     "seen": 1792116413.174425,
     "ast_hash": "388f8f1ffd8581adc24d99cc6f198643",
+    "semantic_hash": ""
+  },
+  "app/Services/BacaMeterQueryService.php": {
+    "mtime": 1792117651.4118261,
+    "seen": 1792117683.5601368,
+    "ast_hash": "945f3564dfae19975b1b4fd9627d3a7e",
+    "semantic_hash": ""
+  },
+  "app/Services/HasilBacaSummaryService.php": {
+    "mtime": 1792117654.7468219,
+    "seen": 1792117683.5601387,
+    "ast_hash": "ff1d17ee82dbedd63325dcf7c1c87acb",
+    "semantic_hash": ""
+  },
+  "tests/app/Services/HasilBacaSummaryServiceTest.php": {
+    "mtime": 1792117661.2178137,
+    "seen": 1792117683.575936,
+    "ast_hash": "e9e859152f12e4fc215a88c8895c3e28",
+    "semantic_hash": ""
+  },
+  "docs/adr/0002-decouple-bacameter-query-service.md": {
+    "mtime": 1792117667.4278057,
+    "seen": 1792117683.5766866,
+    "ast_hash": "ac01a97b8f78fcd17cc7aae468316073",
     "semantic_hash": ""
   }
 }

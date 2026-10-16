@@ -27882,9 +27882,9 @@
     "semantic_hash": ""
   },
   "CONTEXT.md": {
-    "mtime": 1792116178.4540262,
-    "seen": 1792116202.7994277,
-    "ast_hash": "9b473c1fcfa4329c026d190b0eba8d85",
+    "mtime": 1792116397.4579768,
+    "seen": 1792116413.174263,
+    "ast_hash": "4bb570f746faaf83abfa732696d3cdce",
     "semantic_hash": ""
   },
   "docs/adr/0001-codeigniter-4-framework-choice.md": {
@@ -27903,6 +27903,12 @@
     "mtime": 1792116175.5280397,
     "seen": 1792116202.7996898,
     "ast_hash": "4d52c6f822f2a8f39d352fc0d6b2632c",
+    "semantic_hash": ""
+  },
+  "docs/adr/0004-separate-endpoints-for-hasilbaca-and-hasilbaca0.md": {
+    "mtime": 1792116395.0119889,
+    "seen": 1792116413.174425,
+    "ast_hash": "388f8f1ffd8581adc24d99cc6f198643",
     "semantic_hash": ""
   }
 }
