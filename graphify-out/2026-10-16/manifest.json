@@ -348,9 +348,9 @@
     "semantic_hash": ""
   },
   "app/Controllers/Api/Selisih.php": {
-    "mtime": 1792050358.1652696,
-    "seen": 1792050387.0601113,
-    "ast_hash": "972fa80cc6c04dd21bfad99d34544486",
+    "mtime": 1792115708.4778936,
+    "seen": 1792115727.1625247,
+    "ast_hash": "5dc9736104c5b8efb340ee10fefb6340",
     "semantic_hash": ""
   },
   "app/Controllers/Api/Sikompak/Cabang.php": {
@@ -408,9 +408,9 @@
     "semantic_hash": ""
   },
   "app/Controllers/Cetak/SelisihFoto.php": {
-    "mtime": 1791910230.9816759,
-    "seen": 1791910472.520894,
-    "ast_hash": "3309d223d1c17a44d70db9a2709f322a",
+    "mtime": 1792115631.03015,
+    "seen": 1792115727.1630723,
+    "ast_hash": "f3f03db8d014e18be826281968423789",
     "semantic_hash": ""
   },
   "app/Controllers/HasilBaca/CekFoto.php": {
@@ -4272,9 +4272,9 @@
     "semantic_hash": ""
   },
   "GEMINI.md": {
-    "mtime": 1791905443.2178671,
-    "seen": 1791906956.9756253,
-    "ast_hash": "eda6decc682e5604f25f293162a3a6dd",
+    "mtime": 1792114287.124869,
+    "seen": 1792115727.2076135,
+    "ast_hash": "e40d247249acf5ee633685479b94f254",
     "semantic_hash": ""
   },
   "README.md": {
@@ -27855,6 +27855,54 @@
     "mtime": 1792046111.3458455,
     "seen": 1792046134.6759949,
     "ast_hash": "5f17b1655e63f870ffaa6cc9f2fd06f6",
+    "semantic_hash": ""
+  },
+  "app/Services/SelisihFotoService.php": {
+    "mtime": 1792115708.4538484,
+    "seen": 1792115727.164528,
+    "ast_hash": "d3ca3f34b9504ea9d1331641eb565436",
+    "semantic_hash": ""
+  },
+  "tests/app/Services/SelisihFotoServiceTest.php": {
+    "mtime": 1792115708.4981768,
+    "seen": 1792115727.2068114,
+    "ast_hash": "d9699bc72d5c1e57df53cfe58cb6ea48",
+    "semantic_hash": ""
+  },
+  "docs/selisih_foto.md": {
+    "mtime": 1792114548.7238793,
+    "seen": 1792115727.2078214,
+    "ast_hash": "fe8b404726be7e0638f6714ae15af543",
+    "semantic_hash": ""
+  },
+  "skills-lock.json": {
+    "mtime": 1792115919.784981,
+    "seen": 1792116121.5061867,
+    "ast_hash": "ebee19fdb3c37b38ebd748c1b49c9328",
+    "semantic_hash": ""
+  },
+  "CONTEXT.md": {
+    "mtime": 1792116178.4540262,
+    "seen": 1792116202.7994277,
+    "ast_hash": "9b473c1fcfa4329c026d190b0eba8d85",
+    "semantic_hash": ""
+  },
+  "docs/adr/0001-codeigniter-4-framework-choice.md": {
+    "mtime": 1792116170.9780607,
+    "seen": 1792116202.7996826,
+    "ast_hash": "8a2d97e4f891afee5392afeb4fdca0b4",
+    "semantic_hash": ""
+  },
+  "docs/adr/0002-docker-containerized-deployment.md": {
+    "mtime": 1792116172.9880514,
+    "seen": 1792116202.7996864,
+    "ast_hash": "683a440f386c34b804542233c0a7b5de",
+    "semantic_hash": ""
+  },
+  "docs/adr/0003-openspout-for-excel-export.md": {
+    "mtime": 1792116175.5280397,
+    "seen": 1792116202.7996898,
+    "ast_hash": "4d52c6f822f2a8f39d352fc0d6b2632c",
     "semantic_hash": ""
   }
 }
