@@ -27839,12 +27839,6 @@
     "ast_hash": "846b45cc873ccf57819785a8f814bd94",
     "semantic_hash": ""
   },
-  "app/Config/Selisih.php": {
-    "mtime": 1792046111.3458455,
-    "seen": 1792046134.6759949,
-    "ast_hash": "5f17b1655e63f870ffaa6cc9f2fd06f6",
-    "semantic_hash": ""
-  },
   "app/Services/SelisihFotoService.php": {
     "mtime": 1792115708.4538484,
     "seen": 1792115727.164528,

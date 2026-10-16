@@ -74,11 +74,5 @@ app.fotoWmPath = 'fotowm/'
 # DOCKER CONFIGURATION
 #--------------------------------------------------------------------
 APP_PORT=84
-FOTOWM_PATH=./fotowm
 UID=1000
 GID=1000
-
-# ----------------
-# Selisih App URL
-# ----------------
-SELISIH_APP_URL=http://localhost/selisih
