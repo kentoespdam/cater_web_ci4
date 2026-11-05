@@ -1,0 +1,42 @@
+{
+  "name": "CodeIgniter 4 PHP 8.3 DevContainer",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bmewburn.vscode-intelephense-client",
+        "xdebug.php-debug",
+        "junstyle.php-cs-fixer",
+        "eamodio.gitlens",
+        "neilbrayfield.php-docblocker",
+        "ms-azuretools.vscode-docker"
+      ],
+      "settings": {
+        "php.validate.executablePath": "/usr/local/bin/php",
+        "php.suggest.basic": false,
+        "editor.formatOnSave": true,
+        "[php]": {
+          "editor.defaultFormatter": "junstyle.php-cs-fixer"
+        },
+        "php-cs-fixer.executablePath": "${workspaceFolder}/vendor/bin/php-cs-fixer",
+        "php-cs-fixer.onsave": true
+      }
+    }
+  },
+  "forwardPorts": [8080, 9000],
+  "portsAttributes": {
+    "8080": {
+      "label": "CodeIgniter Dev Server",
+      "onAutoForward": "notify"
+    }
+  },
+  "postCreateCommand": "composer install && sudo chown -R vscode:vscode writable vendor",
+  "remoteUser": "vscode"
+}
