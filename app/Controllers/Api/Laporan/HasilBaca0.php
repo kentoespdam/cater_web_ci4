@@ -3,6 +3,7 @@
 namespace App\Controllers\Api\Laporan;
 
 use App\Controllers\BaseController;
+use App\Models\BacaMeterModel;
 use App\Services\BacaMeterQueryService;
 
 class HasilBaca0 extends BaseController

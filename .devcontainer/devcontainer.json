@@ -30,11 +30,16 @@
       }
     }
   },
-  "forwardPorts": [8080, 9000],
+  "forwardPorts": [8080, 9003],
   "portsAttributes": {
     "8080": {
-      "label": "CodeIgniter Dev Server",
-      "onAutoForward": "notify"
+      "label": "CodeIgniter App",
+      "onAutoForward": "notify",
+      "protocol": "http"
+    },
+    "9003": {
+      "label": "Xdebug",
+      "onAutoForward": "silent"
     }
   },
   "postCreateCommand": "composer install && sudo chown -R vscode:vscode writable vendor",
