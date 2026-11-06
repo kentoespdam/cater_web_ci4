@@ -41,7 +41,7 @@ dg.datagrid({
 		[
 			{ field: "no_sam", title: "No. Sambung", width: 100 },
 			{ field: "nama", title: "Pelanggan", width: 200 },
-			{ field: "alamat", title: "Alamat" },
+			{ field: "alamat", title: "Alamat", width: 400 },
 			{ field: "stan_kini", title: "Stan Kini", width: 80 },
 			{ field: "stan_lalu", title: "Stan Lalu", width: 80 },
 			{ field: "pakai", title: "Pemakaian", width: 80 },
