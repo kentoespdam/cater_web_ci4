@@ -19,7 +19,10 @@ RUN apk add --no-cache \
     curl \
     git \
     shadow \
-    su-exec
+    su-exec \
+    nodejs \
+    npm \
+    sudo
 
 # Install PHP extensions using mlocati/docker-php-extension-installer
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
@@ -35,8 +38,10 @@ RUN install-php-extensions \
     opcache \
     bcmath
 
-# Sesuaikan UID/GID www-data agar sinkron dengan user host Linux
-RUN usermod -u ${UID} www-data && groupmod -g ${GID} www-data
+# Sesuaikan UID/GID www-data agar sinkron dengan user host Linux, serta beri shell bash & sudo access
+RUN usermod -u ${UID} www-data && groupmod -g ${GID} www-data && \
+    usermod -s /bin/bash www-data && \
+    echo "www-data ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # Copy konfigurasi php.ini & entrypoint script
 COPY docker/php/php.ini /usr/local/etc/php/conf.d/custom.ini

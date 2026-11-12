@@ -1,110 +1,140 @@
-# LLM Routing & Token Rules — Manager-Worker Architecture
+# Project Rules for AI Agents: cater_web_ci4 (Antigravity 2.0 Optimized)
 
-## Prinsip Utama Arsitektur
+## Konteks Project
 
-Sistem menggunakan pola **Manager-Worker (Orchestrator-Worker)** untuk efisiensi token, kebersihan context window, dan pemisahan wewenang yang tegas:
-
-- **Root Agent (Manager)**:
-  - **Model**: Sesi aktif (Gemini Flash High / Sonnet).
-  - **Fokus**: Pure Reasoning, analisis kebutuhan, perancangan arsitektur, dekomposisi task, verifikasi hasil, dan komunikasi dengan user.
-  - **Kebijakan Zero I/O**: Root Agent **DILARANG KERAS** melakukan operasi I/O langsung pada repositori, riset web, eksekusi command shell, atau modifikasi file. Seluruh pekerjaan teknis wajib didelegasikan ke Sub-Agent.
-- **Sub-Agent (Worker)**:
-  - **Model**: `flash_lite` (Gemini Flash Low/Lite).
-  - **Fokus**: Pemegang kuasa tunggal seluruh eksekusi teknis, I/O, riset internet, eksplorasi kode, pengujian, penulisan file, dan tugas-tugas mekanis non-reasoning.
+Project **cater_web_ci4** adalah Sistem Monitoring & Verifikasi Catat Meter Air (PDAM) berbasis web. Menggunakan framework **CodeIgniter 4** (`v4.5.1+`) dengan **PHP 8.1+**, PHPUnit 10, PHP-CS-Fixer 3, dan Composer.
+Referensi utama: [`CODING_RULES.md`](./CODING_RULES.md) untuk standar arsitektur CI4, PHP 8.1+, validasi, keamanan, dan testing.
 
 ---
 
-## Routing & Task Classification
+## 1. Adaptive Routing & Agent Roles (Direct-First)
 
-Sebelum bertindak, Root Agent mengklasifikasikan tugas pengguna ke salah satu dari dua kategori:
+Apply this strict priority order before executing any task:
 
-| Tier | Kriteria | Pelaksana | Model | Tindakan |
-|---|---|---|---|---|
-| `[DIRECT]` | Sapaan ramah, jawaban konseptual singkat (≤ 2 kalimat) tanpa perlu cek kode/tool | Root Agent (Inline) | Active Model | Jawab langsung tanpa tool / subagent |
-| `[DELEGATE]` | Seluruh pekerjaan teknis: baca/tulis/edit file, web search, terminal command, unit test, linting, grep, git | Sub-Agent (Worker) | `flash_lite` | Delegasikan via `invoke_subagent` / `send_message` |
+### Priority 1: Mandatory Deep-Reasoning (`deep_reasoner` Sub-Agent)
+Invoke `invoke_subagent` with `deep_reasoner` (tier: `pro`) BEFORE writing code when ANY of these objective conditions is met:
+- **Auth/Security:** Menyentuh logic autentikasi, session, filter, atau middleware di `app/Filters/` atau `app/Controllers/Auth.php` — SELALU.
+- **Service Layer Redesign:** Refactor yang mengubah signature publik Service class di `app/Services/`.
+- **Database Schema:** Perubahan migration atau relasi antar tabel yang berdampak luas.
+- **Stuck Bug:** Bug yang tidak terjelaskan setelah tepat 2 attempt debugging di level Root Agent.
 
----
+*Exceptions (Do NOT invoke `deep_reasoner`):*
+- Implementing an already-confirmed Implementation Contract from a prior `deep_reasoner` response.
+- Writing routine unit tests (`phpunit`) or fixing localized bugs with an already-identified root cause.
+- Task yang tidak menyentuh file `Auth.php`, `Services/`, atau migration sama sekali.
 
-## Strict Role Boundaries
+**Quota Fallback:** Jika `deep_reasoner` (model: `pro`) mengembalikan error quota/rate-limit, WAJIB segera re-invoke dengan `deep_reasoner_fallback` (model: `flash`, Gemini Flash High). Gunakan prompt dan context yang identik. Jika fallback mengembalikan `Confidence Level: LOW`, tunda implementasi dan laporkan ke user untuk keputusan manual.
 
-### 1. Root Agent (Manager) — Zero I/O & Pure Reasoning
-- **Wewenang**:
-  - Menganalisis masalah dan merancang solusi arsitektural.
-  - Memecah masalah kompleks menjadi sub-task yang terukur.
-  - Menugaskan dan mengorkestrasi sub-agent.
-  - Membaca laporan ringkas atau file artifact/scratchpad hasil kerja worker (`view_file` terbatas pada scratchpad/artifact).
-  - Melakukan evaluasi kualitas (QA review) sebelum menyerahkan hasil ke pengguna.
-- **DILARANG KERAS**:
-  - DILARANG memanggil tool riset web (`search_web`, `read_url_content`).
-  - DILARANG membaca atau mencari file repositori secara masif (`grep_search`, `find_by_name`, `list_dir`).
-  - DILARANG memodifikasi atau menulis file di repositori (`write_to_file`, `replace_file_content` pada direktori proyek).
-  - DILARANG menjalankan perintah terminal langsung (`run_command` untuk spark, phpunit, composer, git, dll).
+### Priority 2: Direct Execution (Root Agent — No Sub-Agent)
+Root Agent MUST execute directly without spawning any sub-agent when:
+- Running issue tracker operations (`bd`), `git` commands, or single `gitnexus` queries.
+- Making localized code edits (≤ 2 files, < 50 LOC) pada file selain `Auth.php`/`Services/`/migration, mengikuti pola yang sudah ada.
+- Running final verification commands (`phpunit`, `php-cs-fixer`).
+- Responding to questions, writing docs, or analysis without code changes.
 
-### 2. Sub-Agent (Worker) — Kuasa Tunggal Seluruh I/O & Pekerjaan Teknis
-- **Model Wajib**: `flash_lite`
-- **Wewenang**:
-  - Seluruh operasi file di repositori (baca, buat, edit, hapus).
-  - Seluruh riset internet dan dokumentasi web (`search_web`, `read_url_content`).
-  - Seluruh pencarian dan navigasi codebase (`grep_search`, `find_by_name`, `list_dir`).
-  - Seluruh eksekusi perintah shell (`run_command`: `php spark`, `phpunit`, `php-cs-fixer`, `git`, `bd`).
-- **Protokol Pelaporan**:
-  - Melaporkan **fakta mentah dan data objektif** tanpa spekulasi strategis.
-  - Wajib menerapkan **Artifact Offloading**: Hasil pencarian panjang, log terminal, atau data mentah WAJIB disimpan ke file scratchpad (misal: `<artifactDir>/scratch/...`).
-  - Hanya mengembalikan ringkasan eksekutif (1–3 paragraf), status (SUKSES/GAGAL), dan path file scratchpad ke Root Agent.
-  - Menutup laporan dengan: *"Laporan selesai. Menunggu instruksi berikutnya dari root agent."*
+### Priority 3: Substantial Technical Delegation (`flash_lite` Sub-Agent)
+Invoke `invoke_subagent` with `flash_lite` (tier: `flash`) when:
+- Implementation spans ≥ 2 files with substantial changes (new endpoints, new modules, new Controllers).
+- Creating a test suite with ≥ 3 test cases.
+- Broad codebase exploration requiring reads across > 5 files.
+- Any task estimated to take > 15 minutes of execution time.
 
 ---
 
-## Protokol Komunikasi & Kontrak Penugasan
+## 2. Sub-Agent Execution, Error Handling & Reporting Protocol
 
-### 1. Format Penugasan (Root Manager → Sub-Agent Worker)
-Ketika mendelegasikan tugas ke worker, Root Agent wajib memberikan instruksi yang terstruktur:
+### Bounded Self-Fix (Anti Ping-Pong)
+- Sub-agent DIIZINKAN melakukan perbaikan mandiri (*self-fix*) maksimal **2 kali percobaan lokal** khusus untuk error deterministik (syntax error, missing class, temuan `php-cs-fixer`, atau kegagalan test dengan penyebab jelas).
+- Jika masih gagal setelah 2 percobaan lokal, atau jika menemukan ambiguitas desain/pelanggaran constraint keamanan, sub-agent WAJIB berhenti dan melapor ke Root Agent.
+- Jika error berlanjut setelah 3 percobaan remediasi di level Root Agent, lakukan riset referensi terbaru (dokumentasi CI4, PHPUnit, PHP-CS-Fixer).
 
-```markdown
-GOAL: [Tujuan spesifik yang ingin dicapai]
-SCOPE: [Jalur file target absolut atau direktori yang relevan]
-ACTIONS: [Daftar tindakan teknis: edit file, jalankan test, web search, dll]
-SCRATCHPAD: [Path scratchpad untuk menyimpan output mentah jika ada]
-CONSTRAINTS: [Batasan: flag non-interactive, standar PHP 8.1 CI4, dsb]
+### Proportional Reporting Protocol (STRICT)
+
+**A. Untuk Tugas Eksplorasi / Riset (Tanpa Modifikasi File):**
+Laporkan temuan secara padat dalam maksimal 5 baris berisi poin inti dan referensi `file:baris`. Akhiri dengan: `"Report complete. Awaiting next instructions."`
+
+**B. Untuk Tugas Modifikasi Kode / Eksekusi Teknis:**
+Sub-agent wajib melaporkan dalam format berlapis berikut:
+
+```text
+STATUS: [DONE|PARTIAL|BLOCKED|ERROR]
+HASIL: <1–3 kalimat inti — apa yang berubah, ditemukan, atau gagal, dan mengapa penting>
+
+ARTEFAK TERMODIFIKASI:
+- <file>:<baris-dari>–<baris-ke> — <deskripsi singkat perubahan>
+  CONSTRAINT CHECK: <PASS/FAIL + alasan singkat terhadap: strict_types, SQL injection, XSS escape, CSRF>
+
+VERIFIKASI:
+- Tests: <X passed, Y failed — sebutkan nama test spesifik yang relevan; nyatakan eksplisit jika 0 test>
+- Lint/Type: <PASS / FAIL: <baris pesan error spesifik dari php-cs-fixer>>
+- Regression: <Ya/Tidak + detail singkat>
+
+Report complete. Awaiting next instructions.
 ```
 
-### 2. Format Laporan (Sub-Agent Worker → Root Manager)
-Worker merespons dengan format ringkas untuk menjaga context window Manager:
+**Aturan Ketat Laporan Modifikasi:**
+- **Wajib sebutkan `file:baris`** untuk setiap perubahan dan **wajib jalankan Constraint Check**.
+- Buang *stack trace* penuh atau listing kode panjang—ringkas hanya ke baris error spesifik (< 10 baris raw output).
+- DILARANG menyertakan saran, opini, langkah selanjutnya, atau mengeksekusi pekerjaan di luar scope.
+- DILARANG melaporkan `STATUS: DONE` jika ada test `FAIL`, lint `FAIL`, atau constraint check `FAIL`.
+- Root Agent WAJIB memeriksa bagian `ARTEFAK TERMODIFIKASI` dan `VERIFIKASI` sebelum mengambil keputusan berikutnya (jangan hanya membaca `STATUS`).
 
-```markdown
-STATUS: SUKSES | GAGAL
-RINGKASAN: [Intisari temuan / perubahan yang telah dilakukan]
-ARTIFACT: [Path absolut file scratchpad/artifact, atau NONE jika tidak ada]
-CATATAN: [Detail teknis penting jika ada]
+---
 
-Laporan selesai. Menunggu instruksi berikutnya dari root agent.
+## 3. Token Economy & Pre-Coding Gates
+
+- **No Preamble & Concise Output:** Hilangkan kalimat basa-basi ("Baik", "Tentu saja", "Saya akan..."). Mulai langsung dari substansi.
+- **Selective Reading & Micro-Diffs:** Baca hanya rentang baris yang relevan (hindari membaca seluruh file >150 baris jika posisi simbol sudah diketahui). Edit hanya baris yang berubah.
+- **Quiet Commands:** Selalu gunakan flag minim output pada terminal (`-q`, `--quiet`, `head`, `grep`).
+- **GitNexus Targeted Gate:**
+  - WAJIB gunakan `gitnexus_query` atau `gitnexus_impact` sebelum mengeksplorasi atau memodifikasi Controller, Service, Model, dan kontrak antar-modul.
+  - Untuk CLI `npx gitnexus`, selalu sertakan `--repo cater_web_ci4` (contoh: `npx gitnexus query "BacaMeterService" --repo cater_web_ci4`), kecuali untuk perintah `npx gitnexus analyze`.
+- **Conditional Skill Gate:**
+  - **Ponytail:** WAJIB load skill `/ponytail` sebelum memodifikasi kode produksi (lewati jika hanya melakukan query `bd`, `git`, atau diskusi desain).
+  - **Grilling Rules:** WAJIB ikuti `GRILLING_RULES.md` saat melakukan Q&A interaktif dan penajaman arsitektur (Prioritas 1).
+- **Issue Tracking (Beads/`bd`):** Klaim task (`bd update <id> --claim`), tutup task (`bd close <id>`).
+- **Sandbox Policy:** WAJIB gunakan `BypassSandbox: true` untuk semua eksekusi perintah `git` dan `bd`.
+
+---
+
+## 4. File Size, PHP Toolchain & Domain Rules (`cater_web_ci4`)
+
+### Modularitas & Ukuran File
+- Target: **150–250 LOC** per file.
+- Hard Ceiling: **Maksimal 300 LOC**. WAJIB pecah/modularisasi jika mendekati batas.
+- Struktur modul CI4: `app/Controllers/` (tipis), `app/Services/` (logika bisnis), `app/Models/` (akses data), `app/Filters/` (middleware).
+
+### PHP Toolchain (Composer Wajib)
+Seluruh eksekusi PHP WAJIB menggunakan perintah berikut:
+```bash
+php spark <command>                        # CLI CodeIgniter 4
+./vendor/bin/phpunit --testdox -q          # Jalankan test (mode ringkas)
+vendor/bin/php-cs-fixer fix src/ --dry-run # Lint check (dry run)
+vendor/bin/php-cs-fixer fix app/           # Lint fix
+composer test                              # Alias test suite
 ```
 
----
-
-## Sub-Agent Lifecycle, Reuse, & Error Handling
-
-1. **Sub-Agent Reuse (Wajib)**:
-   - Root Agent WAJIB memeriksa sub-agent aktif via `manage_subagents(Action="list")` sebelum membuat sub-agent baru.
-   - Jika terdapat worker dengan status `idle`, gunakan `send_message` untuk memberikan tugas berikutnya.
-   - Spawn sub-agent baru HANYA jika belum ada worker aktif, worker sebelumnya telah di-kill, atau context window worker sudah jenuh.
-   - Maksimal 1 Worker aktif secara sekuensial (atau paralel jika task independen).
-
-2. **Protokol Penanganan Error (Fail-Fast & Escalation)**:
-   - Worker diperbolehkan melakukan *self-retry* maksimal **2–3 kali** untuk error teknis sederhana (misal salah ketik syntax minor).
-   - Jika tetap gagal setelah 3x percobaan, Worker **DILARANG** melakukan loop perbaikan tanpa henti.
-   - Worker WAJIB mencatat log kegagalan ke scratchpad dan mengirim laporan eskalasi ke Root Manager.
-   - Root Manager melakukan analisis mendalam (root-cause analysis) dan memberikan instruksi perbaikan yang terarah kepada Worker.
+### Keamanan & Domain Constraints (Harga Mati)
+1. **Strict Types Wajib:** Setiap file PHP baru di `app/` WAJIB diawali `declare(strict_types=1);`.
+2. **Anti SQL Injection:** DILARANG query string concatenation. WAJIB gunakan Query Builder CI4 atau prepared statement.
+3. **XSS Escape:** Semua output ke view WAJIB di-escape via `esc()` atau `htmlspecialchars()`. DILARANG echo raw user input.
+4. **CSRF Aktif:** Form POST wajib menyertakan CSRF token. JANGAN nonaktifkan filter CSRF untuk route produksi.
+5. **Autentikasi & Otorisasi:** Validasi sesi/role WAJIB di Filter, bukan di dalam Controller logic.
+6. **Integritas Data Meter:** Nilai baca meter dan kalkulasi tagihan SELALU diambil/dihitung *server-side*. Klien TIDAK BOLEH mengirim nilai yang langsung digunakan tanpa validasi ulang.
 
 ---
 
-## Catatan Konfigurasi & Budgeting
+## 5. Prosedur Penyelesaian Pekerjaan (Completion Workflow)
 
-| Parameter | Value | Keterangan |
-|---|---|---|
-| Worker Model | `flash_lite` | Model ringan dan cepat untuk seluruh pekerjaan mekanis/I/O |
-| Manager Model | Active Session (`flash` High / Sonnet) | Model dengan kapasitas penalaran tinggi untuk orkestrasi |
-| Max Worker Retries | 3x | Batas retry sebelum eskalasi ke Manager |
-| Scratchpad Path | `<artifactDir>/scratch/` | Tempat penyimpanan log dan data mentah |
-| GEMINI.md Size Budget | < 24 KB | Memastikan aturan tetap berada di bawah batas inline |
-| Integration | Beads (`bd`), CI4, Git | Aturan Beads dan alur kerja Git di `AGENTS.md` tetap wajib dipatuhi |
+Sebelum menyatakan task selesai secara keseluruhan:
+1. Jalankan `gitnexus_detect_changes()` untuk memverifikasi cakupan perubahan.
+2. Jalankan `./vendor/bin/phpunit -q` — pastikan seluruh test yang relevan lulus (hijau).
+3. Jalankan `vendor/bin/php-cs-fixer fix app/ --dry-run` — pastikan bebas pelanggaran PSR-12.
+4. Push perubahan ke remote (WAJIB dengan `BypassSandbox: true`):
+   ```bash
+   git pull --rebase
+   bd dolt push
+   git push
+   git status  # HARUS menunjukkan "up to date with origin"
+   ```
+5. Perbarui atau tutup status issue di `bd` (`bd close <id>`).

@@ -1,0 +1,79 @@
+# .gitnexusignore
+# Pola file/direktori yang dikecualikan dari indeks GitNexus.
+# Sintaks sama dengan .gitignore (glob patterns).
+
+#-------------------------
+# Dependensi & Build
+#-------------------------
+vendor/
+node_modules/
+build/
+builds/
+dist/
+
+#-------------------------
+# Writable / Runtime CI4
+#-------------------------
+writable/cache/
+writable/logs/
+writable/session/
+writable/uploads/
+writable/debugbar/
+writable/template/
+
+#-------------------------
+# Output Alat Analisis
+#-------------------------
+graphify-out/
+tests/coverage*/
+results/
+
+#-------------------------
+# Konfigurasi Sensitif
+#-------------------------
+.env
+.env.docker
+.env.docker.example
+env
+
+#-------------------------
+# Database & Issue Tracker
+#-------------------------
+.dolt/
+*.db
+
+#-------------------------
+# Aset Statis & Foto
+#-------------------------
+public/assets/
+public/uploads/
+fotowm/
+
+#-------------------------
+# File Konfigurasi IDE
+#-------------------------
+.idea/
+.vscode/
+nbproject/
+
+#-------------------------
+# File Sementara & OS
+#-------------------------
+*.log
+php_errors.log
+.DS_Store
+Thumbs.db
+*~
+
+#-------------------------
+# Docker & Docs
+#-------------------------
+docker/
+docs/
+user_guide_src/
+
+#-------------------------
+# View Templates (HTML murni)
+#-------------------------
+# Aktifkan baris di bawah jika ingin mengecualikan semua view dari indeks
+# app/Views/

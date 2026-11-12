@@ -1,13 +1,8 @@
 {
-  "name": "CodeIgniter 4 PHP 8.3 DevContainer",
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
-  "features": {
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "lts"
-    }
-  },
+  "name": "CodeIgniter 4 PHP 8.3 DevContainer (Nginx + PHP-FPM)",
+  "dockerComposeFile": "../docker-compose.dev.yml",
+  "service": "app",
+  "workspaceFolder": "/var/www/html",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -16,7 +11,8 @@
         "junstyle.php-cs-fixer",
         "eamodio.gitlens",
         "neilbrayfield.php-docblocker",
-        "ms-azuretools.vscode-docker"
+        "ms-azuretools.vscode-docker",
+        "ms-vscode.live-server"
       ],
       "settings": {
         "php.validate.executablePath": "/usr/local/bin/php",
@@ -30,10 +26,10 @@
       }
     }
   },
-  "forwardPorts": [8080, 9003],
+  "forwardPorts": [84, 9003],
   "portsAttributes": {
-    "8080": {
-      "label": "CodeIgniter App",
+    "84": {
+      "label": "CodeIgniter App (Nginx)",
       "onAutoForward": "notify",
       "protocol": "http"
     },
@@ -42,6 +38,6 @@
       "onAutoForward": "silent"
     }
   },
-  "postCreateCommand": "composer install && sudo chown -R vscode:vscode writable vendor",
-  "remoteUser": "vscode"
+  "postCreateCommand": "composer install && sudo chown -R www-data:www-data writable vendor",
+  "remoteUser": "www-data"
 }

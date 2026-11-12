@@ -1,0 +1,87 @@
+# .graphifyignore
+# Pola file/direktori yang dikecualikan dari knowledge graph Graphify.
+# Sintaks sama dengan .gitignore (glob patterns).
+
+#-------------------------
+# Dependensi & Build
+#-------------------------
+vendor/
+node_modules/
+build/
+builds/
+dist/
+
+#-------------------------
+# Output Graphify Sendiri
+#-------------------------
+graphify-out/
+
+#-------------------------
+# Writable / Runtime CI4
+#-------------------------
+writable/
+fotowm/
+
+#-------------------------
+# Konfigurasi Sensitif
+#-------------------------
+.env
+.env.docker
+.env.docker.example
+env
+*.db
+.dolt/
+.beads-credential-key
+
+#-------------------------
+# Test Coverage & Hasil
+#-------------------------
+tests/coverage*/
+results/
+/phpunit*.xml
+
+#-------------------------
+# Aset & Media Statis
+#-------------------------
+public/assets/
+public/uploads/
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.svg
+*.ico
+*.webp
+*.pdf
+*.zip
+*.tar.gz
+
+#-------------------------
+# File Konfigurasi IDE & OS
+#-------------------------
+.idea/
+.vscode/
+nbproject/
+.DS_Store
+Thumbs.db
+*~
+
+#-------------------------
+# Docker & Dokumentasi
+#-------------------------
+docker/
+docs/
+user_guide_src/
+
+#-------------------------
+# Lock Files (tidak relevan untuk graph)
+#-------------------------
+composer.lock
+package-lock.json
+skills-lock.json
+
+#-------------------------
+# Log & File Sementara
+#-------------------------
+*.log
+php_errors.log

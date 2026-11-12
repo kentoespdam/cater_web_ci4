@@ -138,3 +138,8 @@ graphify-out/cache/
 fotowm/*
 
 node_modules/
+
+#-------------------------
+# Tool Ignore Files (tidak perlu di-track)
+#-------------------------
+# .gitnexusignore dan .graphifyignore di-commit agar konsisten antar mesin
