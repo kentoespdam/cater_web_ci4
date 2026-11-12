@@ -36,6 +36,9 @@ $this->extend('template/index');
                 <option value="<?= $year ?>" <?= $year === $tahun ? 'selected' : '' ?>><?= $year ?></option>
             <?php endfor; ?>
             </select>
+            <a class="btn btn-default" href="<?= esc(base_url('laporan/grafik_verifikasi_0/detail'), 'attr') ?>">
+                <i class="fa fa-table" aria-hidden="true"></i> Tabel detail
+            </a>
         </div>
     </div>
 </div>

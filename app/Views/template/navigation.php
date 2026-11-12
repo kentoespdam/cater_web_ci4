@@ -58,6 +58,7 @@
                     <li><a href="/laporan/hasil_baca_0"><i class="fa fa-circle-o"></i>PEMAKAIAN (0)</a></li>
                     <li><a href="/laporan/kondisi_pakai_0"><i class="fa fa-circle-o"></i>REKAP PEMAKAIAN (0)</a></li>
                     <li><a href="/laporan/grafik_verifikasi_0"><i class="fa fa-circle-o"></i>GRAFIK VERIFIKASI (0)</a></li>
+                    <li><a href="/laporan/grafik_verifikasi_0/detail"><i class="fa fa-table"></i>DETAIL GRAFIK VERIFIKASI (0)</a></li>
                 </ul>
             </li>
 

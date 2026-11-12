@@ -71,6 +71,7 @@ $routes->group("laporan", static function ($routes) {
     $routes->get("hasil_baca_0", "Laporan\HasilBaca0::index");
     $routes->get("kondisi_pakai_0", "Laporan\KondisiBaca0::index");
     $routes->get("grafik_verifikasi_0", "Laporan\GrafikVerifikasi0::index");
+    $routes->get("grafik_verifikasi_0/detail", "Laporan\GrafikVerifikasi0Detail::index");
 });
 
 $routes->group("cetak", static function ($routes) {
