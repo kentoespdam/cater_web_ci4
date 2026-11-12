@@ -105,6 +105,16 @@ final class BacaMeterQueryService
         return $this->getModel()->getKondisiBaca0($tglAwal, $tglAkhir);
     }
 
+    public function getNormalPakai0ByMonth(string $tglAwal, string $tglAkhir): array
+    {
+        return $this->getModel()->getNormalPakai0ByMonth($tglAwal, $tglAkhir);
+    }
+
+    public function getUnitCabangMap(): array
+    {
+        return $this->getModel()->getUnitCabangMap();
+    }
+
     public function getDataVerifCursor(
         string $tglAwal,
         string $tglAkhir,

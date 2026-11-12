@@ -45,6 +45,7 @@ $routes->group("api", static function ($routes) {
         $routes->get("kondisi", "Api\Laporan\Kondisi::index");
         $routes->get("hasil_baca_0", "Api\Laporan\HasilBaca0::index");
         $routes->get("kondisi_pakai_0", "Api\Laporan\KondisiBaca0::index");
+        $routes->get("grafik_verifikasi_0", "Api\Laporan\GrafikVerifikasi0::index");
     });
 });
 
@@ -69,6 +70,7 @@ $routes->group("laporan", static function ($routes) {
     $routes->get("kondisi", "Laporan\Kondisi::index");
     $routes->get("hasil_baca_0", "Laporan\HasilBaca0::index");
     $routes->get("kondisi_pakai_0", "Laporan\KondisiBaca0::index");
+    $routes->get("grafik_verifikasi_0", "Laporan\GrafikVerifikasi0::index");
 });
 
 $routes->group("cetak", static function ($routes) {
