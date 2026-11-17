@@ -64,6 +64,9 @@ writable/uploads/*
 writable/debugbar/*
 !writable/debugbar/.gitkeep
 
+writable/snapshots/*
+!writable/snapshots/.gitkeep
+
 php_errors.log
 
 #-------------------------

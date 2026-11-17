@@ -7,8 +7,27 @@ $(function () {
     };
 
     function loadData() {
-        $.getJSON('/api/laporan/grafik_verifikasi_0', { tahun: $('#tahun').val() }, function (result) {
-            var container = $('#grafikCabang').empty();
+        var container = $('#grafikCabang');
+        var tahun = $('#tahun').val();
+        $('#snapshotInfo').empty();
+        container.html('<div class="box verifikasi-chart"><div class="box-body text-center" style="padding: 40px; color: #777;"><i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i><p style="margin-top: 10px;">Memuat data grafik...</p></div></div>');
+
+        $.ajax({
+            url: '/api/laporan/grafik_verifikasi_0',
+            data: { tahun: tahun },
+            dataType: 'json'
+        }).done(function (result) {
+            container.empty();
+
+            if (result.updated_at) {
+                $('#snapshotInfo').text('• Pembaruan snapshot: ' + result.updated_at);
+            }
+
+            if (!result.cabang || result.cabang.length === 0) {
+                container.html('<div class="callout callout-warning"><p><i class="fa fa-info-circle"></i> Snapshot data verifikasi 0 meter untuk tahun ' + tahun + ' belum tersedia. Silakan jalankan proses rekonsiliasi terjadwal.</p></div>');
+                return;
+            }
+
             result.cabang.forEach(function (cabang, index) {
                 var canvasId = 'grafikVerifikasiCabang' + index;
                 var panel = $('<div class="box verifikasi-chart"><div class="box-header"><h2 class="verifikasi-chart__title"></h2></div><div class="box-body verifikasi-chart__body"></div></div>');
@@ -57,7 +76,12 @@ $(function () {
 
                         var bulanIndex = bulan.indexOf(bar.label);
                         var bulanIni = cabang.verifikasi_bulan_ini[bulanIndex] || 0;
-                        return 'Verifikasi kumulatif: ' + bar.value + ' | Realisasi verifikasi bulan ini: ' + bulanIni;
+                        var mentah = cabang.aktivitas_verifikasi_mentah ? (cabang.aktivitas_verifikasi_mentah[bulanIndex] || 0) : null;
+                        var text = 'Verifikasi kumulatif: ' + bar.value + ' | Realisasi cocok bulan ini: ' + bulanIni;
+                        if (mentah !== null && mentah !== bulanIni) {
+                            text += ' (Total aktivitas: ' + mentah + ')';
+                        }
+                        return text;
                     },
                     onAnimationComplete: function () {
                         labelsReady = true;
@@ -115,6 +139,13 @@ $(function () {
                     context.restore();
                 }
             });
+        }).fail(function (xhr) {
+            container.empty();
+            if (xhr.status === 404) {
+                container.html('<div class="callout callout-warning"><p><i class="fa fa-info-circle"></i> Snapshot data verifikasi 0 meter untuk tahun ' + tahun + ' belum tersedia. Silakan jalankan proses rekonsiliasi terjadwal.</p></div>');
+            } else {
+                container.html('<div class="callout callout-danger"><p><i class="fa fa-exclamation-triangle"></i> Terjadi kesalahan saat memuat data laporan grafik verifikasi.</p></div>');
+            }
         });
     }
 

@@ -27,7 +27,10 @@ $this->extend('template/index');
     <div class="box-header verifikasi-chart__header">
         <div>
             <h1 class="verifikasi-chart__title">Verifikasi pembacaan 0 meter</h1>
-            <p class="verifikasi-chart__description">Angka di atas bar bertumpuk menunjukkan total verifikasi kumulatif</p>
+            <p class="verifikasi-chart__description">
+                Angka di atas bar bertumpuk menunjukkan total verifikasi kumulatif
+                <span id="snapshotInfo" class="text-muted" style="margin-left: 8px;"></span>
+            </p>
         </div>
         <div class="verifikasi-chart__filter">
             <label for="tahun">Tahun</label>

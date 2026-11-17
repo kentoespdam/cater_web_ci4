@@ -5,9 +5,16 @@
   "3": "app",
   "4": "CURLRequest.php",
   "5": "grafik_verifikasi_0.php",
+  "6": "BacaMeterModel",
+  "7": "Cache.php",
+  "8": "HasilBacaSummaryService.php",
+  "9": "FotoMeter.php",
+  "10": "grafik_verifikasi_0_detail.php",
   "40": "Events.php",
   "82": "CodeIgniter\\HTTP\\ResponseInterface",
   "91": "Project Rules for AI Agents: cater_web_ci4 (Antigravity 2.0 Optimized)",
   "101": "BacaMeterQueryService",
-  "180": "CONTEXT.md — cater_web_ci4"
+  "161": "CodeIgniter\\Test\\CIUnitTestCase",
+  "180": "CONTEXT.md — cater_web_ci4",
+  "304": "Verif0MeterReconciliationService"
 }

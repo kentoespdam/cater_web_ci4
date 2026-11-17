@@ -62,7 +62,7 @@ bd close <id>         # Complete work
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
-This project is indexed by GitNexus as **cater_web_ci4** (19419 symbols, 40186 relationships, 300 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
+This project is indexed by GitNexus as **cater_web_ci4** (1180 symbols, 2537 relationships, 61 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
 
 > If any GitNexus tool warns the index is stale, run `npx gitnexus analyze` in terminal first.
 
@@ -105,4 +105,3 @@ This project is indexed by GitNexus as **cater_web_ci4** (19419 symbols, 40186 r
 
 ## Coding Standards
 - Rujuk [CODING_RULES.md](file:///mnt/DATA/php/cater_web_ci4/CODING_RULES.md) untuk acuan arsitektur CodeIgniter 4, standarisasi kode PHP 8.1+, validasi, keamanan, dan testing.
-
