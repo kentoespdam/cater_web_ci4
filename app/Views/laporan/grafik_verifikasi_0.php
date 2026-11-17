@@ -32,7 +32,7 @@ $this->extend('template/index');
         <div>
             <h1 class="verifikasi-chart__title">Verifikasi pembacaan 0 meter</h1>
             <p class="verifikasi-chart__description">
-                Bandingkan perhitungan workbook manual dan rekonsiliasi pelanggan berdasarkan ID.
+                Tren target dan aktivitas verifikasi bulanan per cabang.
                 <span id="snapshotInfo" class="text-muted" style="margin-left: 8px;"></span>
             </p>
         </div>
@@ -49,8 +49,6 @@ $this->extend('template/index');
         </div>
     </div>
     <div class="verifikasi-chart__controls">
-        <div><label for="tampilan">Tampilan grafik</label><select id="tampilan" class="form-control"><option value="cabang">Perbandingan cabang</option><option value="tren">Tren bulanan per cabang</option></select></div>
-        <div id="bulan-filter"><label for="bulan">Bulan perbandingan</label><select id="bulan" class="form-control"></select></div>
         <button type="button" id="grafik-refresh" class="btn btn-default">Muat ulang</button>
         <p id="grafik-info" class="help-block" style="width:100%;margin:0"></p>
     </div>

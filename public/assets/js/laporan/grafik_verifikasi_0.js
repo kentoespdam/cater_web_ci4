@@ -3,9 +3,6 @@ $(function () {
     var container = $('#grafikCabang');
     var branches = [], charts = [], request;
     var number = new Intl.NumberFormat('id-ID');
-    months.forEach(function (month, index) { $('#bulan').append($('<option>', { value: index }).text(month)); });
-    $('#bulan').val(new Date().getMonth());
-
     function metrics(branch) {
         var raw = branch.aktivitas_verifikasi_mentah || [];
         var cumulative = raw.map(function (value, index) {
@@ -61,8 +58,6 @@ $(function () {
         charts.forEach(function (chart) { chart.destroy(); });
         charts = [];
         container.empty();
-        var comparison = $('#tampilan').val() === 'cabang';
-        $('#bulan-filter').toggle(comparison);
         $('#grafik-info').text('Target bulan ini = target bruto dikurangi pelanggan dengan ID yang cocok pada data verifikasi sampai bulan lalu. Verifikasi bulan ini dan akumulasi verifikasi menghitung seluruh aktivitas, termasuk yang tidak cocok dengan target.');
         if (!branches.length) return;
         if (branches.some(function (branch) { return !Array.isArray(branch.target_awal_bulan) || !Array.isArray(branch.target_bulan_ini) || !Array.isArray(branch.aktivitas_verifikasi_mentah); })) {
@@ -70,14 +65,7 @@ $(function () {
             return;
         }
         var names = ['Target bruto', 'Target tersisa (ID cocok s.d. bulan lalu)', 'Verifikasi bulan ini (semua aktivitas)', 'Akumulasi verifikasi (semua aktivitas)'];
-        if (comparison) {
-            var month = Number($('#bulan').val());
-            draw('Perbandingan cabang · ' + months[month], branches.map(function (b) { return b.nama; }), names.map(function (name, i) {
-                return branches.map(function (b) { return Number((metrics(b)[i] || [])[month]) || 0; });
-            }), names);
-        } else {
-            branches.forEach(function (branch) { draw(branch.nama, months, metrics(branch), names); });
-        }
+        branches.forEach(function (branch) { draw(branch.nama, months, metrics(branch), names); });
     }
 
     function loadData() {
@@ -103,6 +91,5 @@ $(function () {
     }
     $('#tahun').on('change', loadData);
     $('#grafik-refresh').on('click', loadData);
-    $('#tampilan, #bulan').on('change', render);
     loadData();
 });
