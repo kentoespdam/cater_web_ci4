@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := help
-.PHONY: help build up down restart rebuild ps logs logs-app logs-web bash bash-web spark routes cache-clear composer-install composer-update test lint dev-serve build-old up-old down-old
+.PHONY: help build up down restart rebuild ps logs logs-app logs-web bash bash-web spark routes cache-clear snapshot composer-install composer-update test lint lint-fix dev-serve build-old up-old down-old
 
 ENV_FILE := .env.docker
 COMPOSE  := docker compose --env-file $(ENV_FILE)
@@ -86,6 +86,9 @@ routes: ## Tampilkan daftar route CodeIgniter 4
 cache-clear: ## Bersihkan cache CodeIgniter 4
 	$(COMPOSE) exec app php spark cache:clear
 
+snapshot: ## Generate snapshot verifikasi 0 meter (contoh: make snapshot [TAHUN=2026])
+	$(COMPOSE) exec app php spark laporan:generate-verif0-snapshot $(if $(TAHUN),--tahun $(TAHUN),)
+
 spark: ## Jalankan custom perintah spark (contoh: make spark CMD="routes")
 	$(COMPOSE) exec app php spark $(CMD)
 
@@ -97,11 +100,14 @@ composer-update: ## Jalankan composer update di dalam container
 	$(COMPOSE) exec app composer update
 
 ## --- TESTING & QUALITY ---
-test: ## Jalankan unit testing PHPUnit di dalam container
-	$(COMPOSE) exec app ./vendor/bin/phpunit
+test: ## Jalankan unit testing PHPUnit di dalam container (contoh: make test [ARGS="..."])
+	$(COMPOSE) exec app ./vendor/bin/phpunit --no-coverage $(ARGS)
 
 lint: ## Jalankan linting PHP CS Fixer (dry-run) di dalam container
 	$(COMPOSE) exec app ./vendor/bin/php-cs-fixer fix --dry-run --diff
+
+lint-fix: ## Jalankan perbaikan otomatis PHP CS Fixer di dalam container
+	$(COMPOSE) exec app ./vendor/bin/php-cs-fixer fix
 
 ## --- LOCAL DEVELOPMENT (WITHOUT DOCKER) ---
 dev-serve: ## Jalankan development server lokal di host (http://localhost:8080)

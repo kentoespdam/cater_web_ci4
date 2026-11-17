@@ -1,6 +1,6 @@
 # Cater Web (CodeIgniter 4 - `cater_web_ci4`)
 
-Aplikasi web manajemen katering berbasis framework **CodeIgniter 4** (PHP 8.2+). Repositori ini mendukung dua mode lingkungan kerja yang fleksibel: pengembangan lokal langsung di host atau containerized deployment menggunakan Docker.
+Sistem monitoring dan verifikasi catat meter air (PDAM) berbasis framework **CodeIgniter 4** (PHP 8.2+). Repositori ini mendukung dua mode lingkungan kerja yang fleksibel: pengembangan lokal langsung di host atau containerized deployment menggunakan Docker.
 
 ---
 
@@ -29,6 +29,33 @@ Digunakan untuk environment production, staging, atau pengujian yang terisolasi 
   ```
 * **Akses**: `http://localhost:84` (Port dapat disesuaikan melalui `APP_PORT` di `.env.docker`).
 * **Database**: Terhubung ke external/host database (menggunakan `host.docker.internal` atau IP server database eksternal).
+
+---
+
+## 📊 Fitur Snapshot Rekonsiliasi Verifikasi 0 Meter
+
+Laporan grafik verifikasi 0 meter menggunakan arsitektur **offline snapshot** untuk mencegah eksekusi query SQL lintas host yang berat saat pengguna membuka halaman:
+
+1. **Pencocokan 1:1 ID Pelanggan**:
+   - Membandingkan nomor pelanggan unik (`no_sam` / `nosamw`) dari tabel pembacaan normal pakai 0 (`baca_meter`) dengan tabel verifikasi lapangan GIS (`verif_0meter`).
+   - Mencegah klaim aktivitas verifikasi mentah di luar target sebagai realisasi target.
+2. **Penguncian & Publikasi Atomik**:
+   - Generator CLI menggunakan `flock` untuk mencegah proses ganda bersamaan.
+   - Hasil ditulis ke file sementara (`.tmp.<PID>`) dan dipindahkan secara atomik ke `writable/snapshots/verif_0meter_{tahun}.json`.
+3. **Penyajian Data Instan**:
+   - Endpoint `GET /api/laporan/grafik_verifikasi_0` menyajikan data dari snapshot lokal tanpa menginisialisasi koneksi database MariaDB default/GIS saat request web.
+4. **Perintah Generator**:
+   ```bash
+   # Melalui Makefile (Docker)
+   make snapshot TAHUN=2026
+
+   # Melalui CLI Spark langsung
+   php spark laporan:generate-verif0-snapshot --tahun 2026
+   ```
+5. **Dokumentasi Terkait**:
+   - [Kontrak Pencocokan & Kelayakan Query](docs/kontrak_pencocokan_verifikasi_0_meter.md)
+   - [Panduan Operasional & Rekomendasi Jadwal Cron](docs/panduan_operasional_snapshot_verifikasi_0_meter.md)
+   - [Checklist Implementasi](docs/checklist_implementasi_grafik_verifikasi_0_snapshot.md)
 
 ---
 
@@ -70,11 +97,13 @@ Seluruh operasional Docker, CodeIgniter Spark, Composer, testing, dan linting di
 | `make bash-web` | Masuk ke shell container Nginx (`web`) |
 | `make routes` | Menampilkan daftar route CodeIgniter 4 (`php spark routes`) |
 | `make cache-clear` | Membersihkan cache aplikasi (`php spark cache:clear`) |
+| `make snapshot` | Membangun snapshot verifikasi 0 meter (`make snapshot [TAHUN=YYYY]`) |
 | `make spark CMD="..."`| Menjalankan perintah custom CodeIgniter Spark |
 | `make composer-install`| Menjalankan `composer install` di dalam container |
 | `make composer-update`| Menjalankan `composer update` di dalam container |
-| `make test` | Menjalankan unit testing PHPUnit di dalam container |
+| `make test` | Menjalankan unit testing PHPUnit di dalam container (`make test [ARGS="..."]`) |
 | `make lint` | Menjalankan linting PHP CS Fixer (dry-run) di dalam container |
+| `make lint-fix` | Menjalankan perbaikan otomatis PHP CS Fixer di dalam container |
 | `make dev-serve` | Menjalankan development server lokal di host (`http://localhost:8080`) |
 
 ---
