@@ -32,8 +32,6 @@
 .verification-detail__target { background: #fcf5f3; color: #935341; border-left: 1px solid #e5edf2; }
 .verification-detail__verification, .verification-detail__accumulated { background: #edf7f6; color: #28736b; }
 .verification-detail__monthly { background: #f1f8f2; color: #427446; }
-.verification-detail__table tbody td:nth-child(3n + 2), .verification-detail__table tfoot td:nth-child(3n + 2) { border-left: 1px solid #e5edf2; color: #6d6570; }
-.verification-detail__table tbody td:nth-child(3n + 3) { color: #216e65; font-weight: 600; }
 .verification-detail__table tbody tr:nth-child(even) td, .verification-detail__table tbody tr:nth-child(even) th { background: #fbfcfd; }
 .verification-detail__table tbody tr:hover td, .verification-detail__table tbody tr:hover th { background: #f0f6fa; }
 .verification-detail__table tfoot td, .verification-detail__table tfoot .verification-detail__branch { background: #eef4f8; font-weight: 600; border-top: 1px solid #d4e0e9; border-bottom: 0; }
@@ -52,3 +50,7 @@
     .verification-detail__table .verification-detail__branch { min-width: 150px; max-width: 180px; padding-left: 16px; }
     .verification-detail__notes { padding: 14px 16px; gap: 6px; flex-direction: column; }
 }
+.verification-detail__toolbar { flex-wrap: wrap; }
+.verification-detail__table thead tr:nth-child(2) th { white-space: normal; min-width: 130px; }
+.verification-detail .btn:focus-visible { outline: 2px solid #256486; outline-offset: 2px; }
+.verification-detail .btn:disabled { opacity: .55; cursor: not-allowed; }

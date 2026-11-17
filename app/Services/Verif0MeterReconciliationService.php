@@ -106,6 +106,7 @@ final class Verif0MeterReconciliationService
                     'target_awal_bulan' => array_fill(0, 12, 0),
                     'terverifikasi_sebelum_bulan_ini' => array_fill(0, 12, 0),
                     'aktivitas_verifikasi_mentah' => array_fill(0, 12, 0),
+                    'target_belum_verifikasi_manual' => array_fill(0, 12, 0),
                 ];
             }
         }
@@ -147,6 +148,7 @@ final class Verif0MeterReconciliationService
                 $targetCount = 0;
                 $sebelumCount = 0;
                 $realisasiCount = 0;
+                $belumVerifikasiManual = 0;
 
                 foreach ($targets as $noSam => $rowUnit) {
                     if (($unitCabangMap[$rowUnit]['cabang'] ?? null) !== $cabangId) {
@@ -158,12 +160,17 @@ final class Verif0MeterReconciliationService
 
                     $verifiedSebelum = false;
                     $verifiedBulanIni = false;
+                    $verifiedReportYearSebelum = false;
 
                     foreach ($custVerifs as $cv) {
                         $tgl = $cv['tgl'];
 
                         if ($tgl < $firstDayMonth) {
                             $verifiedSebelum = true;
+
+                            if (substr($tgl, 0, 4) === (string) $tahun) {
+                                $verifiedReportYearSebelum = true;
+                            }
                         } elseif ($tgl < $firstDayNextMonth) {
                             $verifiedBulanIni = true;
                         }
@@ -174,12 +181,17 @@ final class Verif0MeterReconciliationService
                     } elseif ($verifiedBulanIni) {
                         $realisasiCount++;
                     }
+
+                    if (! $verifiedReportYearSebelum) {
+                        $belumVerifikasiManual++;
+                    }
                 }
 
                 $branch['target_awal_bulan'][$idx] = $targetCount;
                 $branch['terverifikasi_sebelum_bulan_ini'][$idx] = $sebelumCount;
                 $branch['target_bulan_ini'][$idx] = max(0, $targetCount - $sebelumCount);
                 $branch['realisasi_bulan_ini'][$idx] = $realisasiCount;
+                $branch['target_belum_verifikasi_manual'][$idx] = $belumVerifikasiManual;
                 $branch['verifikasi_bulan_ini'][$idx] = $realisasiCount;
 
                 $kumulatifRealisasi += $realisasiCount;

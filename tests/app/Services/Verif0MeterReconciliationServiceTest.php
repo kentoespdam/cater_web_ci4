@@ -74,6 +74,7 @@ final class Verif0MeterReconciliationServiceTest extends CIUnitTestCase
         $this->assertSame(1, $cabang['realisasi_bulan_ini'][0]);
         $this->assertSame(1, $cabang['verifikasi_bulan_ini'][0]);
         $this->assertSame(1, $cabang['verifikasi_kumulatif'][0]);
+        $this->assertSame(2, $cabang['target_belum_verifikasi_manual'][0]);
     }
 
     public function testReconcileIgnoresUnmatchedVerifications(): void

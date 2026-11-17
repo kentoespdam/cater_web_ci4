@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 $this->extend('template/index');
-$months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 ?>
 
 <?= $this->section('content') ?>
@@ -15,6 +14,7 @@ $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agus
             <h1>Detail verifikasi 0 meter</h1>
             <p class="verification-detail__description">Target dan hasil verifikasi setiap cabang, dari Januari hingga Desember.</p>
         </div>
+        <a id="detail-pelanggan" class="btn btn-default" href="<?= esc(base_url('laporan/grafik_verifikasi_0/pelanggan'), 'attr') ?>">Daftar pelanggan</a>
         <a class="btn btn-default verification-detail__chart-link" href="<?= esc(base_url('laporan/grafik_verifikasi_0'), 'attr') ?>">
             <i class="fa fa-bar-chart" aria-hidden="true"></i> Lihat grafik
         </a>
@@ -34,6 +34,7 @@ $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agus
                 <label for="detail-cabang">Cari cabang</label>
                 <input type="search" id="detail-cabang" class="form-control" placeholder="Nama cabang…" autocomplete="off">
             </div>
+            <div class="verification-detail__field"><label for="detail-perspektif">Perspektif</label><select id="detail-perspektif" class="form-control"><option value="manual">Workbook manual</option><option value="id">Rekonsiliasi ID pelanggan</option></select></div>
             <button type="button" id="detail-refresh" class="btn btn-default verification-detail__refresh">
                 <i class="fa fa-refresh" aria-hidden="true"></i> Muat ulang
             </button>
@@ -45,38 +46,15 @@ $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agus
         </div>
         <div class="verification-detail__scroll" tabindex="0" role="region" aria-label="Tabel verifikasi 0 meter per cabang, geser untuk melihat bulan lainnya" aria-busy="true" id="detail-scroll">
             <table class="verification-detail__table">
-                <caption class="sr-only">Detail verifikasi 0 meter: target, akumulasi verifikasi, dan verifikasi bulan ini per cabang dan bulan.</caption>
-                <thead>
-                    <tr>
-                        <th rowspan="3" scope="col" class="verification-detail__branch">Cabang</th>
-                        <?php foreach ($months as $month) : ?>
-                            <th colspan="3" scope="colgroup" class="verification-detail__month"><?= esc($month) ?></th>
-                        <?php endforeach; ?>
-                    </tr>
-                    <tr>
-                        <?php foreach ($months as $month) : ?>
-                            <th rowspan="2" scope="col" class="verification-detail__target">Target</th>
-                            <th colspan="2" scope="colgroup" class="verification-detail__verification">Verifikasi</th>
-                        <?php endforeach; ?>
-                    </tr>
-                    <tr>
-                        <?php foreach ($months as $month) : ?>
-                            <th scope="col" class="verification-detail__accumulated">Akumulasi</th>
-                            <th scope="col" class="verification-detail__monthly">Bulan ini</th>
-                        <?php endforeach; ?>
-                    </tr>
-                </thead>
+                <caption class="sr-only">Detail verifikasi 0 meter sesuai perspektif yang dipilih, per cabang dan bulan.</caption>
+                <thead id="detail-head"></thead>
                 <tbody id="detail-rows">
                     <tr><td colspan="37" class="verification-detail__state">Memuat data verifikasi…</td></tr>
                 </tbody>
                 <tfoot id="detail-totals"></tfoot>
             </table>
         </div>
-        <div class="verification-detail__notes">
-            <span><strong>Target</strong> target verifikasi bulan berjalan.</span>
-            <span><strong>Akumulasi</strong> total verifikasi hingga bulan tersebut.</span>
-            <span><strong>Bulan ini</strong> realisasi verifikasi pada bulan tersebut.</span>
-        </div>
+        <div class="verification-detail__notes" id="detail-notes"></div>
     </div>
 </div>
 <script src="<?= esc(base_url('assets/js/laporan/grafik_verifikasi_0_detail.js'), 'attr') ?>" defer></script>

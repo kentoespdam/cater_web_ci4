@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 $this->extend('template/index');
 ?>
 
@@ -12,7 +14,9 @@ $this->extend('template/index');
     .verifikasi-chart__legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 0; padding: 0; list-style: none; }
     .verifikasi-chart__legend li { display: flex; align-items: center; gap: 8px; color: #555; font-size: 12px; }
     .verifikasi-chart__swatch { width: 12px; height: 12px; flex: 0 0 12px; border: 1px solid rgba(0, 0, 0, 0.18); border-radius: 2px; }
-    .verifikasi-chart__filter { display: flex; align-items: center; gap: 8px; }
+    .verifikasi-chart__filter { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .verifikasi-chart__controls { padding: 16px 24px; display: flex; flex-wrap: wrap; gap: 16px; border-top: 1px solid #eee; }
+    .verifikasi-chart__controls label { display: block; }
     .verifikasi-chart__filter label { margin: 0; font-weight: 400; color: #555; }
     .verifikasi-chart__filter select { min-width: 112px; }
     .verifikasi-chart__body { height: min(520px, 62vh); min-height: 320px; padding: 12px 24px 24px; overflow-x: auto; }
@@ -28,7 +32,7 @@ $this->extend('template/index');
         <div>
             <h1 class="verifikasi-chart__title">Verifikasi pembacaan 0 meter</h1>
             <p class="verifikasi-chart__description">
-                Angka di atas bar bertumpuk menunjukkan total verifikasi kumulatif
+                Bandingkan perhitungan workbook manual dan rekonsiliasi pelanggan berdasarkan ID.
                 <span id="snapshotInfo" class="text-muted" style="margin-left: 8px;"></span>
             </p>
         </div>
@@ -44,8 +48,16 @@ $this->extend('template/index');
             </a>
         </div>
     </div>
+    <div class="verifikasi-chart__controls">
+        <div><label for="perspektif">Perspektif</label><select id="perspektif" class="form-control"><option value="manual">Workbook manual</option><option value="id">Rekonsiliasi ID pelanggan</option></select></div>
+        <div><label for="tampilan">Tampilan grafik</label><select id="tampilan" class="form-control"><option value="cabang">Perbandingan cabang</option><option value="tren">Tren bulanan per cabang</option></select></div>
+        <div id="bulan-filter"><label for="bulan">Bulan perbandingan</label><select id="bulan" class="form-control"></select></div>
+        <button type="button" id="grafik-refresh" class="btn btn-default">Muat ulang</button>
+        <p id="perspektif-info" class="help-block" style="width:100%;margin:0"></p>
+    </div>
 </div>
-<div id="grafikCabang"></div>
-<script src="<?= base_url('assets') ?>/plugins/chartjs/Chart.min.js" defer></script>
-<script src="<?= base_url('assets') ?>/js/laporan/grafik_verifikasi_0.js" defer></script>
+<p id="grafik-status" role="status" aria-live="polite"></p>
+<div id="grafikCabang" data-endpoint="<?= esc(base_url('api/laporan/grafik_verifikasi_0'), 'attr') ?>"></div>
+<script src="<?= esc(base_url('assets/plugins/chartjs/Chart.min.js'), 'attr') ?>" defer></script>
+<script src="<?= esc(base_url('assets/js/laporan/grafik_verifikasi_0.js'), 'attr') ?>" defer></script>
 <?= $this->endSection() ?>

@@ -1,0 +1,14 @@
+.verification-customers .verification-detail__field { flex: 1 1 150px; max-width: 250px; }
+.verification-customers .verification-detail__notes { margin: 0; font-size: 12px; }
+.verification-customers .verification-detail__table th,
+.verification-customers .verification-detail__table td { text-align: left; }
+.verification-customers .verification-detail__table td:nth-child(3n + 3) { color: inherit; font-weight: normal; }
+.verification-customers .verification-detail__table td:nth-child(5) { white-space: normal; min-width: 220px; max-width: 360px; }
+.verification-customers .verification-detail__table thead th { background: #eef4f8; }
+.customer-pagination { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 16px 24px; border-top: 1px solid #e5edf2; }
+@media (max-width: 767px) {
+    .verification-customers .verification-detail__field { max-width: none; min-width: 0; flex-basis: calc(50% - 12px); }
+    .verification-customers .form-control { width: 100%; }
+    .customer-pagination { padding: 16px; }
+    .verification-customers .btn { min-height: 44px; }
+}
