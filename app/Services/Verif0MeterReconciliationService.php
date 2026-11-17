@@ -160,18 +160,13 @@ final class Verif0MeterReconciliationService
 
                     $verifiedSebelum = false;
                     $verifiedBulanIni = false;
-                    $verifiedReportYearSebelum = false;
 
                     foreach ($custVerifs as $cv) {
                         $tgl = $cv['tgl'];
 
-                        if ($tgl < $firstDayMonth) {
+                        if ($tgl < $firstDayMonth && substr($tgl, 0, 4) === (string) $tahun) {
                             $verifiedSebelum = true;
-
-                            if (substr($tgl, 0, 4) === (string) $tahun) {
-                                $verifiedReportYearSebelum = true;
-                            }
-                        } elseif ($tgl < $firstDayNextMonth) {
+                        } elseif ($tgl >= $firstDayMonth && $tgl < $firstDayNextMonth) {
                             $verifiedBulanIni = true;
                         }
                     }
@@ -182,7 +177,7 @@ final class Verif0MeterReconciliationService
                         $realisasiCount++;
                     }
 
-                    if (! $verifiedReportYearSebelum) {
+                    if (! $verifiedSebelum) {
                         $belumVerifikasiManual++;
                     }
                 }
@@ -231,7 +226,7 @@ final class Verif0MeterReconciliationService
 
     public function fetchVerifications(int $tahun): array
     {
-        $tglAwal = sprintf('%04d-12-01 00:00:00', $tahun - 1);
+        $tglAwal = sprintf('%04d-01-01 00:00:00', $tahun);
         $tglAkhir = sprintf('%04d-01-01 00:00:00', $tahun + 1);
 
         $builder = $this->dbGis->table('verif_0meter')

@@ -124,7 +124,7 @@ final class Verif0MeterReconciliationServiceTest extends CIUnitTestCase
             ],
         ];
 
-        // 0100001 sudah diverifikasi pada Desember 2025 (sebelum 1 Januari 2026)
+        // Verifikasi pada Desember 2025 berada di luar scope tahun laporan 2026.
         $verifications = [
             [
                 'nosamw' => '0100001',
@@ -137,9 +137,37 @@ final class Verif0MeterReconciliationServiceTest extends CIUnitTestCase
         $cabang = $result['cabang'][0];
 
         $this->assertSame(2, $cabang['target_awal_bulan'][0]);
-        $this->assertSame(1, $cabang['terverifikasi_sebelum_bulan_ini'][0]);
-        $this->assertSame(1, $cabang['target_bulan_ini'][0]);
+        $this->assertSame(0, $cabang['terverifikasi_sebelum_bulan_ini'][0]);
+        $this->assertSame(2, $cabang['target_bulan_ini'][0]);
         $this->assertSame(0, $cabang['realisasi_bulan_ini'][0]);
+    }
+
+    public function testReconcileSubtractsVerificationFromEarlierMonthInSameYear(): void
+    {
+        $service = new Verif0MeterReconciliationService(snapshotDir: $this->tempSnapshotDir);
+        $unitCabangMap = [
+            '01' => ['unit' => '01', 'cabang' => '0200', 'nama_cabang' => 'Cabang Purwokerto 1'],
+        ];
+        $targetsByMonth = [
+            2 => [
+                '0100001' => '01',
+                '0100002' => '01',
+            ],
+        ];
+        $verifications = [
+            [
+                'nosamw' => '0100001',
+                'tgl_verif' => '2026-01-20 09:00:00',
+                'status' => 0,
+            ],
+        ];
+
+        $result = $service->reconcile(2026, $targetsByMonth, $verifications, $unitCabangMap);
+        $cabang = $result['cabang'][0];
+
+        $this->assertSame(2, $cabang['target_awal_bulan'][1]);
+        $this->assertSame(1, $cabang['terverifikasi_sebelum_bulan_ini'][1]);
+        $this->assertSame(1, $cabang['target_bulan_ini'][1]);
     }
 
     public function testReconcileDeduplicatesMultipleVerifications(): void

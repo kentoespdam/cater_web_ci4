@@ -42,16 +42,13 @@ final class Verif0MeterPelangganService
             $targets = $this->dbDefault->table('baca_meter')->select('no_sam, nama, alamat')->where('tgl >=', date('Y-m-d', strtotime($start . ' -1 month')))->where('tgl <', $start)->where('LOWER(kondisi)', 'normal')->where('pakai', 0)->orderBy('no_sam', 'ASC')->get()->getResultArray();
             $rowsOut = [];
             $verifiedBefore = [];
-            $prior = $this->dbGis->table('verif_0meter')->select('nosamw, tgl_verif')->where('tgl_verif >=', sprintf('%04d-12-01', $tahun - 1))->where('tgl_verif <', $start)->get()->getResultArray();
+            $prior = $this->dbGis->table('verif_0meter')->select('nosamw, tgl_verif')->where('tgl_verif >=', sprintf('%04d-01-01', $tahun))->where('tgl_verif <', $start)->get()->getResultArray();
             $verifiedId = [];
 
             foreach ($prior as $v) {
                 $id = (string) $v['nosamw'];
                 $verifiedId[$id] = true;
-
-                if (substr((string) $v['tgl_verif'], 0, 4) === (string) $tahun) {
-                    $verifiedBefore[$id] = true;
-                }
+                $verifiedBefore[$id] = true;
             }
 
             foreach ($targets as $row) {

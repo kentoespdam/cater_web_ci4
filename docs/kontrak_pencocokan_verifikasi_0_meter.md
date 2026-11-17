@@ -38,11 +38,12 @@ Dokumen ini menetapkan kontrak spesifikasi bisnis, analisis indeks/query lintas 
 - Kode unit berelasi langsung dengan `munit.satker = mcabang.id_cabang` (5 cabang: Purwokerto 1 `0200`, Purwokerto 2 `0300`, Banyumas `0400`, Wangon `0500`, Ajibarang `0600`).
 - Seluruh 19 kode unit pada kedua tabel terbukti valid dan memetakan secara konsisten ke 5 cabang.
 
-### 2.3 Perlakuan Verifikasi Sebelum Bulan Target vs Bulan Berjalan
+### 2.3 Scope Verifikasi dalam Tahun Laporan
 1. **Verifikasi Sebelum Awal Bulan Target ($tgl\_verif < \text{awal bulan } M$):**
-   - Jika pelanggan yang masuk daftar target periode $M-1$ telah diverifikasi oleh petugas sebelum tanggal 1 bulan $M$ (misal dibaca tanggal 2 Desember, diverifikasi 16 Desember), verifikasi tersebut dicatat sebagai **Penyelesaian Dini / Pengurang Target Awal**.
-   - Target Awal Bulan Bersih:
-     $$\text{Target Awal Bulan } M = \text{Target Baca 0} - \text{Terverifikasi Sebelum Bulan } M$$
+   - Hanya verifikasi dalam tahun laporan $T$ yang boleh mengurangi target bulan $M$. Verifikasi pada Desember tahun $T-1$ diabaikan.
+   - Karena itu, target Januari ($M=1$) selalu sama dengan target bruto. Untuk Februari hingga Desember, target dikurangi ID target yang sudah cocok dengan data verifikasi pada bulan sebelumnya di tahun yang sama.
+   - Target Bulan Ini:
+     $$\text{Target Bulan Ini } M = \text{Target Baca 0} - \text{ID Target Terverifikasi pada Tahun } T \text{ sebelum } M$$
 2. **Realisasi Verifikasi Bulan Berjalan ($tgl\_verif$ dalam bulan $M$):**
    - Hanya pelanggan target yang diverifikasi dalam rentang tanggal bulan $M$ yang dihitung sebagai **Realisasi Bulan Berjalan**.
    - Formula:
@@ -117,7 +118,7 @@ Pemeriksaan pada tabel `pdam_pwt.verif_0meter` menunjukkan:
    - Record dengan nomor pelanggan `NULL`, kosong `''`, atau bukan 7 digit angka dieksklusikan dari pencocokan dan dicatat dalam log anomali.
 3. **Pergantian Tahun:**
    - Generator CLI untuk tahun $T$ wajib membaca pembacaan meter bulan Desember tahun $T-1$ untuk membentuk target bulan Januari tahun $T$.
-   - Generator CLI juga wajib memuat verifikasi bulan Desember tahun $T-1$ untuk menghitung target yang telah terselesaikan sebelum 1 Januari tahun $T$.
+   - Verifikasi yang digunakan untuk mengurangi target dibatasi pada tahun $T$. Data verifikasi bulan Desember tahun $T-1$ tidak mengurangi target Januari tahun $T$.
 
 ---
 
