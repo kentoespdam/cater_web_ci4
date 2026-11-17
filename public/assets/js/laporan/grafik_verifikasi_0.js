@@ -2,6 +2,7 @@ $(function () {
     var months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     var container = $('#grafikCabang');
     var branches = [], charts = [], request;
+    var number = new Intl.NumberFormat('id-ID');
     months.forEach(function (month, index) { $('#bulan').append($('<option>', { value: index }).text(month)); });
     $('#bulan').val(new Date().getMonth());
 
@@ -18,7 +19,7 @@ $(function () {
         panel.find('h2').text(title);
         panel.find('canvas').attr('aria-label', title + '. ' + names.join(' dan ') + '. Angka lengkap tersedia pada Tabel detail.');
         var legend = $('<ul class="verifikasi-chart__legend"></ul>');
-        var colors = ['#3c8dbc', '#66a897', '#bd9654'];
+        var colors = ['#3c8dbc', '#66a897', '#bd9654', '#76549a'];
         names.forEach(function (name, index) {
             var item = $('<li><span class="verifikasi-chart__swatch"></span><span></span></li>');
             item.find('span:first').css('background-color', colors[index]);
@@ -27,11 +28,33 @@ $(function () {
         });
         panel.find('.box-header').append(legend);
         container.append(panel);
-        charts.push(new Chart(panel.find('canvas')[0].getContext('2d')).Bar({
+        var chart = new Chart(panel.find('canvas')[0].getContext('2d')).Bar({
             labels: labels,
             datasets: names.map(function (name, index) { return { label: name, fillColor: colors[index], data: values[index] }; })
         }, { responsive: true, maintainAspectRatio: false, animation: false, barShowStroke: false,
-            scaleShowVerticalLines: false, multiTooltipTemplate: '<%= datasetLabel %>: <%= value %>' }));
+            scaleShowVerticalLines: false, multiTooltipTemplate: '<%= datasetLabel %>: <%= value %>' });
+        var drawChart = chart.draw;
+        chart.draw = function () {
+            drawChart.apply(this, arguments);
+            drawValueLabels(this);
+        };
+        drawValueLabels(chart);
+        charts.push(chart);
+    }
+
+    function drawValueLabels(chart) {
+        var context = chart.chart.ctx;
+        context.save();
+        context.fillStyle = '#263746';
+        context.font = '600 11px Arial';
+        context.textAlign = 'center';
+        context.textBaseline = 'bottom';
+        chart.datasets.forEach(function (dataset) {
+            dataset.bars.forEach(function (bar) {
+                context.fillText(number.format(Number(bar.value) || 0), bar.x, Math.max(12, bar.y - 5));
+            });
+        });
+        context.restore();
     }
 
     function render() {
