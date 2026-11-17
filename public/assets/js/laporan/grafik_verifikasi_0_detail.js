@@ -7,23 +7,17 @@ $(function () {
     var request;
     var loaded = false;
     var number = new Intl.NumberFormat('id-ID');
-    var fields = [];
+    var fields = ['target_awal_bulan', 'target_bulan_ini', 'aktivitas_verifikasi_mentah', 'akumulasi_mentah'];
     var months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-
-    function perspective() {
-        var manual = $('#detail-perspektif').val() === 'manual';
-        fields = manual ? ['target_awal_bulan', 'target_belum_verifikasi_manual', 'sebelumnya', 'aktivitas_verifikasi_mentah', 'akumulasi_mentah', 'sisa_manual'] : ['target_bulan_ini', 'verifikasi_kumulatif', 'realisasi_bulan_ini', 'sisa_id'];
-        var labels = manual ? ['Target awal (bruto)', 'Target belum verif', 'Aktivitas sebelumnya', 'Aktivitas bulan ini', 'Akumulasi aktivitas', 'Belum verif (rumus)'] : ['Target neto ID', 'Akumulasi cocok', 'Cocok bulan ini', 'Sisa ID'];
-        var first = $('<tr>').append($('<th>', { rowspan: 2, scope: 'col', class: 'verification-detail__branch' }).text('Cabang'));
-        var second = $('<tr>');
-        months.forEach(function (month) {
-            first.append($('<th>', { colspan: fields.length, scope: 'colgroup', class: 'verification-detail__month' }).text(month));
-            labels.forEach(function (label) { second.append($('<th>', { scope: 'col', class: 'verification-detail__month' }).text(label)); });
-        });
-        $('#detail-head').empty().append(first, second);
-        $('#detail-notes').text(manual ? 'Target belum verif = baris target yang belum pernah diverifikasi sebelumnya pada tahun laporan. Belum verif (rumus) = target belum verif − akumulasi aktivitas mentah sebelum bulan ini. Nilai negatif tetap ditampilkan sesuai workbook; ini bukan jumlah pelanggan tersisa.' : 'Target neto ID adalah target bulan berjalan. Akumulasi cocok memuat verifikasi ID yang cocok hingga bulan tersebut. Sisa ID = target neto ID − realisasi cocok bulan ini (minimum 0).');
-        if (loaded) renderRows();
-    }
+    var labels = ['Target bruto', 'Target tersisa (ID cocok s.d. bulan lalu)', 'Verifikasi bulan ini (semua aktivitas)', 'Akumulasi verifikasi (semua aktivitas)'];
+    var first = $('<tr>').append($('<th>', { rowspan: 2, scope: 'col', class: 'verification-detail__branch' }).text('Cabang'));
+    var second = $('<tr>');
+    months.forEach(function (month) {
+        first.append($('<th>', { colspan: fields.length, scope: 'colgroup', class: 'verification-detail__month' }).text(month));
+        labels.forEach(function (label) { second.append($('<th>', { scope: 'col', class: 'verification-detail__month' }).text(label)); });
+    });
+    $('#detail-head').empty().append(first, second);
+    $('#detail-notes').text('Target bulan ini = target bruto dikurangi pelanggan dengan ID yang cocok pada data verifikasi sampai bulan lalu. Verifikasi bulan ini dan akumulasi verifikasi menghitung seluruh aktivitas, termasuk yang tidak cocok dengan target.');
 
     function showState(message) {
         rows.empty().append($('<tr>').append($('<td>', {
@@ -35,8 +29,8 @@ $(function () {
 
     function renderRows() {
         if (!loaded) return;
-        if ($('#detail-perspektif').val() === 'manual' && branches.some(function (branch) { return !Array.isArray(branch.target_belum_verifikasi_manual); })) {
-            status.text('Metrik workbook manual belum tersedia dalam snapshot ini.');
+        if (branches.some(function (branch) { return !Array.isArray(branch.target_awal_bulan) || !Array.isArray(branch.target_bulan_ini) || !Array.isArray(branch.aktivitas_verifikasi_mentah); })) {
+            status.text('Metrik laporan belum tersedia dalam snapshot ini.');
             showState('Perbarui snapshot dengan: php spark laporan:generate-verif0-snapshot --tahun=' + $('#detail-tahun').val());
             return;
         }
@@ -60,10 +54,7 @@ $(function () {
                 fields.forEach(function (field, index) {
                     var value = Number((branch[field] || [])[month]) || 0;
                     if (field === 'realisasi_bulan_ini') value = Number((branch.realisasi_bulan_ini || branch.verifikasi_bulan_ini || [])[month]) || 0;
-                    if (field === 'sebelumnya') value = previous;
                     if (field === 'akumulasi_mentah') value = previous + raw;
-                    if (field === 'sisa_manual') value = (Number((branch.target_belum_verifikasi_manual || [])[month]) || 0) - previous;
-                    if (field === 'sisa_id') value = Math.max(0, (Number((branch.target_bulan_ini || [])[month]) || 0) - (Number((branch.realisasi_bulan_ini || branch.verifikasi_bulan_ini || [])[month]) || 0));
                     sums[month * fields.length + index] += value;
                     row.append($('<td>').text(number.format(value)));
                 });
@@ -104,8 +95,6 @@ $(function () {
             .always(function () { $('#detail-scroll').attr('aria-busy', 'false'); });
     }
 
-    $('#detail-perspektif').on('change', perspective);
-    perspective();
     $('#detail-tahun').on('change', loadData);
     $('#detail-cabang').on('input', renderRows);
     $('#detail-refresh').on('click', loadData);

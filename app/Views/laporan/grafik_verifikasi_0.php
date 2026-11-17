@@ -49,11 +49,10 @@ $this->extend('template/index');
         </div>
     </div>
     <div class="verifikasi-chart__controls">
-        <div><label for="perspektif">Perspektif</label><select id="perspektif" class="form-control"><option value="manual">Workbook manual</option><option value="id">Rekonsiliasi ID pelanggan</option></select></div>
         <div><label for="tampilan">Tampilan grafik</label><select id="tampilan" class="form-control"><option value="cabang">Perbandingan cabang</option><option value="tren">Tren bulanan per cabang</option></select></div>
         <div id="bulan-filter"><label for="bulan">Bulan perbandingan</label><select id="bulan" class="form-control"></select></div>
         <button type="button" id="grafik-refresh" class="btn btn-default">Muat ulang</button>
-        <p id="perspektif-info" class="help-block" style="width:100%;margin:0"></p>
+        <p id="grafik-info" class="help-block" style="width:100%;margin:0"></p>
     </div>
 </div>
 <p id="grafik-status" role="status" aria-live="polite"></p>

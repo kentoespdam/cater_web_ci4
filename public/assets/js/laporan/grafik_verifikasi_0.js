@@ -6,10 +6,11 @@ $(function () {
     $('#bulan').val(new Date().getMonth());
 
     function metrics(branch) {
-        if ($('#perspektif').val() === 'manual') {
-            return [branch.target_awal_bulan, branch.aktivitas_verifikasi_mentah];
-        }
-        return [branch.target_bulan_ini, branch.realisasi_bulan_ini || branch.verifikasi_bulan_ini, branch.verifikasi_kumulatif];
+        var raw = branch.aktivitas_verifikasi_mentah || [];
+        var cumulative = raw.map(function (value, index) {
+            return raw.slice(0, index + 1).reduce(function (sum, month) { return sum + (Number(month) || 0); }, 0);
+        });
+        return [branch.target_awal_bulan, branch.target_bulan_ini, raw, cumulative];
     }
 
     function draw(title, labels, values, names) {
@@ -37,18 +38,15 @@ $(function () {
         charts.forEach(function (chart) { chart.destroy(); });
         charts = [];
         container.empty();
-        var manual = $('#perspektif').val() === 'manual';
         var comparison = $('#tampilan').val() === 'cabang';
         $('#bulan-filter').toggle(comparison);
-        $('#perspektif-info').text(manual
-            ? 'Workbook manual: target awal (bruto) dibandingkan aktivitas verifikasi mentah, termasuk aktivitas yang tidak cocok dengan target bulan tersebut. Rumus belum verifikasi tersedia di tabel detail.'
-            : 'Rekonsiliasi ID: target neto dibandingkan realisasi yang cocok dengan pelanggan target bulan tersebut. Sisa ID dan akumulasi tersedia di tabel detail.');
+        $('#grafik-info').text('Target bulan ini = target bruto dikurangi pelanggan dengan ID yang cocok pada data verifikasi sampai bulan lalu. Verifikasi bulan ini dan akumulasi verifikasi menghitung seluruh aktivitas, termasuk yang tidak cocok dengan target.');
         if (!branches.length) return;
-        if (manual && branches.some(function (branch) { return !Array.isArray(branch.target_belum_verifikasi_manual); })) {
-            container.append($('<div>', { class: 'callout callout-warning' }).text('Metrik workbook manual belum tersedia dalam snapshot ini. Perbarui snapshot dengan: php spark laporan:generate-verif0-snapshot --tahun=' + $('#tahun').val()));
+        if (branches.some(function (branch) { return !Array.isArray(branch.target_awal_bulan) || !Array.isArray(branch.target_bulan_ini) || !Array.isArray(branch.aktivitas_verifikasi_mentah); })) {
+            container.append($('<div>', { class: 'callout callout-warning' }).text('Snapshot belum memuat semua metrik laporan. Perbarui snapshot dengan: php spark laporan:generate-verif0-snapshot --tahun=' + $('#tahun').val()));
             return;
         }
-        var names = manual ? ['Target awal (bruto)', 'Aktivitas verifikasi mentah'] : ['Target neto ID', 'Realisasi cocok bulan ini', 'Akumulasi cocok'];
+        var names = ['Target bruto', 'Target tersisa (ID cocok s.d. bulan lalu)', 'Verifikasi bulan ini (semua aktivitas)', 'Akumulasi verifikasi (semua aktivitas)'];
         if (comparison) {
             var month = Number($('#bulan').val());
             draw('Perbandingan cabang · ' + months[month], branches.map(function (b) { return b.nama; }), names.map(function (name, i) {
@@ -82,6 +80,6 @@ $(function () {
     }
     $('#tahun').on('change', loadData);
     $('#grafik-refresh').on('click', loadData);
-    $('#perspektif, #tampilan, #bulan').on('change', render);
+    $('#tampilan, #bulan').on('change', render);
     loadData();
 });
