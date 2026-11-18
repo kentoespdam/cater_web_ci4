@@ -7,17 +7,20 @@ $this->extend('template/index');
 
 <?= $this->section('content') ?>
 <link rel="stylesheet" href="<?= esc(base_url('assets/css/grafik_verifikasi_0_detail.css'), 'attr') ?>">
-<div class="verification-detail" id="verification-detail" data-endpoint="<?= esc(base_url('api/laporan/grafik_verifikasi_0'), 'attr') ?>">
+<link rel="stylesheet" href="<?= esc(base_url('assets/css/verification-report.css'), 'attr') ?>">
+<div class="verification-detail verification-report" id="verification-detail" data-endpoint="<?= esc(base_url('api/laporan/grafik_verifikasi_0'), 'attr') ?>">
     <div class="verification-detail__heading">
         <div>
             <p class="verification-detail__eyebrow">Laporan / Verifikasi pembacaan</p>
             <h1>Detail verifikasi 0 meter</h1>
-            <p class="verification-detail__description">Target dan hasil verifikasi setiap cabang, dari Januari hingga Desember.</p>
+            <p class="verification-detail__description">Target dan hasil verifikasi setiap cabang, dari Januari hingga Desember</p>
         </div>
-        <a id="detail-pelanggan" class="btn btn-default" href="<?= esc(base_url('laporan/grafik_verifikasi_0/pelanggan'), 'attr') ?>">Daftar pelanggan</a>
-        <a class="btn btn-default verification-detail__chart-link" href="<?= esc(base_url('laporan/grafik_verifikasi_0'), 'attr') ?>">
-            <i class="fa fa-bar-chart" aria-hidden="true"></i> Lihat grafik
-        </a>
+        <div class="verification-report__actions">
+            <a id="detail-pelanggan" class="btn btn-default" href="<?= esc(base_url('laporan/grafik_verifikasi_0/pelanggan'), 'attr') ?>">Daftar pelanggan</a>
+            <a class="btn btn-default verification-detail__chart-link" href="<?= esc(base_url('laporan/grafik_verifikasi_0'), 'attr') ?>">
+                <i class="fa fa-bar-chart" aria-hidden="true"></i> Lihat grafik
+            </a>
+        </div>
     </div>
 
     <div class="verification-detail__panel">
@@ -41,9 +44,9 @@ $this->extend('template/index');
 
         <div class="verification-detail__table-info">
             <p id="detail-status" role="status" aria-live="polite">Memuat data verifikasi…</p>
-            <span><i class="fa fa-arrows-h" aria-hidden="true"></i> Geser untuk melihat semua bulan</span>
+            <span><i class="fa fa-arrows-h" aria-hidden="true"></i> Geser untuk melihat semua cabang dan metrik</span>
         </div>
-        <div class="verification-detail__scroll" tabindex="0" role="region" aria-label="Tabel verifikasi 0 meter per cabang, geser untuk melihat bulan lainnya" aria-busy="true" id="detail-scroll">
+        <div class="verification-detail__scroll" tabindex="0" role="region" aria-label="Tabel verifikasi 0 meter per bulan dan cabang, geser untuk melihat cabang lainnya" aria-busy="true" id="detail-scroll">
             <table class="verification-detail__table">
                 <caption class="sr-only">Target dan aktivitas verifikasi 0 meter per cabang dan bulan.</caption>
                 <thead id="detail-head"></thead>

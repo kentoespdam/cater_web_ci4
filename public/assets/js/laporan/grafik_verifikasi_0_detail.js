@@ -8,20 +8,18 @@ $(function () {
     var loaded = false;
     var number = new Intl.NumberFormat('id-ID');
     var fields = ['target_awal_bulan', 'target_bulan_ini', 'aktivitas_verifikasi_mentah', 'akumulasi_mentah'];
-    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-    var labels = ['Target bruto', 'Target tersisa (ID cocok s.d. bulan lalu)', 'Verifikasi bulan ini (semua aktivitas)', 'Akumulasi verifikasi (semua aktivitas)'];
-    var first = $('<tr>').append($('<th>', { rowspan: 2, scope: 'col', class: 'verification-detail__branch' }).text('Cabang'));
+    var labels = ['Target bruto', 'Target tersisa (Nomor Sambung cocok s.d. bulan lalu)', 'Verifikasi bulan ini (semua aktivitas)', 'Akumulasi verifikasi (semua aktivitas)'];
+    var first = $('<tr>')
+        .append($('<th>', { rowspan: 2, scope: 'col', class: 'verification-detail__year' }).text('Tahun'))
+        .append($('<th>', { rowspan: 2, scope: 'col', class: 'verification-detail__month-label' }).text('Bulan'));
     var second = $('<tr>');
-    months.forEach(function (month) {
-        first.append($('<th>', { colspan: fields.length, scope: 'colgroup', class: 'verification-detail__month' }).text(month));
-        labels.forEach(function (label) { second.append($('<th>', { scope: 'col', class: 'verification-detail__month' }).text(label)); });
-    });
+    var monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     $('#detail-head').empty().append(first, second);
     $('#detail-notes').text('Target bulan ini = target bruto dikurangi pelanggan dengan No sambung yang cocok pada data verifikasi sampai bulan lalu. Verifikasi bulan ini dan akumulasi verifikasi menghitung seluruh aktivitas, termasuk yang tidak cocok dengan target.');
 
     function showState(message) {
         rows.empty().append($('<tr>').append($('<td>', {
-            colspan: 1 + 12 * fields.length,
+            colspan: 2 + Math.max(branches.length, 1) * fields.length,
             class: 'verification-detail__state'
         }).text(message)));
         totals.empty();
@@ -43,26 +41,47 @@ $(function () {
             showState(branches.length ? 'Tidak ada cabang yang cocok dengan pencarian.' : 'Belum ada data verifikasi untuk tahun ini.');
             return;
         }
+        var first = $('<tr>')
+            .append($('<th>', { rowspan: 2, scope: 'col', class: 'verification-detail__year' }).text('Tahun'))
+            .append($('<th>', { rowspan: 2, scope: 'col', class: 'verification-detail__month-label' }).text('Bulan'));
+        var second = $('<tr>');
+        visible.forEach(function (branch, branchIndex) {
+            first.append($('<th>', {
+                colspan: fields.length,
+                scope: 'colgroup',
+                class: 'verification-detail__branch-heading' + (branchIndex % 2 ? ' verification-detail__branch-heading--alternate' : '')
+            }).text(branch.nama));
+            labels.forEach(function (label, metricIndex) {
+                var metricClass = 'verification-detail__metric';
+                if (metricIndex === 0) metricClass += ' verification-detail__branch-start';
+                if (metricIndex === fields.length - 1) metricClass += ' verification-detail__branch-end';
+                second.append($('<th>', { scope: 'col', class: metricClass }).text(label));
+            });
+        });
+        $('#detail-head').empty().append(first, second);
         rows.empty();
         totals.empty();
-        var sums = new Array(12 * fields.length).fill(0);
-        visible.forEach(function (branch) {
-            var row = $('<tr>').append($('<th>', { scope: 'row', class: 'verification-detail__branch' }).text(branch.nama));
-            var previous = 0;
-            for (var month = 0; month < 12; month++) {
+        var sums = new Array(visible.length * fields.length).fill(0);
+        for (var month = 0; month < 12; month++) {
+            var row = $('<tr>')
+                .append($('<th>', { scope: 'row', class: 'verification-detail__year' }).text($('#detail-tahun').val()))
+                .append($('<th>', { scope: 'row', class: 'verification-detail__month-label' }).text(monthNames[month]));
+            visible.forEach(function (branch, branchIndex) {
                 var raw = Number((branch.aktivitas_verifikasi_mentah || [])[month]) || 0;
+                var previous = (branch.aktivitas_verifikasi_mentah || []).slice(0, month).reduce(function (sum, value) { return sum + (Number(value) || 0); }, 0);
                 fields.forEach(function (field, index) {
                     var value = Number((branch[field] || [])[month]) || 0;
                     if (field === 'realisasi_bulan_ini') value = Number((branch.realisasi_bulan_ini || branch.verifikasi_bulan_ini || [])[month]) || 0;
                     if (field === 'akumulasi_mentah') value = previous + raw;
-                    sums[month * fields.length + index] += value;
-                    row.append($('<td>').text(number.format(value)));
+                    sums[branchIndex * fields.length + index] += value;
+                    var cellClass = index === 0 ? 'verification-detail__branch-start' : '';
+                    if (index === fields.length - 1) cellClass += ' verification-detail__branch-end';
+                    row.append($('<td>', { class: cellClass.trim() }).text(number.format(value)));
                 });
-                previous += raw;
-            }
+            });
             rows.append(row);
-        });
-        var total = $('<tr>').append($('<th>', { scope: 'row', class: 'verification-detail__branch' }).text('Total cabang ditampilkan'));
+        }
+        var total = $('<tr>').append($('<th>', { scope: 'row', class: 'verification-detail__year' }).text('Total')).append($('<th>', { class: 'verification-detail__month-label' }).text('12 bulan'));
         sums.forEach(function (value) { total.append($('<td>').text(number.format(value))); });
         totals.append(total);
     }

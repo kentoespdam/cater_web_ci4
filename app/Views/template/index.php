@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,6 @@
     <title>CATER | PDAM</title>
     <link rel="shortcut icon" href="<?= base_url('assets') ?>/images/pdam2.png">
     <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="<?= base_url('assets') ?>/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
@@ -25,6 +24,7 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
     folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="<?= base_url('assets') ?>/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="<?= esc(base_url('assets/css/navigation.css'), 'attr') ?>">
     <!-- EasyUi -->
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets') ?>/easyui/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets') ?>/easyui/themes/icon.css">
