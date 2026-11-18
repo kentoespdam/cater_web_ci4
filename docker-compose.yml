@@ -25,6 +25,27 @@ services:
     networks:
       - cater_network
 
+  # Daily snapshot generator; shares the app code and persistent writable volume.
+  cron:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    container_name: cater_ci4_cron
+    restart: unless-stopped
+    command: ["crond", "-f", "-l", "2"]
+    volumes:
+      - app_code:/var/www/html
+      - writable_data:/var/www/html/writable
+      - ${FOTOWM_PATH:-./fotowm}:/var/www/html/fotowm:ro
+      - ${ENV_FILE:-./.env.docker}:/var/www/html/.env:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - cater_network
+
   # Nginx Web Server Service
   web:
     build:

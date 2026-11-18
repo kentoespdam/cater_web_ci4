@@ -1,0 +1,1 @@
+0 1 * * * su-exec www-data sh -c 'cd /var/www/html && php spark laporan:generate-verif0-snapshot >> writable/logs/cron_verif0_snapshot.log 2>&1'

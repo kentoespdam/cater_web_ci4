@@ -59,11 +59,25 @@ chmod -R 644 writable/snapshots/*.json 2>/dev/null || true
   - **Jadwal Intensif (Pembaruan Berkala Jam Kerja):** Setiap **3 jam** sekali antara pukul 08:00 hingga 17:00 (misal pukul 09:00, 12:00, 15:00, dan 18:00).
 
 ### 3.2 Pemasangan Jadwal Cron
-Pemasangan cron dilakukan pada server host aplikasi (atau container worker) dengan memanggil Spark CLI tanpa menyertakan kredensial:
+Pada deployment Docker Compose, service `cron` menjalankan generator setiap hari pukul **01:00 WIB**, sesuai jadwal standar produksi. Service memakai image PHP aplikasi, direktori kode dan volume `writable_data` yang sama, serta mount `.env` read-only. Baris jadwal berada di `docker/php/crontab`; proses Spark dijalankan sebagai `www-data` dan log ditulis ke `writable/logs/cron_verif0_snapshot.log`.
+
+Aktifkan service setelah rebuild image dengan Compose modern:
+```bash
+docker compose --env-file .env.docker up -d --build cron
+docker compose --env-file .env.docker logs cron
+```
+
+Untuk konfigurasi kompatibilitas `docker-compose-old.yml`, target `make up-old` juga menjalankan service `cron`. Atau jalankan langsung:
+```bash
+make build-old
+make up-old
+```
+
+Pada host non-Docker, pemasangan cron dilakukan dengan memanggil Spark CLI tanpa menyertakan kredensial:
 ```bash
 # Buka crontab user aplikasi (misal: crontab -u www-data -e)
 
-# Opsi 1: Pembaruan harian pukul 01:00 WIB
+# Opsi 1: Pembaruan harian pukul 01:00 WIB (jadwal host non-Docker)
 0 1 * * * cd /var/www/html && php spark laporan:generate-verif0-snapshot >> writable/logs/cron_verif0_snapshot.log 2>&1
 
 # Opsi 2: Pembaruan berkala setiap 3 jam pada hari kerja

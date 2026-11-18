@@ -20,9 +20,13 @@ RUN apk add --no-cache \
     git \
     shadow \
     su-exec \
+    tzdata \
     nodejs \
     npm \
     sudo
+
+ENV TZ=Asia/Jakarta
+RUN ln -snf "/usr/share/zoneinfo/${TZ}" /etc/localtime && echo "${TZ}" > /etc/timezone
 
 # Install PHP extensions using mlocati/docker-php-extension-installer
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
@@ -46,6 +50,7 @@ RUN usermod -u ${UID} www-data && groupmod -g ${GID} www-data && \
 # Copy konfigurasi php.ini & entrypoint script
 COPY docker/php/php.ini /usr/local/etc/php/conf.d/custom.ini
 COPY docker/php/entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY docker/php/crontab /etc/crontabs/root
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Copy sisa source code ke dalam image
