@@ -17,7 +17,7 @@ $(function () {
         labels.forEach(function (label) { second.append($('<th>', { scope: 'col', class: 'verification-detail__month' }).text(label)); });
     });
     $('#detail-head').empty().append(first, second);
-    $('#detail-notes').text('Target bulan ini = target bruto dikurangi pelanggan dengan ID yang cocok pada data verifikasi sampai bulan lalu. Verifikasi bulan ini dan akumulasi verifikasi menghitung seluruh aktivitas, termasuk yang tidak cocok dengan target.');
+    $('#detail-notes').text('Target bulan ini = target bruto dikurangi pelanggan dengan No sambung yang cocok pada data verifikasi sampai bulan lalu. Verifikasi bulan ini dan akumulasi verifikasi menghitung seluruh aktivitas, termasuk yang tidak cocok dengan target.');
 
     function showState(message) {
         rows.empty().append($('<tr>').append($('<td>', {

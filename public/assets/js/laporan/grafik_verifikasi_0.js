@@ -28,8 +28,10 @@ $(function () {
         var chart = new Chart(panel.find('canvas')[0].getContext('2d')).Bar({
             labels: labels,
             datasets: names.map(function (name, index) { return { label: name, fillColor: colors[index], data: values[index] }; })
-        }, { responsive: true, maintainAspectRatio: false, animation: false, barShowStroke: false,
-            scaleShowVerticalLines: false, multiTooltipTemplate: '<%= datasetLabel %>: <%= value %>' });
+        }, {
+            responsive: true, maintainAspectRatio: false, animation: false, barShowStroke: false,
+            scaleShowVerticalLines: false, multiTooltipTemplate: '<%= datasetLabel %>: <%= value %>'
+        });
         var drawChart = chart.draw;
         chart.draw = function () {
             drawChart.apply(this, arguments);
@@ -58,13 +60,13 @@ $(function () {
         charts.forEach(function (chart) { chart.destroy(); });
         charts = [];
         container.empty();
-        $('#grafik-info').text('Target bulan ini = target bruto dikurangi pelanggan dengan ID yang cocok pada data verifikasi sampai bulan lalu. Verifikasi bulan ini dan akumulasi verifikasi menghitung seluruh aktivitas, termasuk yang tidak cocok dengan target.');
+        $('#grafik-info').text('Target bulan ini = target bruto dikurangi pelanggan dengan No sambung yang cocok pada data verifikasi sampai bulan lalu. Verifikasi bulan ini dan akumulasi verifikasi menghitung seluruh aktivitas, termasuk yang tidak cocok dengan target.');
         if (!branches.length) return;
         if (branches.some(function (branch) { return !Array.isArray(branch.target_awal_bulan) || !Array.isArray(branch.target_bulan_ini) || !Array.isArray(branch.aktivitas_verifikasi_mentah); })) {
             container.append($('<div>', { class: 'callout callout-warning' }).text('Snapshot belum memuat semua metrik laporan. Perbarui snapshot dengan: php spark laporan:generate-verif0-snapshot --tahun=' + $('#tahun').val()));
             return;
         }
-        var names = ['Target bruto', 'Target tersisa (ID cocok s.d. bulan lalu)', 'Verifikasi bulan ini (semua aktivitas)', 'Akumulasi verifikasi (semua aktivitas)'];
+        var names = ['Target bruto', 'Target tersisa (No Sambung cocok s.d. bulan lalu)', 'Verifikasi bulan ini (semua aktivitas)', 'Akumulasi verifikasi (semua aktivitas)'];
         branches.forEach(function (branch) { draw(branch.nama, months, metrics(branch), names); });
     }
 

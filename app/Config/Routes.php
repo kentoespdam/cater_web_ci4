@@ -60,7 +60,6 @@ $routes->group("master", static function ($routes) {
     });
 });
 $routes->group("hasilbaca", static function ($routes) {
-    $routes->get("verif", "HasilBaca\Verif::index");
     $routes->get("cekfoto", "HasilBaca\CekFoto::index");
     $routes->get("selisih", "HasilBaca\Selisih::index");
 });

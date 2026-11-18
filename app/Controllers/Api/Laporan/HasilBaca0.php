@@ -1,30 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers\Api\Laporan;
 
 use App\Controllers\BaseController;
 use App\Libraries\Verif0MeterService;
-use App\Services\BacaMeterQueryService;
+use CodeIgniter\HTTP\ResponseInterface;
 
 class HasilBaca0 extends BaseController
 {
-    protected $queryService;
-    protected $verif0MeterService;
+    protected Verif0MeterService $verif0MeterService;
 
     public function __construct(
-        private readonly ?BacaMeterQueryService $qs = null,
         private readonly ?Verif0MeterService $v0ms = null,
     ) {
-        $this->queryService = $qs ?? new BacaMeterQueryService();
-        $this->verif0MeterService =  $v0ms ?? new Verif0MeterService();
+        $this->verif0MeterService = $v0ms ?? new Verif0MeterService();
     }
 
-    // private function getQueryService(): BacaMeterQueryService
-    // {
-
-    // }
-
-    public function index()
+    public function index(): ResponseInterface
     {
         $req = (object) request()->getGet();
 

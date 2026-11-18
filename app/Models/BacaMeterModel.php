@@ -333,28 +333,6 @@ class BacaMeterModel extends Model
         return $builder->findAll();
     }
 
-    public function getNormalPakai0ByMonth(string $tglAwal, string $tglAkhir): array
-    {
-        return $this->select("DATE_FORMAT(DATE_ADD(baca_meter.tgl, INTERVAL 1 MONTH), '%Y%m') AS periode, munit.satker AS cabang, mcabang.nm_cabang AS nama_cabang, COUNT(*) AS total", false)
-            ->join('munit', 'SUBSTRING(baca_meter.no_sam,1,2) = munit.unit', 'inner')
-            ->join('mcabang', 'munit.satker = mcabang.id_cabang', 'inner')
-            ->where('baca_meter.tgl >=', $tglAwal)
-            ->where('baca_meter.tgl <', $tglAkhir)
-            ->where('LOWER(baca_meter.kondisi)', 'normal')
-            ->where('baca_meter.pakai', 0)
-            ->groupBy("DATE_FORMAT(DATE_ADD(baca_meter.tgl, INTERVAL 1 MONTH), '%Y%m'), munit.satker, mcabang.nm_cabang", false)
-            ->findAll();
-    }
-
-    public function getUnitCabangMap(): array
-    {
-        return $this->db->table('munit')
-            ->select('munit.unit, munit.satker AS cabang, mcabang.nm_cabang AS nama_cabang')
-            ->join('mcabang', 'munit.satker = mcabang.id_cabang', 'inner')
-            ->get()
-            ->getResult();
-    }
-
     public function getDataVerifCursor(
         string $tglAwal,
         string $tglAkhir,
